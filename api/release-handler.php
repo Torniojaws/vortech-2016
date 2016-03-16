@@ -10,12 +10,6 @@
         GET /releases/:id/songs                 All songs for release {id}
         GET /releases/:id/songs/:id             A specific song for release {id}
         GET /releases/:id/songs/:id/comments    Comments for a specific song
-
-        $uri_filters contains any filters the user has applied, eg.
-        /releases?yearrange=2000-2010
-        to get albums released between 2000 - 2010
-        Only available for endpoints like /release?year=2015
-        not for eg. /releases/:id/comments?year=2015
     */
 
     function release_handler($root_id=null, $sub=null, $sub_id=null, $detail=null, $detail_id=null, $uri_filters=null) {
@@ -26,7 +20,6 @@
         // Use filters by appending to the end of the query
         $filter_sql = "";
         if(isset($uri_filters)) {
-            $sql .= " WHERE ";
             $sql .= append_filters($uri_filters);
         }
 
@@ -66,7 +59,7 @@
     }
 
     function append_filters($uri) {
-        $filter_sql = "";
+        $filter_sql = " WHERE";
         parse_str($uri);
 
         if(isset($year)) {

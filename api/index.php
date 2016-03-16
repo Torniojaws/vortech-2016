@@ -1,6 +1,6 @@
 <?php
 
-    # header('Content-Type: application/json');
+    header('Content-Type: application/json');
 
     $method = $_SERVER['REQUEST_METHOD'];
     $request = $_SERVER['REQUEST_URI'];
@@ -14,10 +14,7 @@
     // Let's connect
     $db = mysqli_connect($host, $user, $pass, $database);
     if(!$db) {
-        echo "ERROR! ";
-        echo mysqli_connect_errno();
-        echo " ";
-        echo mysqli_connect_error();
+        echo mysqli_connect_errno() . mysqli_connect_error();
     }
     mysqli_get_host_info($db);
     mysqli_set_charset($db, 'utf8');

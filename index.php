@@ -31,17 +31,27 @@
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="news">News</a></li>
-                        <li><a href="releases">Releases</a></li>
+                        <?php
+                            // For Bootstrap active tab support with PHP Rewrite on
+                            $cur = str_replace('/', '', $_SERVER['REQUEST_URI']);
+                        ?>
+                        <li <?php if($cur == 'news') echo 'class="active"'; ?>><a href="news">News</a></li>
+                        <li <?php if($cur == 'releases') echo 'class="active"'; ?>><a href="releases">Releases</a></li>
+                        <li <?php if($cur == 'shows') echo 'class="active"'; ?>><a href="shows">Shows</a></li>
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Filters <span class="caret"></span></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Photos <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="?filter=closed">All closed</a></li>
-                                <li><a href="?filter=all">Show everything</a></li>
-                                <li><a href="?filter=no-tag">Without tags</a></li>
-                                <li><a href="?filter=no-tag-mark">Without tags or mark</a></li>
+                                <li><a href="photos">Promotional</a></li>
+                                <li><a href="photos/studio">Studio</a></li>
+                                <li><a href="photos/live">Live</a></li>
+                                <li><a href="photos/misc">Miscellaneous</a></li>
                             </ul>
                         </li>
+                        <li <?php if($cur == 'bio') echo 'class="active"'; ?>><a href="bio">Bio</a></li>
+                        <li <?php if($cur == 'videos') echo 'class="active"'; ?>><a href="videos">Videos</a></li>
+                        <li <?php if($cur == 'contact') echo 'class="active"'; ?>><a href="contact">Contact</a></li>
+                        <li <?php if($cur == 'shop') echo 'class="active"'; ?>><a href="shop">Shop</a></li>
+                        <li <?php if($cur == 'guestbook') echo 'class="active"'; ?>><a href="guestbook">Guestbook</a></li>
                     </ul>
                 </div><!--/.nav-collapse -->
             </div>
