@@ -36,13 +36,18 @@
     $sql = endpoint_list($method, $request, $input);
 
     // And we should get results to return as JSON
-    if($sql != "") {
-        $result = mysqli_query($db, $sql) or die(mysqli_error());
-        $result = json_encode($result);
-    } else {
-        $result = '{"Result":"Empty"}';
+    $results = array();
+    $json = '{"Result":"Empty"}';
+    if($result = mysqli_query($db, mysqli_real_escape_string($db, $sql))) {
+        while($row = $result->fetch_array(MYSQL_ASSOC)) {
+            $results[] = $row;
+        }
+        mysqli_free_result($result);
+        if($results != null) {
+            $json = json_encode($results, JSON_NUMERIC_CHECK);
+        }
     }
 
-    echo $result;
+    echo $json;
 
 ?>
