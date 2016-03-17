@@ -42,10 +42,12 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Photos <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="photos">Promotional</a></li>
+                                <li><a href="photos/promo">Promotional</a></li>
                                 <li><a href="photos/studio">Studio</a></li>
                                 <li><a href="photos/live">Live</a></li>
                                 <li><a href="photos/misc">Miscellaneous</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="photos">All photos</a></li>
                             </ul>
                         </li>
                         <li <?php if($cur == 'bio') echo 'class="active"'; ?>><a href="bio">Bio</a></li>

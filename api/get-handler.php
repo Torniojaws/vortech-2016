@@ -19,12 +19,16 @@
 
         switch($root_request) {
             case 'news':
-                include('news-handler.php');
+                include('view-handlers/news-handler.php');
                 $sql = news_handler($root_id, $sub, $sub_id, $detail, $detail_id, $uri_filters);
                 break;
             case 'releases':
-                include('release-handler.php');
+                include('view-handlers/release-handler.php');
                 $sql = release_handler($root_id, $sub, $sub_id, $detail, $detail_id, $uri_filters);
+                break;
+            case 'shows':
+                include('view-handlers/show-handler.php');
+                $sql = show_handler($root_id, $sub, $sub_id, $detail, $detail_id, $uri_filters);
                 break;
             default:
                 $sql = '';
