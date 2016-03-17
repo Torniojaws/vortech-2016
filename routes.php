@@ -10,14 +10,15 @@
     }
 
     // For displaying the pages
-    if($routes[0] == "api") {
-        include('api/index.php');
+    $last_item = end($routes);
+    if($last_item == "api") {
+        include('./api/index.php');
     } else {
-        $target = "templates/" . $routes[0] . ".php";
+        $target = "./templates/" . $last_item . ".php";
         if(file_exists($target)) {
-            include($target);
+            require($target);
         } else {
-            include("templates/main.php");
+            include('./templates/main.php');
         }
     }
 

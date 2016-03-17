@@ -15,6 +15,7 @@
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
     <link rel="stylesheet" href="static/navbar.css" />
+    <link rel="stylesheet" href="static/custom.css" />
 </head>
 <body>
     <div class="container">
@@ -58,7 +59,10 @@
         </nav>
 
         <!-- Main content -->
-        <?php include('routes.php'); ?>
+        <?php
+            include('constants.php');
+            include('routes.php');
+        ?>
 
     </div> <!-- Container ends -->
 
