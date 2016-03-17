@@ -5,8 +5,8 @@
     $full = $root . $api;
     $photos_list_json = file_get_contents($full);
 
-    echo "All photos";
-
+    echo "Live photos";
+    
     $photos = json_decode($photos_list_json, true); // true makes an array
     echo '<div class="container-fluid">';
     foreach($photos as $photo) {
