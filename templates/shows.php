@@ -8,7 +8,7 @@
     $shows = json_decode($shows_list_json, true); // true makes an array
     echo '<div class="container-fluid">';
     foreach($shows as $show) {
-        include('./templates/partials/partial-show.php');
+        include('./templates/partials/show.php');
     }
     echo '</div>';
 

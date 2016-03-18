@@ -8,7 +8,7 @@
     $newsitems = json_decode($news_list_json, true); // true makes an array
     echo '<div class="container-fluid">';
     foreach($newsitems as $news) {
-        include('./templates/partials/partial-news.php');
+        include('./templates/partials/shop.php');
     }
     echo '</div>';
 

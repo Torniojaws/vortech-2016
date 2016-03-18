@@ -30,6 +30,10 @@
                 include('view-handlers/show-handler.php');
                 $sql = show_handler($root_id, $sub, $sub_id, $detail, $detail_id, $uri_filters);
                 break;
+            case 'photos':
+                include('view-handlers/photo-handler.php');
+                $sql = photo_handler($root_id, $sub, $sub_id, $detail, $detail_id, $uri_filters);
+                break;
             default:
                 $sql = '';
                 break;

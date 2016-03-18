@@ -35,7 +35,7 @@
     // And we should get results to return as JSON
     $results = array();
     $json = '{"Result":"Empty"}';
-    if($result = mysqli_query($db, mysqli_real_escape_string($db, $sql))) {
+    if($result = mysqli_query($db, $sql)) { # mysqli_real_escape_string($db, $sql))) {
         while($row = $result->fetch_array(MYSQL_ASSOC)) {
             $results[] = $row;
         }

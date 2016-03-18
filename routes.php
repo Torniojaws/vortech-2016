@@ -33,13 +33,11 @@
         }
 
         // Include the correct file
-        if(file_exists($target) && $last_item != 'api') {
+        if(file_exists($target)) {
             require($target);
         } else {
             include('./templates/main.php');
         }
     }
-
-
 
 ?>

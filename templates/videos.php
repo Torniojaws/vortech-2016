@@ -13,7 +13,7 @@
         # $songs_list_json = '[{"id":1,"album_code":"ABC","title":"Test","duration":"00:03:17"},{"id":2,"album_code":"ABC","title":"Jep","duration":"00:04:17"}]';
         $songs = json_decode($songs_list_json, true);
 
-        include('./templates/partials/partial-release.php');
+        include('./templates/partials/video.php');
     }
     echo '</div>';
 
