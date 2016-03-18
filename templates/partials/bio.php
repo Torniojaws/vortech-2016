@@ -1,12 +1,12 @@
 <div class="row">
-    <div class="col-sm-8">
-        <p>Bio will probably get bandmembers from DB</p>
-        <aside><small>Quite so</small></aside>
-    </div>
-    <div class="col-sm-4">
-        <img src="static/img/site/admin.jpg" alt="Admin" /><br />
-        <b><?php echo $news['author'];?></b>
-        <aside><small>Posted on <?php echo $news['posted']; ?></small></aside>
-    </div>
+    <h2><?php echo $member['name']; ?> <small><?php echo $member['instrument']; ?></small></h2>
+    <small>
+        <?php
+            echo $member['type'] . '. In the band since ' . $member['started'];
+            if(substr($member['quit'], 0, 4) != 9999) {
+                echo ' until ' . $member['quit'];
+            }
+        ?>
+    </small>
 </div>
 <hr />

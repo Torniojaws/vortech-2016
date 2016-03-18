@@ -1,3 +1,6 @@
+CREATE USER 'teejii'@'localhost' IDENTIFIED BY 'samppeli';
+GRANT ALL ON tech0.* TO 'teejii'@'localhost';
+
 CREATE DATABASE tech0;
 USE tech0;
 CREATE TABLE news(id int, title varchar(255), contents text, posted datetime, author varchar(255), tags varchar(1000), PRIMARY KEY(id));
@@ -10,6 +13,7 @@ CREATE TABLE photos(id int, album_id int, date_taken datetime, taken_by varchar(
 CREATE TABLE photo_comments(id int, photo_id int, photo_comment_id int, comment varchar(200), author_id varchar(200), date_commented datetime, PRIMARY KEY(id));
 CREATE TABLE users(id int, name varchar(200), username varchar(200), password text, access_level_id int, PRIMARY KEY(id));
 CREATE TABLE user_access_levels(id int, description varchar(200), PRIMARY KEY(id));
+CREATE TABLE performers(id int, name varchar(200), type varchar(100), instrument varchar(100), started datetime, quit datetime, PRIMARY KEY(id));
 
 CREATE TABLE news_comments(id int, comment_subid int, news_id int, author varchar(200), comment text, posted datetime, PRIMARY KEY(id));
 CREATE TABLE release_comments(id int, comment_subid int, release_id int, author varchar(200), comment text, posted datetime, PRIMARY KEY(id));
@@ -61,3 +65,12 @@ INSERT INTO user_access_levels VALUES(1, "Administrator");
 INSERT INTO user_access_levels VALUES(2, "Normal User");
 INSERT INTO user_access_levels VALUES(3, "Guest");
 INSERT INTO user_access_levels VALUES(4, "Blocked");
+
+INSERT INTO performers VALUES(1, "Juha", "Founding member", "Guitar, Bass, Programming", "2000-01-01 00:00:00", "9999-12-12 23:59:59");
+INSERT INTO performers VALUES(2, "Tero", "Founding member", "Bass, Programming, Drums", "2000-01-01 00:00:00", "2004-10-12 23:59:59");
+INSERT INTO performers VALUES(3, "Matti", "Full member", "Vocals", "2007-11-01 00:00:00", "2011-12-12 23:59:59");
+INSERT INTO performers VALUES(4, "Ville", "Full member", "Drums", "2010-12-01 00:00:00", "9999-12-12 23:59:59");
+INSERT INTO performers VALUES(5, "Mikko", "Full member", "Vocals", "2012-03-01 00:00:00", "9999-12-12 23:59:59");
+INSERT INTO performers VALUES(6, "Samuli", "Live member", "Bass", "2001-10-01 00:00:00", "2001-11-22 23:59:59");
+INSERT INTO performers VALUES(7, "Rami", "Rehearsal member", "Drums", "2001-10-01 00:00:00", "2002-04-12 23:59:59");
+INSERT INTO performers VALUES(8, "Lukas", "Guest artist", "Vocals", "2007-03-01 00:00:00", "2007-04-12 23:59:59");
