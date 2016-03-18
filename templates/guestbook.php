@@ -7,6 +7,7 @@
 
     $guestbook_items = json_decode($guestbook_list_json, true); // true makes an array
     echo '<div class="container-fluid">';
+    echo "Guestbook will most certainly be DB";
     foreach($guestbook_items as $item) {
         include('./templates/partials/guestbook-post.php');
     }

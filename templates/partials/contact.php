@@ -1,7 +1,6 @@
 <div class="row">
     <div class="col-sm-8">
-        <h2><?php echo $news['title']; ?></h2>
-        <p><?php echo $news['contents']; ?></p>
+        <p>Not sure if contact needs any DB</p>
         <aside><small><?php echo $news['tags']; ?></small></aside>
     </div>
     <div class="col-sm-4">

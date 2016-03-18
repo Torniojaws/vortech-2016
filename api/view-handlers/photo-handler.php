@@ -23,7 +23,11 @@
      */
     function photo_handler($root_id=null, $sub=null, $sub_id=null, $detail=null, $detail_id=null, $uri_filters=null) {
 
-        $sql = "SELECT * FROM photos";
+        // By default, all photos along with the category details for file path (static/img/path/file.jpg)
+        $sql = "SELECT photos.*, photo_albums.id, photo_albums.category_id, photo_categories.name_id";
+        $sql .= " FROM photos";
+        $sql .= " JOIN photo_albums ON photo_albums.id = photos.album_id";
+        $sql .= " JOIN photo_categories ON photo_categories.id = photo_albums.category_id";
 
         // Use filters by appending to the end of the query (be mindful of LIMIT!)
         if(isset($uri_filters)) {
@@ -48,24 +52,42 @@
             }
         }
 
-        // eg. GET /photos/promo
-        // eg. GET /photos/promo/comments
-        // eg. GET /photos/promo/comments/123
-        // eg. GET /photos/promo/123
-        // eg. GET /photos/promo/123/comments
-        // eg. GET /photos/promo/123/comments/123
+        // eg. GET /photos/promo                    All promo photos
+        // eg. GET /photos/promo/comments           All comments for all promo pics
+        // eg. GET /photos/promo/comments/123       Doesn't really make sense though
+        // eg. GET /photos/promo/123                Specific promo photo
+        // eg. GET /photos/promo/123/comments       Comments for specific promo photo
+        // eg. GET /photos/promo/123/comments/123   Specific comment for specific promo pic
         if(isset($root_id) && is_numeric($root_id) == false) {
-            // Specific image from that group, eg. /photos/live/123
             if(isset($sub)) {
-                $sql = "SELECT * FROM photos";
-                $sql .= sprintf(" WHERE group_name='%s'", ucfirst($root_id));
-                $sql .= " AND album_photo_id=" . $sub;
+                if(is_numeric($sub)) {
+
+                } else {
+                    if($sub == 'comments') {
+                        $sql = "SELECT photo_comments.*, photos.*, photo_albums.*, photo_categories.*";
+                        $sql .= " FROM photo_comments";
+                        $sql .= " JOIN photos";
+                        $sql .= " ON photos.id = photo_comments.photo_id";
+                        $sql .= " JOIN photo_albums";
+                        $sql .= " ON photo_albums.id = photos.album_id";
+                        $sql .= " JOIN photo_categories";
+                        $sql .= " ON photo_categories.id = photo_albums.category_id";
+                        $sql .= sprintf(" WHERE photo_categories.name_id='%s'", $root_id);
+                        if(isset($sub_id) && is_numeric($sub_id)) {
+                            $sql .= " AND photo_comments.id=" . $sub_id;
+                        }
+                    }
+                }
             } else {
-                $sql = "SELECT * FROM photos";
-                $sql .= sprintf(" WHERE group_name='%s'", ucfirst($root_id));
+                $sql = "SELECT photos.*, photo_albums.*, photo_categories.*";
+                $sql .= " FROM photos";
+                $sql .= " JOIN photo_albums";
+                $sql .= " ON photo_albums.id = photos.album_id";
+                $sql .= " JOIN photo_categories";
+                $sql .= " ON photo_categories.id = photo_albums.category_id";
+                $sql .= sprintf(" WHERE photo_categories.name_id='%s'", $root_id);
             }
         }
-        echo $sql;
         return $sql;
     }
 

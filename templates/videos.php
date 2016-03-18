@@ -1,12 +1,13 @@
 <?php
 
     $root = "http://" . $_SERVER['HTTP_HOST'] . "/";
-    $api = 'api/v1/releases';
+    $api = 'api/v1/videos';
     $full = $root . $api;
     $releases_list_json = file_get_contents($full);
 
     $releases = json_decode($releases_list_json, true); // true makes an array
     echo '<div class="container-fluid">';
+    echo "Video links from DB fo 'sho";
     foreach($releases as $release) {
         $songlist = "api/v1/releases/" . $release["id"] . "/songs";
         $songs_list_json = file_get_contents($root . $songlist);

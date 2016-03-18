@@ -1,8 +1,7 @@
 <div class="row">
     <div class="col-sm-8">
-        <h2><?php echo $news['title']; ?></h2>
-        <p><?php echo $news['contents']; ?></p>
-        <aside><small><?php echo $news['tags']; ?></small></aside>
+        <p>Bio will probably get bandmembers from DB</p>
+        <aside><small>Quite so</small></aside>
     </div>
     <div class="col-sm-4">
         <img src="static/img/site/admin.jpg" alt="Admin" /><br />
