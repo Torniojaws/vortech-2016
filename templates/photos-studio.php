@@ -1,9 +1,7 @@
 <?php
 
-    $root = "http://" . $_SERVER['HTTP_HOST'] . "/";
     $api = 'api/v1/photos/studio';
-    $full = $root . $api;
-    $photos_list_json = file_get_contents($full);
+    $photos_list_json = file_get_contents(SERVER_URL . $api);
 
     echo "Studio photos";
 

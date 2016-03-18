@@ -1,9 +1,7 @@
 <?php
 
-    $root = "http://" . $_SERVER['HTTP_HOST'] . "/";
     $api = 'api/v1/releases';
-    $full = $root . $api;
-    $releases_list_json = file_get_contents($full);
+    $releases_list_json = file_get_contents(SERVER_URL . $api);
 
     $releases = json_decode($releases_list_json, true); // true makes an array
     echo '<div class="container-fluid">';
