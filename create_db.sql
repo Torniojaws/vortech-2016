@@ -13,7 +13,7 @@ CREATE TABLE photos(id int, album_id int, date_taken datetime, taken_by varchar(
 CREATE TABLE photo_comments(id int, photo_id int, photo_comment_id int, comment varchar(200), author_id varchar(200), date_commented datetime, PRIMARY KEY(id));
 CREATE TABLE users(id int, name varchar(200), username varchar(200), password text, access_level_id int, PRIMARY KEY(id));
 CREATE TABLE user_access_levels(id int, description varchar(200), PRIMARY KEY(id));
-CREATE TABLE performers(id int, name varchar(200), type varchar(100), instrument varchar(100), started datetime, quit datetime, PRIMARY KEY(id));
+CREATE TABLE performers(id int, name varchar(200), type varchar(100), instrument varchar(100), started datetime, quit datetime, short_bio text, photo_id int, PRIMARY KEY(id));
 
 CREATE TABLE news_comments(id int, comment_subid int, news_id int, author varchar(200), comment text, posted datetime, PRIMARY KEY(id));
 CREATE TABLE release_comments(id int, comment_subid int, release_id int, author varchar(200), comment text, posted datetime, PRIMARY KEY(id));
@@ -66,11 +66,22 @@ INSERT INTO user_access_levels VALUES(2, "Normal User");
 INSERT INTO user_access_levels VALUES(3, "Guest");
 INSERT INTO user_access_levels VALUES(4, "Blocked");
 
-INSERT INTO performers VALUES(1, "Juha", "Founding member", "Guitar, Bass, Programming", "2000-01-01 00:00:00", "9999-12-12 23:59:59");
-INSERT INTO performers VALUES(2, "Tero", "Founding member", "Bass, Programming, Drums", "2000-01-01 00:00:00", "2004-10-12 23:59:59");
-INSERT INTO performers VALUES(3, "Matti", "Full member", "Vocals", "2007-11-01 00:00:00", "2011-12-12 23:59:59");
-INSERT INTO performers VALUES(4, "Ville", "Full member", "Drums", "2010-12-01 00:00:00", "9999-12-12 23:59:59");
-INSERT INTO performers VALUES(5, "Mikko", "Full member", "Vocals", "2012-03-01 00:00:00", "9999-12-12 23:59:59");
-INSERT INTO performers VALUES(6, "Samuli", "Live member", "Bass", "2001-10-01 00:00:00", "2001-11-22 23:59:59");
-INSERT INTO performers VALUES(7, "Rami", "Rehearsal member", "Drums", "2001-10-01 00:00:00", "2002-04-12 23:59:59");
-INSERT INTO performers VALUES(8, "Lukas", "Guest artist", "Vocals", "2007-03-01 00:00:00", "2007-04-12 23:59:59");
+INSERT INTO performers VALUES(1, "Juha", "Founding member", "Guitar, Bass, Programming", "2000-01-01 00:00:00", "9999-12-12 23:59:59", "Started playing guitar in 1997 and wrote songs from 2000 on", 10);
+INSERT INTO performers VALUES(2, "Tero", "Founding member", "Bass, Programming, Drums", "2000-01-01 00:00:00", "2004-10-12 23:59:59", "Drummer, bass player and co-songwriter from the beginning", 11);
+INSERT INTO performers VALUES(3, "Matti", "Full member", "Vocals", "2007-11-01 00:00:00", "2011-12-12 23:59:59", "Joined on vocals after Wasteland and was in all live shows", 12);
+INSERT INTO performers VALUES(4, "Ville", "Full member", "Drums", "2010-12-01 00:00:00", "9999-12-12 23:59:59", "Drumming since 2010 and first live drums on any of our albums with Devoid of Life", 13);
+INSERT INTO performers VALUES(5, "Mikko", "Full member", "Vocals", "2012-03-01 00:00:00", "9999-12-12 23:59:59", "Joined on vocals after the nice performance on Devoid of Life", 14);
+INSERT INTO performers VALUES(6, "Samuli", "Live member", "Bass", "2001-10-01 00:00:00", "2001-11-22 23:59:59", "Helped us out in our very first live performance", 15);
+INSERT INTO performers VALUES(7, "Rami", "Rehearsal member", "Drums", "2001-10-01 00:00:00", "2002-04-12 23:59:59", "Played rehearsal drums for us for a good bit of time", 16);
+INSERT INTO performers VALUES(8, "Lukas", "Guest artist", "Vocals", "2007-03-01 00:00:00", "2007-04-12 23:59:59", "Did some awesome guest vocals on The Core, from the album Wasteland", 17);
+
+INSERT INTO photo_categories VALUES(5, "Band members", "band_members");
+INSERT INTO photo_albums VALUES(6, 5, "Band member pictures", "All the members of the band");
+INSERT INTO photos VALUES(10, 6, "2014-10-03 00:00:00", "Juha", "juha.jpg", "thumbnails/juha.jpg", "Juha 2014");
+INSERT INTO photos VALUES(11, 6, "2014-10-03 00:00:00", "Tero", "tero.jpg", "thumbnails/tero.jpg", "Tero 2008");
+INSERT INTO photos VALUES(12, 6, "2014-10-03 00:00:00", "Matti", "matti.jpg", "thumbnails/matti.jpg", "Matti 2010");
+INSERT INTO photos VALUES(13, 6, "2014-10-03 00:00:00", "Ville", "ville.jpg", "thumbnails/ville.jpg", "Ville 2012");
+INSERT INTO photos VALUES(14, 6, "2014-10-03 00:00:00", "Mikko", "mikko.jpg", "thumbnails/mikko.jpg", "Mikko 2014");
+INSERT INTO photos VALUES(15, 6, "2014-10-03 00:00:00", "Samuli", "samuli.jpg", "thumbnails/samuli.jpg", "Samuli 2001");
+INSERT INTO photos VALUES(16, 6, "2014-10-03 00:00:00", "Rami", "rami.jpg", "thumbnails/rami.jpg", "Rami 2008");
+INSERT INTO photos VALUES(17, 6, "2014-10-03 00:00:00", "Lukas", "lukas.jpg", "thumbnails/lukas.jpg", "Lukas 2007");
