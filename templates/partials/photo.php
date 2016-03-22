@@ -4,7 +4,12 @@
     </a>
     <br />
     <small>
-        <?php echo $photo['date_taken']; ?> &ndash;
-        <?php echo $photo['caption']; ?>
+        <?php
+            echo date('Y-m-d', strtotime($photo['date_taken']));
+            echo ' &ndash; ';
+            echo $photo['caption'];
+            echo '<br />';
+            echo "From: <strong>" . $photo['name'] . "</strong>";
+        ?>
     </small>
 </div>

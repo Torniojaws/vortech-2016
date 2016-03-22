@@ -17,7 +17,7 @@
         }
         include('./templates/partials/photo.php');
         if($counter % 4 == 0) {
-            echo '</div>';
+            echo '</div><hr />';
         }
         $counter++;
     }

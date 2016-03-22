@@ -1,12 +1,27 @@
 <div class="row">
-    <div class="col-sm-8">
-        <p>Videos will come from DB for sure</p>
-        <aside><small><?php echo $news['tags']; ?></small></aside>
+    <div class="col-sm-3">
+        <a href="<?php echo $video['url']; ?>">
+            <?php
+                if (file_exists("static/img/" . $video['thumbnail']) == false) {
+                    $video['thumbnail'] = "videos/thumbnails/video.png";
+                }
+             ?>
+            <img src="static/img/<?php echo $video['thumbnail']; ?>" alt="<?php echo $video['title']; ?>" />
+        </a>
     </div>
-    <div class="col-sm-4">
-        <img src="static/img/site/admin.jpg" alt="Admin" /><br />
-        <b><?php echo $news['author'];?></b>
-        <aside><small>Posted on <?php echo $news['posted']; ?></small></aside>
+    <div class="col-sm-9">
+        <h2><?php echo $video['title']; ?></h2>
+        <aside>
+            <small>
+                <?php
+                    echo $video['name'];
+                    echo ' &ndash; ';
+                    echo $video['duration'];
+                    echo '<br />';
+                    echo 'At <strong>' . $video['host'] . '</strong>';
+                ?>
+            </small>
+        </aside>
     </div>
 </div>
 <hr />

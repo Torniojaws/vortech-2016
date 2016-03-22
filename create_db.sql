@@ -14,6 +14,8 @@ CREATE TABLE photo_comments(id int, photo_id int, photo_comment_id int, comment 
 CREATE TABLE users(id int, name varchar(200), username varchar(200), password text, access_level_id int, PRIMARY KEY(id));
 CREATE TABLE user_access_levels(id int, description varchar(200), PRIMARY KEY(id));
 CREATE TABLE performers(id int, name varchar(200), type varchar(100), instrument varchar(100), started datetime, quit datetime, short_bio text, photo_id int, PRIMARY KEY(id));
+CREATE TABLE videos(id int, title varchar(200), url text, host varchar(200), duration time, thumbnail varchar(200), category_id int, PRIMARY KEY(id));
+CREATE TABLE video_categories(id int, name varchar(200), description varchar(500), PRIMARY KEY(id));
 
 CREATE TABLE news_comments(id int, comment_subid int, news_id int, author varchar(200), comment text, posted datetime, PRIMARY KEY(id));
 CREATE TABLE release_comments(id int, comment_subid int, release_id int, author varchar(200), comment text, posted datetime, PRIMARY KEY(id));
@@ -85,3 +87,14 @@ INSERT INTO photos VALUES(14, 6, "2014-10-03 00:00:00", "Mikko", "mikko.jpg", "t
 INSERT INTO photos VALUES(15, 6, "2014-10-03 00:00:00", "Samuli", "samuli.jpg", "thumbnails/samuli.jpg", "Samuli 2001");
 INSERT INTO photos VALUES(16, 6, "2014-10-03 00:00:00", "Rami", "rami.jpg", "thumbnails/rami.jpg", "Rami 2008");
 INSERT INTO photos VALUES(17, 6, "2014-10-03 00:00:00", "Lukas", "lukas.jpg", "thumbnails/lukas.jpg", "Lukas 2007");
+
+INSERT INTO video_categories VALUES(1, "Live", "Videos from our live performances");
+INSERT INTO video_categories VALUES(2, "Studio", "Studio videos from various recording sessions");
+INSERT INTO video_categories VALUES(3, "Music videos", "Official music videos");
+INSERT INTO video_categories VALUES(4, "Album videos", "Full album videos");
+INSERT INTO videos VALUES(1, "The Live in Oulu", "http://www.vimeo.com/vortech", "Vimeo", "00:25:00", "videos/thumbnails/oulu2009.jpg", 1);
+INSERT INTO videos VALUES(2, "Recording the album Of What Remains", "http://www.youtube.com/vortech", "Youtube", "00:10:00", "videos/thumbnails/owr-studio.jpg", 2);
+INSERT INTO videos VALUES(3, "Disconnect (music video)", "http://www.vimeo.com/vortech", "Vimeo", "00:04:00", "videos/thumbnails/disconnect.jpg", 3);
+INSERT INTO videos VALUES(4, "Devoid of Life (2016) - full album video", "http://www.vimeo.com/vortech", "Vimeo", "00:38:00", "videos/thumbnails/devoid-full.jpg", 4);
+INSERT INTO videos VALUES(5, "The Occlusion (2014) - full album video", "http://www.vimeo.com/vortech", "Vimeo", "00:45:00", "videos/thumbnails/occlusion-full.jpg", 4);
+INSERT INTO videos VALUES(6, "Random studio stuff", "http://www.vimeo.com/vortech", "Vimeo", "00:12:00", "videos/thumbnails/rand-studio.jpg", 2);

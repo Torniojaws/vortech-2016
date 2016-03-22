@@ -24,7 +24,7 @@
     function photo_handler($root_id=null, $sub=null, $sub_id=null, $detail=null, $detail_id=null, $uri_filters=null) {
 
         // By default, all photos along with the category details for file path (static/img/path/file.jpg)
-        $sql = "SELECT photos.*, photo_albums.id, photo_albums.category_id, photo_categories.name_id";
+        $sql = "SELECT photos.*, photo_albums.id, photo_albums.category_id, photo_categories.name_id, photo_categories.name";
         $sql .= " FROM photos";
         $sql .= " JOIN photo_albums ON photo_albums.id = photos.album_id";
         $sql .= " JOIN photo_categories ON photo_categories.id = photo_albums.category_id";
@@ -47,8 +47,12 @@
                     }
                 }
             } else {
-                $sql = "SELECT * FROM photos";
-                $sql .= " WHERE id=" . $root_id;
+                $sql = "SELECT photos.*, photo_albums.id, photo_albums.category_id, photo_categories.id, photo_categories.name_id";
+                $sql .= " FROM photos";
+                $sql .= " JOIN photo_albums ON photo_albums.id = photos.album_id";
+                $sql .= " JOIN photo_categories ON photo_categories.id = photo_albums.category_id";
+                $sql .= sprintf(" WHERE photos.id='%s'", $root_id);
+                # $sql .= " WHERE id=" . $root_id;
             }
         }
 
