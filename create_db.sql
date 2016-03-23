@@ -17,6 +17,8 @@ CREATE TABLE performers(id int, name varchar(200), type varchar(100), instrument
 CREATE TABLE videos(id int, title varchar(200), url text, host varchar(200), duration time, thumbnail varchar(200), category_id int, PRIMARY KEY(id));
 CREATE TABLE video_categories(id int, name varchar(200), description varchar(500), PRIMARY KEY(id));
 CREATE TABLE visitor_count(id int, count int, PRIMARY KEY(id));
+CREATE TABLE shop_items(id int, category_id int, name varchar(200), album_id int, description text, price float, full text, thumbnail text, paypal_button text, paypal_link text, bandcamp_link text, amazon_link text, spotify_link text, deezer_link text, itunes_link text, PRIMARY KEY(id));
+CREATE TABLE shop_categories(id int, name_id varchar(200), title varchar(200), description text, PRIMARY KEY(id));
 
 CREATE TABLE news_comments(id int, comment_subid int, news_id int, author varchar(200), comment text, posted datetime, PRIMARY KEY(id));
 CREATE TABLE release_comments(id int, comment_subid int, release_id int, author varchar(200), comment text, posted datetime, PRIMARY KEY(id));
@@ -99,3 +101,17 @@ INSERT INTO videos VALUES(3, "Disconnect (music video)", "http://www.vimeo.com/v
 INSERT INTO videos VALUES(4, "Devoid of Life (2016) - full album video", "http://www.vimeo.com/vortech", "Vimeo", "00:38:00", "videos/thumbnails/devoid-full.jpg", 4);
 INSERT INTO videos VALUES(5, "The Occlusion (2014) - full album video", "http://www.vimeo.com/vortech", "Vimeo", "00:45:00", "videos/thumbnails/occlusion-full.jpg", 4);
 INSERT INTO videos VALUES(6, "Random studio stuff", "http://www.vimeo.com/vortech", "Vimeo", "00:12:00", "videos/thumbnails/rand-studio.jpg", 2);
+
+INSERT INTO visitor_count VALUES(1, 873227);
+
+INSERT INTO shop_categories VALUES(1, "merch", "Merchandise", "Get your shirts and other things here!");
+INSERT INTO shop_categories VALUES(2, "cd", "CDs", "Get your shirts and other things here!");
+INSERT INTO shop_categories VALUES(3, "digital", "Digital releases", "Get your shirts and other things here!");
+INSERT INTO shop_items VALUES(1, 1, "T-shirt 2009", 0, "Very nice thingy!", 123.45, "shop-shirt2009.jpg", "thumbnails/shop-shirt2009.jpg", "PayBal button", "http://www.paypal.com", "http://vortech.bandcamp.com", "http://www.amazon.com", "http://www.spotify.com", "http://www.deezer.com", "http://www.itunes.com");
+INSERT INTO shop_items VALUES(2, 2, "CD - Of What Remains", 1, "Latest album from us!", 12.99, "cd-owr.jpg", "thumbnails/cd-owr.jpg", "PayBal button", "http://www.paypal.com", "http://vortech.bandcamp.com", "http://www.amazon.com", "http://www.spotify.com", "http://www.deezer.com", "http://www.itunes.com");
+INSERT INTO shop_items VALUES(3, 3, "Digital - Of What Remains", 1, "New digital album", 5.99, "digi-owr.jpg", "thumbnails/digi-owr.jpg", "PayBal button", "http://www.paypal.com", "http://vortech.bandcamp.com", "http://www.amazon.com", "http://www.spotify.com", "http://www.deezer.com", "http://www.itunes.com");
+INSERT INTO shop_items VALUES(4, 2, "CD - Occlusion", 2, "Get some electronic stuff", 12.45, "cd-occ.jpg", "thumbnails/cd-occ.jpg", "PayBal button", "http://www.paypal.com", "http://vortech.bandcamp.com", "http://www.amazon.com", "http://www.spotify.com", "http://www.deezer.com", "http://www.itunes.com");
+INSERT INTO shop_items VALUES(5, 2, "CD - Devoid", 3, "Live drumming on this album!", 7.45, "digi-devoid.jpg", "thumbnails/digi-devoid.jpg", "PayBal button", "http://www.paypal.com", "http://vortech.bandcamp.com", "http://www.amazon.com", "http://www.spotify.com", "http://www.deezer.com", "http://www.itunes.com");
+INSERT INTO shop_items VALUES(6, 3, "Digital - Occlusion", 2, "Electronic in electronic format - yeah baby!", 4.45, "digi-occ.jpg", "thumbnails/digi-occ.jpg", "PayBal button", "http://www.paypal.com", "http://vortech.bandcamp.com", "http://www.amazon.com", "http://www.spotify.com", "http://www.deezer.com", "http://www.itunes.com");
+INSERT INTO shop_items VALUES(7, 1, "T-shirt 2012", 0, "Get that cold and riveted feeling inside", 23.45, "shop-shirt2012.jpg", "thumbnails/shop-shirt2012.jpg", "PayBal button", "http://www.paypal.com", "http://vortech.bandcamp.com", "http://www.amazon.com", "http://www.spotify.com", "http://www.deezer.com", "http://www.itunes.com");
+INSERT INTO shop_items VALUES(8, 3, "Digital - Devoid", 3, "Music for the empty world", 3.45, "digi-devoid.jpg", "thumbnails/digi-devoid.jpg", "PayBal button", "http://www.paypal.com", "http://vortech.bandcamp.com", "http://www.amazon.com", "http://www.spotify.com", "http://www.deezer.com", "http://www.itunes.com");

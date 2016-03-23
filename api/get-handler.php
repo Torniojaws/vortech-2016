@@ -27,32 +27,36 @@
 
         switch($root_request) {
             case 'news':
-                include('view-handlers/news-handler.php');
+                include('get-handlers/news-handler.php');
                 $sql = news_handler($root_id, $sub, $sub_id, $detail, $detail_id, $uri_filters);
                 break;
             case 'releases':
-                include('view-handlers/release-handler.php');
+                include('get-handlers/release-handler.php');
                 $sql = release_handler($root_id, $sub, $sub_id, $detail, $detail_id, $uri_filters);
                 break;
             case 'shows':
-                include('view-handlers/show-handler.php');
+                include('get-handlers/show-handler.php');
                 $sql = show_handler($root_id, $sub, $sub_id, $detail, $detail_id, $uri_filters);
                 break;
             case 'photos':
-                include('view-handlers/photo-handler.php');
+                include('get-handlers/photo-handler.php');
                 $sql = photo_handler($root_id, $sub, $sub_id, $detail, $detail_id, $uri_filters);
                 break;
             case 'members':
-                include('view-handlers/member-handler.php');
+                include('get-handlers/member-handler.php');
                 $sql = member_handler($root_id, $sub, $sub_id, $detail, $detail_id, $uri_filters);
                 break;
             case 'videos':
-                include('view-handlers/video-handler.php');
+                include('get-handlers/video-handler.php');
                 $sql = video_handler($root_id, $sub, $sub_id, $detail, $detail_id, $uri_filters);
                 break;
             case 'visitors':
-                include('view-handlers/visitor-handler.php');
+                include('get-handlers/visitor-handler.php');
                 $sql = visitor_handler();
+                break;
+            case 'shopitems':
+                include('get-handlers/shop-handler.php');
+                $sql = shop_handler();
                 break;
             default:
                 $sql = '';
