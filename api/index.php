@@ -4,7 +4,12 @@
 
     $method = $_SERVER['REQUEST_METHOD'];
     $request = $_SERVER['REQUEST_URI'];
-    $input = json_decode(file_get_contents('php://input'), true);
+    $input = "";
+
+    if($method == 'PUT') {
+        parse_str(file_get_contents('php://input'), $input);
+        // increment is in $input['increment'];
+    }
 
     $host = 'localhost';
     $user = 'teejii';
@@ -35,11 +40,26 @@
     // And we should get results to return as JSON
     $results = array();
     $json = '{"Result":"Empty"}';
-    if($result = mysqli_query($db, $sql)) { # mysqli_real_escape_string($db, $sql))) {
-        while($row = $result->fetch_array(MYSQL_ASSOC)) {
-            $results[] = $row;
+    if($result = mysqli_query($db, $sql)) {
+        // For GET results
+        if($method == 'GET') {
+            while($row = $result->fetch_array(MYSQL_ASSOC)) {
+                $results[] = $row;
+            }
+            mysqli_free_result($result);
         }
-        mysqli_free_result($result);
+
+        // For PUT (and POST) items, we run a different method
+        if($method == 'PUT') {
+            if(mysqli_num_rows($query) > 0 ){
+                #echo "Updated one row!";
+            } else {
+                #echo "No rows affected.";
+            }
+        }
+
+        // Cleanup and results
+        # mysqli_free_result($result);
         if($results != null) {
             $json = json_encode($results, JSON_NUMERIC_CHECK);
         }

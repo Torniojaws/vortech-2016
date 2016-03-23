@@ -31,6 +31,18 @@
                 }
                 break;
 
+            case 'PUT':
+                switch($api_version) {
+                    case "v1":
+                        $noun = str_replace("/api/v1/", "", $request);
+                        include('put-handler.php');
+                        $sql_query = put_handler($noun, $input_data);
+                        break;
+                    default:
+                        return '{"Error":"Unknown API version"}';
+                }
+                break;
+
             default:
                 $sql_query = '{"Error":"Unsupported method"}';
                 break;

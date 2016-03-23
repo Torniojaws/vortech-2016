@@ -1,5 +1,13 @@
 <?php
 
+    /**
+     * The purpose of this is to generate the SQL query for each case when the
+     * API is called via url, eg. localhost/api/v1/photos
+     *
+     * There is support for up to 5 levels, eg.
+     * GET /photos/promo/123/comments/123
+     * Which would get comment 123 for the promo photo number 123
+     */
     function get_handler($request_endpoint) {
 
         // But first, let's just escape apostrophes in the URL
@@ -41,6 +49,10 @@
             case 'videos':
                 include('view-handlers/video-handler.php');
                 $sql = video_handler($root_id, $sub, $sub_id, $detail, $detail_id, $uri_filters);
+                break;
+            case 'visitors':
+                include('view-handlers/visitor-handler.php');
+                $sql = visitor_handler();
                 break;
             default:
                 $sql = '';

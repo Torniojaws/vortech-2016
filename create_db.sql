@@ -16,6 +16,7 @@ CREATE TABLE user_access_levels(id int, description varchar(200), PRIMARY KEY(id
 CREATE TABLE performers(id int, name varchar(200), type varchar(100), instrument varchar(100), started datetime, quit datetime, short_bio text, photo_id int, PRIMARY KEY(id));
 CREATE TABLE videos(id int, title varchar(200), url text, host varchar(200), duration time, thumbnail varchar(200), category_id int, PRIMARY KEY(id));
 CREATE TABLE video_categories(id int, name varchar(200), description varchar(500), PRIMARY KEY(id));
+CREATE TABLE visitor_count(id int, count int, PRIMARY KEY(id));
 
 CREATE TABLE news_comments(id int, comment_subid int, news_id int, author varchar(200), comment text, posted datetime, PRIMARY KEY(id));
 CREATE TABLE release_comments(id int, comment_subid int, release_id int, author varchar(200), comment text, posted datetime, PRIMARY KEY(id));
