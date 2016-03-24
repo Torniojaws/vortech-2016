@@ -18,7 +18,9 @@
      */
     function shop_handler($root_id=null, $sub=null, $sub_id=null, $detail=null, $detail_id=null, $uri_filters=null) {
 
-        $sql = "SELECT * FROM shop_items";
+        $sql = "SELECT shop_items.*, shop_categories.name_id FROM shop_items";
+        $sql .= " JOIN shop_categories ON shop_categories.id = shop_items.category_id";
+        $sql .= " ORDER BY id";
 
         // Use filters by appending to the end of the query (be mindful of LIMIT!)
         if(isset($uri_filters)) {
@@ -39,9 +41,11 @@
             }
         }
 
-        // A specific news item
+        // A specific shop item
         if(isset($root_id)) {
-            $sql = "SELECT * FROM shop_items WHERE id=" . $root_id;
+            $sql = "SELECT shop_items.*, shop_categories.name_id FROM shop_items";
+            $sql .= " JOIN shop_categories ON shop_categories.id = shop_items.category_id";
+            $sql .= " ORDER BY id";
         }
 
         return $sql;
