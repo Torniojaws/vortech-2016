@@ -12,15 +12,15 @@
         GET /releases/:id/songs/:id/comments    Comments for a specific song
     */
 
-    function release_handler($root_id=null, $sub=null, $sub_id=null, $detail=null, $detail_id=null, $uri_filters=null) {
+    function release_handler($root_id=null, $sub=null, $sub_id=null, $detail=null, $detail_id=null, $uri_filter=null) {
 
         // Unless otherwise specified, we'll return all releases
         $sql = "SELECT * FROM releases";
 
         // Use filters by appending to the end of the query
         $filter_sql = "";
-        if(isset($uri_filters)) {
-            $sql .= append_filters($uri_filters);
+        if(isset($uri_filter)) {
+            $sql .= append_filters($uri_filter);
         }
 
         // For example all comments for a specific release

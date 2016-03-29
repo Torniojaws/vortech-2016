@@ -12,9 +12,11 @@
 
     <title>Tech 0</title>
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+          integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css"
+          integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
     <link rel="stylesheet" href="static/navbar.css" />
     <link rel="stylesheet" href="static/custom.css" />
 
@@ -24,7 +26,8 @@
         <nav class="navbar navbar-default">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                            data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                         <span class="sr-only">Toggle navigation</span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
@@ -42,7 +45,8 @@
                         <li <?php if($cur == 'releases') echo 'class="active"'; ?>><a href="releases">Releases</a></li>
                         <li <?php if($cur == 'shows') echo 'class="active"'; ?>><a href="shows">Shows</a></li>
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Photos <span class="caret"></span></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                aria-haspopup="true" aria-expanded="false">Photos <span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li><a href="photos/promo">Promotional</a></li>
                                 <li><a href="photos/studio">Studio</a></li>
@@ -56,7 +60,9 @@
                         <li <?php if($cur == 'videos') echo 'class="active"'; ?>><a href="videos">Videos</a></li>
                         <li <?php if($cur == 'contact') echo 'class="active"'; ?>><a href="contact">Contact</a></li>
                         <li <?php if($cur == 'shop') echo 'class="active"'; ?>><a href="shop">Shop</a></li>
-                        <li <?php if($cur == 'guestbook') echo 'class="active"'; ?>><a href="guestbook">Guestbook</a></li>
+                        <li <?php if($cur == 'guestbook') echo 'class="active"'; ?>>
+                            <a href="guestbook">Guestbook</a>
+                        </li>
                     </ul>
                 </div><!--/.nav-collapse -->
             </div>
@@ -77,7 +83,9 @@
     <!-- Form handling -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
     <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+            integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+            crossorigin="anonymous"></script>
     <!-- Custom jquery -->
     <script src="static/main.js"></script>
 

@@ -18,13 +18,14 @@
     /**
      * The photos API is handled here. Based on the URI parameters, a number of different
      * SQL query strings are returned.
-     * @param $root_id This is the ID of a particular photo (if number), but can also be album group name (live, promo...)
+     * @param $root_id The ID of a particular photo (if number), but can also be album group name (live, promo...)
      * @param $sub This contains a sub-item such as "comments", for accessing a given sub-item of a given show item
      */
     function photo_handler($root_id=null, $sub=null, $sub_id=null, $detail=null, $detail_id=null, $uri_filters=null) {
 
         // By default, all photos along with the category details for file path (static/img/path/file.jpg)
-        $sql = "SELECT photos.*, photo_albums.id, photo_albums.category_id, photo_categories.name_id, photo_categories.name";
+        $sql = "SELECT photos.*, photo_albums.id, photo_albums.category_id, photo_albums.show_in_gallery, ";
+        $sql .= "photo_categories.name_id, photo_categories.name";
         $sql .= " FROM photos";
         $sql .= " JOIN photo_albums ON photo_albums.id = photos.album_id";
         $sql .= " JOIN photo_categories ON photo_categories.id = photo_albums.category_id";
@@ -47,7 +48,8 @@
                     }
                 }
             } else {
-                $sql = "SELECT photos.*, photo_albums.id, photo_albums.category_id, photo_categories.id, photo_categories.name_id";
+                $sql = "SELECT photos.*, photo_albums.id, photo_albums.category_id, photo_albums.show_in_gallery, ";
+                $sql .= "photo_categories.id, photo_categories.name_id";
                 $sql .= " FROM photos";
                 $sql .= " JOIN photo_albums ON photo_albums.id = photos.album_id";
                 $sql .= " JOIN photo_categories ON photo_categories.id = photo_albums.category_id";

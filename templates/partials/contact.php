@@ -1,7 +1,8 @@
 <div class="row">
     <div class="col-sm-6">
         <h3>Booking</h3>
-        For live show enqueries, mail us at <a href="mailto:&#118;ortech&#64;&#118;ortechmusic.com">&#118;ortech&#64;&#118;ortechmusic.com</a>
+        For live show enqueries, mail us at
+        <a href="mailto:&#118;ortech&#64;&#118;ortechmusic.com">&#118;ortech&#64;&#118;ortechmusic.com</a>
     </div>
 </div>
 <hr />

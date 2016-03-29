@@ -7,6 +7,10 @@
     $counter = 1;
     echo '<div class="container-fluid">';
     foreach($photos as $photo) {
+        // Some photo albums will not be shown, eg. user avatars, band members
+        if($photo['show_in_gallery'] == 0) {
+            continue;
+        }
         // To allow fake floating of Bootstrap columns
         if($counter == 1 || $counter % 3 == 0) {
             echo '<div class="row">';

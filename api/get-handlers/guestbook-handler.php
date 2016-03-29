@@ -12,11 +12,14 @@
         GET /guestbook/:id/songs/:id/comments    Comments for a specific song
     */
 
-    function guestbook_handler($root_id=null, $sub=null, $sub_id=null, $detail=null, $detail_id=null, $uri_filters=null) {
+    function guestbook_handler($root_id=null,
+                               $sub=null, $sub_id=null, $detail=null, $detail_id=null, $uri_filters=null) {
 
         // Unless otherwise specified, we'll return all guestbook postss
-        $sql = "SELECT guestbook.*, users.id AS userid, users.photo_id, users.name AS username, guestbook_comments.author_id AS admin_id, ";
-        $sql .= "guestbook_comments.comment AS admin_comment, guestbook_comments.posted AS admin_comment_date FROM guestbook";
+        $sql = "SELECT guestbook.*, users.id AS userid, users.photo_id, users.name AS username, ";
+        $sql .= "guestbook_comments.author_id AS admin_id, ";
+        $sql .= "guestbook_comments.comment AS admin_comment, guestbook_comments.posted AS admin_comment_date ";
+        $sql .= "FROM guestbook";
         $sql .= " LEFT JOIN users ON users.id = guestbook.poster_id";
         $sql .= " LEFT JOIN guestbook_comments ON guestbook_comments.comment_subid = guestbook.id";
         $sql .= " ORDER BY guestbook.posted DESC";
