@@ -56,7 +56,11 @@
                 break;
             case 'shopitems':
                 include('get-handlers/shop-handler.php');
-                $sql = shop_handler();
+                $sql = shop_handler($root_id, $sub, $sub_id, $detail, $detail_id, $uri_filters);
+                break;
+            case 'guestbook':
+                include('get-handlers/guestbook-handler.php');
+                $sql = guestbook_handler($root_id, $sub, $sub_id, $detail, $detail_id, $uri_filters);
                 break;
             default:
                 $sql = '';

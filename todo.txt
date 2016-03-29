@@ -1,0 +1,29 @@
+TODO:
+
+- Refactor DB access
+    - OOP
+    - Prepared statements
+    - Check all SQL queries and remove possible duplicated code
+    - See if everything could be made with parameters instead of separate files
+- Add admin panel
+    - News posting / editing
+    - Add new release / edit
+    - Add shows / edit
+    - Add photos/albums / edit
+    - Add/edit members
+    - Add/edit videos
+    - Add/edit shop items
+    - Reply to guestbook posts
+- User authentication
+    - For admin rights
+- Account creation
+    - Allow users to create accounts for commenting releases, shop items, etc.
+        - Guestbook allows guest posting (heh), but logged in users have name/pic
+- Comment systems
+    - Logged in users can comment things like releases, songs, shopitems
+    - In shop, users can request new merchandise?
+- UI
+    - Add a nice little UI for the site
+    - And a design
+    - Customize Bootstrap
+    -

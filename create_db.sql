@@ -19,9 +19,11 @@ CREATE TABLE video_categories(id int, name varchar(200), description varchar(500
 CREATE TABLE visitor_count(id int, count int, PRIMARY KEY(id));
 CREATE TABLE shop_items(id int, category_id int, name varchar(200), album_id int, description text, price float, full text, thumbnail text, paypal_button text, paypal_link text, bandcamp_link text, amazon_link text, spotify_link text, deezer_link text, itunes_link text, PRIMARY KEY(id));
 CREATE TABLE shop_categories(id int, name_id varchar(200), title varchar(200), description text, PRIMARY KEY(id));
+CREATE TABLE guestbook(id int, poster_id int, name varchar(200), post varchar(2000), posted datetime, PRIMARY KEY(id));
 
 CREATE TABLE news_comments(id int, comment_subid int, news_id int, author varchar(200), comment text, posted datetime, PRIMARY KEY(id));
 CREATE TABLE release_comments(id int, comment_subid int, release_id int, author varchar(200), comment text, posted datetime, PRIMARY KEY(id));
+CREATE TABLE guestbook_comments(id int, comment_subid int, author_id int, comment text, posted datetime, PRIMARY KEY(id));
 
 INSERT INTO news VALUES(1, "News title", "News contents", "2016-01-01 00:00:00", "Juha", "Tag, Toinen");
 INSERT INTO news VALUES(2, "Another news title", "More news contents", "2016-01-02 02:00:00", "Juha", "Tag, Test, Toinen");
@@ -115,3 +117,20 @@ INSERT INTO shop_items VALUES(5, 2, "CD - Devoid", 3, "Live drumming on this alb
 INSERT INTO shop_items VALUES(6, 3, "Digital - Occlusion", 2, "Electronic in electronic format - yeah baby!", 4.45, "digi-occ.jpg", "thumbnails/digi-occ.jpg", "PayBal button", "http://www.paypal.com", "http://vortech.bandcamp.com", "http://www.amazon.com", "http://www.spotify.com", "http://www.deezer.com", "http://www.itunes.com");
 INSERT INTO shop_items VALUES(7, 1, "T-shirt 2012", 0, "Get that cold and riveted feeling inside", 23.45, "shop-shirt2012.jpg", "thumbnails/shop-shirt2012.jpg", "PayBal button", "http://www.paypal.com", "http://vortech.bandcamp.com", "http://www.amazon.com", "http://www.spotify.com", "http://www.deezer.com", "http://www.itunes.com");
 INSERT INTO shop_items VALUES(8, 3, "Digital - Devoid", 3, "Music for the empty world", 3.45, "digi-devoid.jpg", "thumbnails/digi-devoid.jpg", "PayBal button", "http://www.paypal.com", "http://vortech.bandcamp.com", "http://www.amazon.com", "http://www.spotify.com", "http://www.deezer.com", "http://www.itunes.com");
+
+INSERT INTO guestbook VALUES(1, 2, "Guest with a name", "This is a very nice thing!", "2016-03-29 09:53:00");
+INSERT INTO guestbook VALUES(2, 2, "Another guest with a name", "Very nice indeed!", "2016-03-29 09:54:00");
+INSERT INTO guestbook VALUES(3, 3, "From a logged in user", "Nice post is right here.", "2016-03-29 09:55:00");
+INSERT INTO guestbook VALUES(4, 4, "This is a blocked user", "Did I perhaps post some spam?", "2016-03-29 09:56:00");
+INSERT INTO guestbook VALUES(5, 3, "Logging in", "From Canada, eh?", "2016-03-29 09:57:00");
+
+INSERT INTO guestbook_comments VALUES(1, 1, 1, "Yes indeed!", "2016-03-29 09:58:00");
+INSERT INTO guestbook_comments VALUES(2, 3, 1, "Welcome to Finland", "2016-03-29 09:59:00");
+INSERT INTO guestbook_comments VALUES(3, 4, 1, "Shame on maple leaf", "2016-03-29 10:00:00");
+
+INSERT INTO photo_categories VALUES(6, "User avatars", "user_photos");
+INSERT INTO photo_albums VALUES(7, 6, "User-uploaded avatars", "All the user avatars uploaded by users");
+INSERT INTO photos VALUES(18, 7, "2016-03-29 10:47:00", "Admin", "admin.jpg", "thumbnails/admin.jpg", "Administrator");
+INSERT INTO photos VALUES(19, 7, "2016-03-29 10:55:00", "Guest", "guest.jpg", "thumbnails/guest.jpg", "Guest");
+INSERT INTO photos VALUES(20, 7, "2016-03-29 10:55:00", "Regular Joe", "regular-joe.jpg", "thumbnails/regular-joe.jpg", "Regular Joe");
+INSERT INTO photos VALUES(21, 7, "2016-03-29 10:55:00", "Blocked User", "blocked-user.jpg", "thumbnails/blocked-user.jpg", "Blocked User");
