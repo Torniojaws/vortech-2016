@@ -70,4 +70,14 @@
             $this->assertEquals(0, $errors);
         }
 
+        public function testNewsAPIReturnsExpectedData()
+        {
+            $pdo = new PDO("$this->driver:host=$this->host; dbname=$this->dbname;charset=$this->charset", $this->user, $this->pass);
+            $query = $pdo->prepare("SELECT * FROM news WHERE id = 1");
+            $query->execute();
+            $data = $query->fetchAll(PDO::FETCH_ASSOC);
+
+            $this->assertEquals("Teki", $data[0]['title']);
+        }
+
     }

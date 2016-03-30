@@ -1,9 +1,9 @@
 <?php
 
     require_once('news-api.php');
+    require_once('releases-api.php');
 
     // TODO:
-    #require_once('releases-api.php');
     #require_once('shows-api.php');
     #require_once('photos-api.php');
     #require_once('members-api.php');
@@ -26,28 +26,36 @@
                     $this->sql = $result->getResult();
                     break;
                 case 'releases':
-                    $sql = new ReleasesAPI($request);
+                    $result = new ReleasesAPI($request, $filters);
+                    $this->sql = $result->getResult();
                     break;
                 case 'shows':
-                    $sql = new ShowAPI($request);
+                    $result = new ShowAPI($request, $filters);
+                    $this->sql = $result->getResult();
                     break;
                 case 'photos':
-                    $sql = new PhotosAPI($request);
+                    $result = new PhotosAPI($request, $filters);
+                    $this->sql = $result->getResult();
                     break;
                 case 'members':
-                    $sql = new MembersAPI($request);
+                    $result = new MembersAPI($request, $filters);
+                    $this->sql = $result->getResult();
                     break;
                 case 'videos':
-                    $sql = new VideosAPI($request);
+                    $result = new VideosAPI($request, $filters);
+                    $this->sql = $result->getResult();
                     break;
                 case 'visitors':
-                    $sql = new VisitorsAPI($request);
+                    $result = new VisitorsAPI($request, $filters);
+                    $this->sql = $result->getResult();
                     break;
                 case 'shopitems':
-                    $sql = new ShopAPI($request);
+                    $result = new ShopAPI($request, $filters);
+                    $this->sql = $result->getResult();
                     break;
                 case 'guestbook':
-                    $sql = new GuestbookAPI($request);
+                    $result = new GuestbookAPI($request, $filters);
+                    $this->sql = $result->getResult();
                     break;
             }
             $this->sql;
