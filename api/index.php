@@ -1,70 +1,25 @@
 <?php
 
-    header('Content-Type: application/json');
+    #header('Content-Type: application/json');
+    require_once('classes/query.php');
+    require_once('classes/database.php');
 
-    $method = $_SERVER['REQUEST_METHOD'];
-    $request = $_SERVER['REQUEST_URI'];
-    $input = "";
+    // Generate the SQL
+    $query = new Query($_SERVER['REQUEST_METHOD'], $_SERVER['REQUEST_URI'], file_get_contents('php://input'));
 
-    if($method == 'PUT') {
-        parse_str(file_get_contents('php://input'), $input);
-        // increment is in $input['increment'];
-    }
+    // Connect to DB
+    $db = new Database();
+    $db->connection();
 
-    $host = 'localhost';
-    $user = 'teejii';
-    $pass = 'samppeli';
-    $database = 'tech0';
+    // Run the query
+    $results = $db->connection()->run($query['statement'], $query['params']);
 
-    // Let's connect
-    $db = mysqli_connect($host, $user, $pass, $database);
-    if(!$db) {
-        echo mysqli_connect_errno() . mysqli_connect_error();
-    }
-    mysqli_get_host_info($db);
-    mysqli_set_charset($db, 'utf8');
-
-    // Here we create the SQL query to run
-    $path = $_SERVER['DOCUMENT_ROOT'] . "/";
-    $file = "api/endpoint-handler.php";
-    $full = $path . $file;
-    ini_set("display_errors", "stdout");
-    if(file_exists($full)) {
-        require_once($full);
+    // and return the results
+    if($results != null) {
+        echo "API index received data: " . $results . "<br />";
+        $json = json_encode($results, JSON_NUMERIC_CHECK);
     } else {
-        echo "Endpoint missing";
+        echo "API index received no data <br /> ";
+        $json = json_encode(array("Error" => "No results"));
     }
-
-    $sql = endpoint_list($method, $request, $input);
-
-    // And we should get results to return as JSON
-    $results = array();
-    $json = '{"Result":"Empty"}';
-    if($result = mysqli_query($db, $sql)) {
-        // For GET results
-        if($method == 'GET') {
-            while($row = $result->fetch_array(MYSQL_ASSOC)) {
-                $results[] = $row;
-            }
-            mysqli_free_result($result);
-        }
-
-        // For PUT (and POST) items, we run a different method
-        if($method == 'PUT') {
-            if(mysqli_num_rows($query) > 0 ){
-                #echo "Updated one row!";
-            } else {
-                #echo "No rows affected.";
-            }
-        }
-
-        // Cleanup and results
-        # mysqli_free_result($result);
-        if($results != null) {
-            $json = json_encode($results, JSON_NUMERIC_CHECK);
-        }
-    }
-
     echo $json;
-
-?>
