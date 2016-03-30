@@ -13,7 +13,7 @@
             $this->pass = $config['database']['password'];
         }
 
-        public function connection()
+        public function connect()
         {
             try {
                 $this->pdo = new PDO("$this->driver:host=$this->host; dbname=$this->dbname;charset=$this->charset",
@@ -24,9 +24,13 @@
         }
 
         public function run($statement, $params) {
-            echo "Database.php running: " . $statement . " with Params: " . $params;
-            $query = $this->pdo->prepare($statement);
-            $query->execute($params);
+            try {
+                $query = $this->pdo->prepare($statement);
+                $query->execute($params);
+                return $query->fetchAll(PDO::FETCH_ASSOC);
+            } catch(Exception $err) {
+                echo $err;
+            }
         }
 
     }

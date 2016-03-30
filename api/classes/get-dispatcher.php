@@ -14,12 +14,16 @@
 
     class GETDispatcher
     {
+        private $sql;
+
         public function __construct($original_request, $filters) {
+            // Remove empty elements
             $request = array_filter(explode('/', $original_request), 'strlen');
             $root = $request[1];
             switch($root) {
                 case 'news':
-                    $sql = new NewsAPI($request, $filters);
+                    $result = new NewsAPI($request, $filters);
+                    $this->sql = $result->getResult();
                     break;
                 case 'releases':
                     $sql = new ReleasesAPI($request);
@@ -46,6 +50,15 @@
                     $sql = new GuestbookAPI($request);
                     break;
             }
-            return $sql;
+            $this->sql;
+        }
+
+        public function getStatement()
+        {
+            return $this->sql['statement'];
+        }
+        public function getParams()
+        {
+            return $this->sql['params'];
         }
     }

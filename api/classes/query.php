@@ -6,6 +6,8 @@
 
     class Query
     {
+        private $query;
+
         public function __construct($method, $request, $input=null)
         {
             $this->method = $method;
@@ -14,16 +16,15 @@
             $this->filters = $filters;
             $this->input = $input;
 
-            echo $this->method . " ". $this->request . "<br />";
-            echo "Data: <br />" . $this->input;
             $result = $this->query();
             $query['statement'] = $result[0];
             $query['params'] = $result[1];
 
-            echo "<br />Will use SQL: <br />";
-            echo "Statement = ", $query['statement']. "<br />";
-            echo "Params = ", $query['params']. "<br />";
-            return $query;
+            $this->query = $query;
+        }
+
+        public function getResult() {
+            return $this->query;
         }
 
         private function query()
