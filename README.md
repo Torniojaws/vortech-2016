@@ -26,7 +26,7 @@ Restful Vortech website with jQuery, Bootstrap and PHP API. Will replace the exi
 4. In /etc/apache2/ports.conf:
   * Listen 5656
 5. In /etc/apache2/sites-enabled/000-default.conf:
-  * <VirtualHost *:5656>
+  * `<VirtualHost *:5656>`
   * DocumentRoot /vagrant/v
 6. Import the "create_db.sql" file to your database
 7. Set your localhost document_root to the project root
