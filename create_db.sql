@@ -177,6 +177,16 @@ CREATE TABLE guestbook_comments(
     comment text,
     posted datetime,
     PRIMARY KEY(id));
+CREATE TABLE show_comments(
+    id int,
+    show_id int,
+    comment_subid int,
+    author varchar(200),
+    author_id int,
+    comment text,
+    posted datetime,
+    PRIMARY KEY(id));
+
 
 INSERT INTO news VALUES(
     1,
@@ -380,3 +390,7 @@ INSERT INTO photos VALUES(20, 7, "2016-03-29 10:55:00", "Regular Joe", "regular-
     "Regular Joe");
 INSERT INTO photos VALUES(21, 7, "2016-03-29 10:55:00", "Blocked User", "blocked-user.jpg",
     "thumbnails/blocked-user.jpg", "Blocked User");
+
+INSERT INTO show_comments VALUES(1, 1, 1, "Regular Joe", 3, "That was a great show!", "2016-03-30 16:34:00");
+INSERT INTO show_comments VALUES(2, 2, 1, "Regular Joe", 3, "Another great show!", "2016-03-30 16:35:00");
+INSERT INTO show_comments VALUES(3, 2, 2, "Visithor", 2, "It was nice to see it live!", "2016-03-29 02:00:00");

@@ -26,17 +26,14 @@
                 case isset($args[2]) == false and isset($filters):
                     // Expected parse_str variable is "year"
                     parse_str($filters);
-                    $query['statement'] = 'SELECT * FROM releases WHERE YEAR(release_date) = :year';
-                    $query['params'] = array("year" => (int)$year);
-                    break;
-
-                # /releases?yearrange=2009-2015
-                case isset($args[2]) == false and isset($filters):
-                    // Expected parse_str variable is "yearrange"
-                    parse_str($filters);
-                    list($yearstart, $yearend) = explode('-', $yearrange);
-                    $query['statement'] = 'SELECT * FROM releases WHERE YEAR(release_date) BETWEEN :yearstart AND :yearend';
-                    $query['params'] = array("yearstart" => (int)$yearstart, "yearend" => (int)$yearend);
+                    if(isset($year)) {
+                        $query['statement'] = 'SELECT * FROM releases WHERE YEAR(release_date) = :year';
+                        $query['params'] = array("year" => (int)$year);
+                    } else if(isset($yearrange)) {
+                        list($yearstart, $yearend) = explode('-', $yearrange);
+                        $query['statement'] = 'SELECT * FROM releases WHERE YEAR(release_date) BETWEEN :yearstart AND :yearend';
+                        $query['params'] = array("yearstart" => (int)$yearstart, "yearend" => (int)$yearend);
+                    }
                     break;
 
                 # /releases/:id
