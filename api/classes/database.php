@@ -15,20 +15,27 @@
 
         public function connect()
         {
-            try {
+            try
+            {
                 $this->pdo = new PDO("$this->driver:host=$this->host; dbname=$this->dbname;charset=$this->charset",
                                       $this->user, $this->pass);
-            } catch(PDOException $exception) {
+            }
+            catch(PDOException $exception)
+            {
                 echo $exception;
             }
         }
 
-        public function run($statement, $params) {
-            try {
+        public function run($statement, $params)
+        {
+            try
+            {
                 $query = $this->pdo->prepare($statement);
                 $query->execute($params);
                 return $query->fetchAll(PDO::FETCH_ASSOC);
-            } catch(Exception $err) {
+            }
+            catch(Exception $err)
+            {
                 echo $err;
             }
         }

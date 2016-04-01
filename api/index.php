@@ -17,9 +17,13 @@
     $results = $db->run($statement, $params);
 
     // and return the results
-    if($results != null) {
+    if($results != null)
+    {
         $json = json_encode($results, JSON_NUMERIC_CHECK);
-    } else {
+    }
+    else
+    {
         $json = json_encode(array("Error" => "No results"));
     }
+    
     echo $json;

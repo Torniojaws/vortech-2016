@@ -23,7 +23,8 @@
             $this->query = $query;
         }
 
-        public function getResult() {
+        public function getResult()
+        {
             return $this->query;
         }
 

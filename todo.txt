@@ -1,8 +1,6 @@
 TODO:
 
 - Refactor DB access
-    - OOP
-    - Prepared statements
     - Check all SQL queries and remove possible duplicated code
     - See if everything could be made with parameters instead of separate files
 - Add admin panel

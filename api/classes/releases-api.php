@@ -9,12 +9,15 @@
             $this->result = $this->getQuery($request, $filters);
         }
 
-        public function getResult() {
+        public function getResult()
+        {
             return $this->result;
         }
 
-        private function getQuery($args, $filters=null) {
-            switch($args) {
+        private function getQuery($args, $filters=null)
+        {
+            switch($args)
+            {
 
                 # /releases
                 case isset($args[2]) == false and isset($filters) == false:
@@ -26,10 +29,13 @@
                 case isset($args[2]) == false and isset($filters):
                     // Expected parse_str variable is "year"
                     parse_str($filters);
-                    if(isset($year)) {
+                    if(isset($year))
+                    {
                         $query['statement'] = 'SELECT * FROM releases WHERE YEAR(release_date) = :year';
                         $query['params'] = array("year" => (int)$year);
-                    } else if(isset($yearrange)) {
+                    }
+                    else if(isset($yearrange))
+                    {
                         list($yearstart, $yearend) = explode('-', $yearrange);
                         $query['statement'] = 'SELECT *
                                                FROM releases

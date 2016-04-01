@@ -71,6 +71,7 @@ CREATE TABLE photo_comments(
     id int,
     photo_id int,
     photo_comment_id int,
+    category_comment_subid int,
     comment varchar(200),
     author_id varchar(200),
     date_commented datetime,
@@ -275,9 +276,24 @@ INSERT INTO photos VALUES(
 INSERT INTO photos VALUES(
     9, 5, "2012-10-03 00:00:00", "Juha", "image9.jpg", "thumbnails/image9.jpg", "Random session with electronics");
 
-INSERT INTO photo_comments VALUES(1, 1, 1, "Nice picture", 3, "2016-03-18 00:00:00");
-INSERT INTO photo_comments VALUES(2, 1, 2, "Yeah!", 3, "2016-03-18 01:00:00");
-INSERT INTO photo_comments VALUES(3, 2, 1, "Cool stuff", 3, "2016-03-18 02:00:00");
+/* The first four numbers are:
+
+    Table index of the comment
+    The ID (in table "photos") of the photo that the comment is for
+    The index of the comment for a given photo, eg. if photo 1 has two comments, the first is 1 and second is 2
+    The index of the comment for a given photo category, eg. if photo 1 is in category 1, and has three comments, they
+        will be 1, 2, 3 -- kind of silly, though, TODO: Is there a use case for this?
+*/
+INSERT INTO photo_comments VALUES(1, 1, 1, 1, "Nice live picture", 3, "2016-03-18 00:00:00");
+INSERT INTO photo_comments VALUES(2, 1, 2, 2, "Yeah! Live is nice", 3, "2016-03-18 01:00:00");
+INSERT INTO photo_comments VALUES(3, 2, 1, 3, "Cool stuff live", 3, "2016-03-18 02:00:00");
+INSERT INTO photo_comments VALUES(4, 2, 2, 4, "Live pictures are nice", 3, "2016-03-18 00:00:00");
+INSERT INTO photo_comments VALUES(5, 3, 1, 5, "Yeah! Live indeed", 3, "2016-03-18 01:00:00");
+INSERT INTO photo_comments VALUES(6, 3, 2, 6, "Finally live!", 3, "2016-03-18 02:00:00");
+INSERT INTO photo_comments VALUES(7, 4, 1, 1, "Good promo pic", 3, "2016-03-18 00:00:00");
+INSERT INTO photo_comments VALUES(8, 5, 1, 2, "Nice promo!", 3, "2016-03-18 01:00:00");
+INSERT INTO photo_comments VALUES(9, 6, 1, 3, "Awesome promo picture!", 3, "2016-03-18 02:00:00");
+
 
 INSERT INTO users VALUES(1, "Juha", "test2", "test2", 1);
 INSERT INTO users VALUES(2, "Guest", "guest", "guest", 3);

@@ -9,13 +9,16 @@
             $this->result = $this->getQuery($request, $filters);
         }
 
-        public function getResult() {
+        public function getResult()
+        {
             return $this->result;
         }
 
-        private function getQuery($args, $filters) {
-            switch($args) {
-                
+        private function getQuery($args, $filters)
+        {
+            switch($args)
+            {
+
                 # /news
                 case isset($args[2]) == false and isset($filters) == false:
                     $query['statement'] = 'SELECT * FROM news';
@@ -28,7 +31,8 @@
                     parse_str($filters);
                     $query['statement'] = 'SELECT * FROM news WHERE YEAR(posted) = :year';
                     $query['params'] = array("year" => (int)$year);
-                    if(isset($month)) {
+                    if(isset($month))
+                    {
                         $query['statement'] .= ' AND MONTH(posted) = :month';
                         $query['params']['month'] = (int)$month;
                     }
@@ -58,6 +62,6 @@
                     $query['params'] = array();
             }
             return $query;
-        }
+        } // getQuery()
 
     }

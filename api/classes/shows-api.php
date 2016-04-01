@@ -9,12 +9,15 @@
             $this->result = $this->getQuery($request, $filters);
         }
 
-        public function getResult() {
+        public function getResult()
+        {
             return $this->result;
         }
 
-        private function getQuery($args, $filters=null) {
-            switch($args) {
+        private function getQuery($args, $filters=null)
+        {
+            switch($args)
+            {
 
                 # /shows
                 case isset($args[2]) == false and isset($filters) == false:
@@ -28,7 +31,8 @@
                     parse_str($filters);
                     $query['statement'] = 'SELECT * FROM shows WHERE YEAR(show_date) = :year';
                     $query['params'] = array("year" => (int)$year);
-                    if(isset($month)) {
+                    if(isset($month))
+                    {
                         $query['statement'] .= ' AND MONTH(posted) = :month';
                         $query['params']['month'] = (int)$month;
                     }
@@ -64,6 +68,6 @@
                     $query['params'] = array();
             }
             return $query;
-        }
+        } // getQuery()
 
     }
