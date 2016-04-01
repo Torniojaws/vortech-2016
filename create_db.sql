@@ -196,6 +196,15 @@ CREATE TABLE song_comments(
     comment text,
     posted datetime,
     PRIMARY KEY(id));
+CREATE TABLE performer_comments(
+    id int,
+    performer_id int,
+    comment_subid int,
+    author varchar(200),
+    author_id int,
+    comment text,
+    posted datetime,
+    PRIMARY KEY(id));
 
 
 INSERT INTO news VALUES(
@@ -293,7 +302,6 @@ INSERT INTO photo_comments VALUES(6, 3, 2, 6, "Finally live!", 3, "2016-03-18 02
 INSERT INTO photo_comments VALUES(7, 4, 1, 1, "Good promo pic", 3, "2016-03-18 00:00:00");
 INSERT INTO photo_comments VALUES(8, 5, 1, 2, "Nice promo!", 3, "2016-03-18 01:00:00");
 INSERT INTO photo_comments VALUES(9, 6, 1, 3, "Awesome promo picture!", 3, "2016-03-18 02:00:00");
-
 
 INSERT INTO users VALUES(1, "Juha", "test2", "test2", 1);
 INSERT INTO users VALUES(2, "Guest", "guest", "guest", 3);
@@ -427,3 +435,13 @@ INSERT INTO song_comments VALUES(4, 2, 2, "Jeah", 3, "Very nice song this one!",
 INSERT INTO song_comments VALUES(5, 3, 1, "Nimi", 2, "Kiva nice song this one!", "2016-03-31 15:16:00");
 INSERT INTO song_comments VALUES(6, 3, 2, "On", 2, "Very nice song this one!", "2016-03-31 15:16:00");
 INSERT INTO song_comments VALUES(7, 3, 3, "Enne", 3, "Kova nice song this one!", "2016-03-31 15:16:00");
+
+INSERT INTO performer_comments VALUES(1, 1, 1, "Testimies", 3, "Very nice playing!", "2016-04-01 15:04:00");
+INSERT INTO performer_comments VALUES(2, 1, 2, "Comment Man", 3, "Tosi nice playing!", "2016-04-01 15:04:00");
+INSERT INTO performer_comments VALUES(3, 2, 1, "Jokuman", 3, "Really nice playing!", "2016-04-01 15:04:00");
+INSERT INTO performer_comments VALUES(4, 2, 2, "Kommentoija", 3, "Extremely nice playing!", "2016-04-01 15:04:00");
+INSERT INTO performer_comments VALUES(5, 3, 1, "Skitta", 3, "Awesome playing!", "2016-04-01 15:04:00");
+INSERT INTO performer_comments VALUES(6, 4, 1, "Joomies", 3, "Killer playing!", "2016-04-01 15:04:00");
+INSERT INTO performer_comments VALUES(7, 5, 1, "Jokukommentoi", 3, "Brilliant playing!", "2016-04-01 15:04:00");
+INSERT INTO performer_comments VALUES(8, 5, 2, "Nimi on", 3, "Stunning playing!", "2016-04-01 15:04:00");
+INSERT INTO performer_comments VALUES(9, 6, 1, "Enne", 3, "Outstandingly nice playing!", "2016-04-01 15:04:00");

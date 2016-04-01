@@ -5,9 +5,9 @@
     require_once('shows-api.php');
     require_once('photos-api.php');
     require_once('visitor-count-api.php');
+    require_once('members-api.php');
 
     // TODO:
-    #require_once('members-api.php');
     #require_once('videos-api.php');
     #require_once('shop-api.php');
     #require_once('guestbook-api.php');

@@ -20,7 +20,7 @@
             {
                 # /visitors
                 case isset($args[2]) == false:
-                    $query['statement'] = 'SELECT count FROM visitor_count';
+                    $query['statement'] = 'SELECT count FROM visitor_count LIMIT 1';
                     $query['params'] = array();
                     break;
             }
