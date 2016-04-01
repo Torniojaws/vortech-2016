@@ -1,8 +1,10 @@
 <?php
 
     require_once('get-dispatcher.php');
+    require_once('put-dispatcher.php');
+
+    // TODO
     #require_once('post-dispatcher.php');
-    #require_once('put-dispatcher.php');
 
     class Query
     {

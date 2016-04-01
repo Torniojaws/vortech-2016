@@ -4,11 +4,11 @@
     require_once('releases-api.php');
     require_once('shows-api.php');
     require_once('photos-api.php');
+    require_once('visitor-count-api.php');
 
     // TODO:
     #require_once('members-api.php');
     #require_once('videos-api.php');
-    #require_once('visitors-api.php');
     #require_once('shop-api.php');
     #require_once('guestbook-api.php');
 
@@ -48,7 +48,7 @@
                     $this->sql = $result->getResult();
                     break;
                 case 'visitors':
-                    $result = new VisitorsAPI($request, $filters);
+                    $result = new VisitorCountAPI($request);
                     $this->sql = $result->getResult();
                     break;
                 case 'shopitems':
