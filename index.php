@@ -71,7 +71,9 @@
         <!-- Main content -->
         <?php
             include('constants.php');
-            include('routes.php');
+            require_once('classes/route.php');
+            $route = new Route();
+            $route->getTemplate();
         ?>
 
     </div> <!-- Container ends -->
