@@ -186,6 +186,15 @@ CREATE TABLE show_comments(
     comment text,
     posted datetime,
     PRIMARY KEY(id));
+CREATE TABLE song_comments(
+    id int,
+    song_id int,
+    comment_subid int,
+    author varchar(200),
+    author_id int,
+    comment text,
+    posted datetime,
+    PRIMARY KEY(id));
 
 
 INSERT INTO news VALUES(
@@ -394,3 +403,11 @@ INSERT INTO photos VALUES(21, 7, "2016-03-29 10:55:00", "Blocked User", "blocked
 INSERT INTO show_comments VALUES(1, 1, 1, "Regular Joe", 3, "That was a great show!", "2016-03-30 16:34:00");
 INSERT INTO show_comments VALUES(2, 2, 1, "Regular Joe", 3, "Another great show!", "2016-03-30 16:35:00");
 INSERT INTO show_comments VALUES(3, 2, 2, "Visithor", 2, "It was nice to see it live!", "2016-03-29 02:00:00");
+
+INSERT INTO song_comments VALUES(1, 1, 1, "Jepss", 3, "Very nice song this one!", "2016-03-31 15:16:00");
+INSERT INTO song_comments VALUES(2, 1, 2, "Onse", 2, "Tosi nice song one!", "2016-03-31 15:16:00");
+INSERT INTO song_comments VALUES(3, 2, 1, "Kommentmän", 3, "Hyvin nice song this one!", "2016-03-31 15:16:00");
+INSERT INTO song_comments VALUES(4, 2, 2, "Jeah", 3, "Very nice song this one!", "2016-03-31 15:16:00");
+INSERT INTO song_comments VALUES(5, 3, 1, "Nimi", 2, "Kiva nice song this one!", "2016-03-31 15:16:00");
+INSERT INTO song_comments VALUES(6, 3, 2, "On", 2, "Very nice song this one!", "2016-03-31 15:16:00");
+INSERT INTO song_comments VALUES(7, 3, 3, "Enne", 3, "Kova nice song this one!", "2016-03-31 15:16:00");
