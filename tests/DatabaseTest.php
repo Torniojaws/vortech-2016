@@ -1,6 +1,6 @@
 <?php
 
-    require_once('constants.php');
+    require_once 'constants.php';
 
     class DatabaseTest extends PHPUnit_Framework_TestCase
     {
@@ -26,8 +26,12 @@
         {
             try {
                 $errors = 0;
-                $pdo = new PDO("$this->driver:host=$this->host; dbname=$this->dbname;charset=$this->charset", $this->user, $this->pass);
-            } catch(PDOException $exception) {
+                $pdo = new PDO(
+                    "$this->driver:host=$this->host; dbname=$this->dbname;charset=$this->charset",
+                    $this->user,
+                    $this->pass
+                );
+            } catch (PDOException $exception) {
                 $errors += 1;
             }
             $this->assertEquals(0, $errors);
@@ -58,11 +62,15 @@
                 "visitor_count",
             );
             $errors = 0;
-            $pdo = new PDO("$this->driver:host=$this->host; dbname=$this->dbname;charset=$this->charset", $this->user, $this->pass);
-            foreach($requiredTables as $table) {
+            $pdo = new PDO(
+                "$this->driver:host=$this->host; dbname=$this->dbname;charset=$this->charset",
+                $this->user,
+                $this->pass
+            );
+            foreach ($requiredTables as $table) {
                 $query = $pdo->prepare("SELECT 1 FROM $table");
                 $query->execute();
-                if($query->fetch() == false) {
+                if ($query->fetch() == false) {
                     $errors += 1;
                 }
             }
@@ -72,7 +80,11 @@
 
         public function testNewsAPIReturnsExpectedData()
         {
-            $pdo = new PDO("$this->driver:host=$this->host; dbname=$this->dbname;charset=$this->charset", $this->user, $this->pass);
+            $pdo = new PDO(
+                "$this->driver:host=$this->host; dbname=$this->dbname;charset=$this->charset",
+                $this->user,
+                $this->pass
+            );
             $query = $pdo->prepare("SELECT * FROM news WHERE id = 1");
             $query->execute();
             $data = $query->fetchAll(PDO::FETCH_ASSOC);

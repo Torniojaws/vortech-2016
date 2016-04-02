@@ -16,9 +16,7 @@
 
         private function getQuery($args, $filters)
         {
-            switch($args)
-            {
-
+            switch($args) {
                 # /news
                 case isset($args[2]) == false and isset($filters) == false:
                     $query['statement'] = 'SELECT * FROM news';
@@ -31,8 +29,7 @@
                     parse_str($filters);
                     $query['statement'] = 'SELECT * FROM news WHERE YEAR(posted) = :year';
                     $query['params'] = array("year" => (int)$year);
-                    if(isset($month))
-                    {
+                    if (isset($month)) {
                         $query['statement'] .= ' AND MONTH(posted) = :month';
                         $query['params']['month'] = (int)$month;
                     }

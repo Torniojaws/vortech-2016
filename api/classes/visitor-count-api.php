@@ -16,8 +16,7 @@
 
         private function getQuery($args)
         {
-            switch($args)
-            {
+            switch($args) {
                 # /visitors
                 case isset($args[2]) == false:
                     $query['statement'] = 'SELECT count FROM visitor_count LIMIT 1';

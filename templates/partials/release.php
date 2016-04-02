@@ -4,8 +4,8 @@
         <h3><?php echo $release['title']; ?> <small>by <?php echo $release['artist']; ?></small></h3>
         <p><?php echo $release['release_date']; ?></p>
         <?php
-            if(strtolower($release['has_cd']) == 'yes') {
-                echo "<small>CD available</small>";
+            if (strtolower($release['has_cd']) == 'yes') {
+                echo '<small>CD available</small>';
             }
         ?>
         <small>Code: <?php echo $release['release_code']; ?></small>
@@ -14,9 +14,9 @@
         <?php
             foreach($songs as $song) {
                 echo $song["title"];
-                echo " (";
+                echo ' (';
                 echo $song["duration"];
-                echo ")<br />";
+                echo ')<br />';
             }
         ?>
     </div>

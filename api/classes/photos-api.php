@@ -4,7 +4,7 @@
     {
         public $result;
 
-        public function __construct($request, $filters=null)
+        public function __construct($request, $filters = null)
         {
             $this->result = $this->getQuery($request, $filters);
         }
@@ -41,13 +41,10 @@
                                            FROM photos
                                            JOIN photo_albums ON photo_albums.id = photos.album_id
                                            JOIN photo_categories ON photo_categories.id = photo_albums.category_id';
-                    if(isset($year))
-                    {
+                    if(isset($year)) {
                         $query['statement'] .= ' WHERE YEAR(date_taken) = :year';
                         $query['params'] = array("year" => (int)$year);
-                    }
-                    else if(isset($yearrange))
-                    {
+                    } else if (isset($yearrange)) {
                         list($yearstart, $yearend) = explode('-', $yearrange);
                         $query['statement'] .= ' WHERE YEAR(date_taken) BETWEEN :yearstart AND :yearend';
                         $query['params'] = array("yearstart" => (int)$yearstart, "yearend" => (int)$yearend);

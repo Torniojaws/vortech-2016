@@ -3,7 +3,7 @@
         <a href="<?php echo $video['url']; ?>">
             <?php
                 if (file_exists("static/img/" . $video['thumbnail']) == false) {
-                    $video['thumbnail'] = "videos/thumbnails/video.png";
+                    $video['thumbnail'] = 'videos/thumbnails/video.png';
                 }
              ?>
             <img src="static/img/<?php echo $video['thumbnail']; ?>" alt="<?php echo $video['title']; ?>" />

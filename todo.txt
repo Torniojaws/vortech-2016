@@ -24,4 +24,3 @@ TODO:
     - Add a nice little UI for the site
     - And a design
     - Customize Bootstrap
-    -

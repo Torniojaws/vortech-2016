@@ -16,9 +16,7 @@
 
         private function getQuery($args, $filters=null)
         {
-            switch($args)
-            {
-
+            switch($args) {
                 # /members
                 case isset($args[2]) == false and isset($filters) == false:
                     $query['statement'] = 'SELECT * FROM performers';
@@ -28,27 +26,19 @@
                 # /members?active=yes
                 case isset($args[2]) == false and isset($filters):
                     parse_str($filters);
-
                     // Active / Previous members
-                    if(isset($active) and strtolower($active) == 'yes')
-                    {
+                    if (isset($active) and strtolower($active) == 'yes') {
                         $query['statement'] = 'SELECT * FROM performers WHERE YEAR(quit) = 9999';
                         $query['params'] = array();
-                    }
-                    else if(isset($active) and strtolower($active) == 'no')
-                    {
+                    } else if (isset($active) and strtolower($active) == 'no') {
                         $query['statement'] = 'SELECT * FROM performers WHERE YEAR(quit) < 9999';
                         $query['params'] = array();
                     }
-
                     // Guest artists
-                    else if(isset($guest) and strtolower($guest) == 'yes')
-                    {
+                    else if (isset($guest) and strtolower($guest) == 'yes') {
                         $query['statement'] = 'SELECT * FROM performers WHERE type LIKE "Guest%"';
                         $query['params'] = array();
-                    }
-                    else if(isset($guest) and strtolower($guest) == 'no')
-                    {
+                    } else if (isset($guest) and strtolower($guest) == 'no') {
                         $query['statement'] = 'SELECT * FROM performers WHERE type NOT LIKE "Guest%"';
                         $query['params'] = array();
                     }

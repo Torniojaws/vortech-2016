@@ -1,7 +1,7 @@
 <?php
 
-    require_once('get-dispatcher.php');
-    require_once('put-dispatcher.php');
+    require_once 'get-dispatcher.php';
+    require_once 'put-dispatcher.php';
 
     // TODO
     #require_once('post-dispatcher.php');
@@ -10,7 +10,7 @@
     {
         private $query;
 
-        public function __construct($method, $request, $input=null)
+        public function __construct($method, $request, $input = null)
         {
             $this->method = $method;
             list($request, $filters) = explode('?', $request);
@@ -32,8 +32,7 @@
 
         private function query()
         {
-            switch($this->method)
-            {
+            switch($this->method) {
                 case 'GET':
                     $dispatcher = new GETDispatcher($this->request, $this->filters);
                     $result[] = $dispatcher->getStatement();

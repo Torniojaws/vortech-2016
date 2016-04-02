@@ -14,7 +14,7 @@
         <ol class="setlist">
             <?php
                 $songs = explode('|', $show['setlist']);
-                foreach($songs as $song) {
+                foreach ($songs as $song) {
                     echo '<li>' . $song . '</li>';
                 }
             ?>
@@ -25,7 +25,7 @@
         <p>
             <?php
                 $members = explode(', ', $show['performers']);
-                foreach($members as $member) {
+                foreach ($members as $member) {
                     $details = explode('|', $member);
                     echo '<span class="text-info">' . $details[0] . '</span> - ' . $details[1];
                     echo '<br />';
@@ -35,11 +35,11 @@
         <h3>Other bands at the show</h3>
             <?php
                 $bands = explode(', ', $show['other_bands']);
-                foreach($bands as $band) {
+                foreach ($bands as $band) {
                     $details = explode('|', $band);
                     echo '<a href="';
-                    if(substr($details[1], 0, 4) != 'http') {
-                        echo "http://" . $details[1];
+                    if (substr($details[1], 0, 4) != 'http') {
+                        echo 'http://' . $details[1];
                     } else {
                         echo $details[1];
                     }

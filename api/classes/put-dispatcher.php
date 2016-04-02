@@ -1,6 +1,6 @@
 <?php
 
-    require_once('visitor-update-api.php');
+    require_once 'visitor-update-api.php';
 
     class PUTDispatcher
     {
@@ -11,14 +11,13 @@
             // Remove empty elements
             $request = array_filter(explode('/', $original_request), 'strlen');
             $root = $request[1];
-            switch($root)
-            {
+            switch($root) {
                 case 'visitors':
                     $result = new VisitorUpdateAPI($request, $inputData);
                     $this->sql = $result->getResult();
                     break;
                 default:
-                    $this->sql = "";
+                    $this->sql = '';
             }
             $this->sql;
         }
@@ -27,8 +26,10 @@
         {
             return $this->sql['statement'];
         }
+
         public function getParams()
         {
             return $this->sql['params'];
         }
+
     }

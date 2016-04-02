@@ -4,7 +4,7 @@
     {
         public $result;
 
-        public function __construct($request, $filters=null)
+        public function __construct($request, $filters = null)
         {
             $this->result = $this->getQuery($request, $filters);
         }
@@ -14,11 +14,9 @@
             return $this->result;
         }
 
-        private function getQuery($args, $filters=null)
+        private function getQuery($args, $filters = null)
         {
-            switch($args)
-            {
-
+            switch($args) {
                 # /releases
                 case isset($args[2]) == false and isset($filters) == false:
                     $query['statement'] = 'SELECT * FROM releases';
@@ -29,13 +27,11 @@
                 case isset($args[2]) == false and isset($filters):
                     // Expected parse_str variable is "year"
                     parse_str($filters);
-                    if(isset($year))
-                    {
+                    if (isset($year)) {
                         $query['statement'] = 'SELECT * FROM releases WHERE YEAR(release_date) = :year';
                         $query['params'] = array("year" => (int)$year);
                     }
-                    else if(isset($yearrange))
-                    {
+                    else if (isset($yearrange)) {
                         list($yearstart, $yearend) = explode('-', $yearrange);
                         $query['statement'] = 'SELECT *
                                                FROM releases
@@ -86,8 +82,7 @@
                     $query['statement'] = 'SELECT song_comments.*, releases.title, releases.release_date
                                            FROM song_comments
                                            JOIN releases ON releases.id = :release_id
-                                           WHERE song_comments.song_id = :id
-                                           ';
+                                           WHERE song_comments.song_id = :id';
                     $query['params'] = array("id" => (int)$args[4], "release_id" => (int)$args[2]);
                     break;
 
@@ -98,13 +93,12 @@
                                            FROM song_comments
                                            JOIN releases ON releases.id = :release_id
                                            WHERE song_comments.song_id = :id
-                                           AND song_comments.comment_subid = :comment_id
-                                           ';
+                                           AND song_comments.comment_subid = :comment_id';
                     $query['params'] = array(
                         "id" => (int)$args[4],
                         "release_id" => (int)$args[2],
                         "comment_id" => (int)$args[6]
-                        );
+                    );
                     break;
 
                 # Show all - same as /releases

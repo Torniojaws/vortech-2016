@@ -12,7 +12,7 @@
                 echo $member['type'] . '. In the band since ';
                 $date_start = date('F Y', strtotime($member['started']));
                 echo $date_start;
-                if(substr($member['quit'], 0, 4) != 9999) {
+                if (substr($member['quit'], 0, 4) != 9999) {
                     $end_date = date('F Y', strtotime($member['quit']));
                     echo ' until ' . $end_date . '.';
                 }

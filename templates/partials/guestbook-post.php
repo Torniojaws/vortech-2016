@@ -8,7 +8,7 @@
     <div class="col-sm-9">
         <p><?php echo $guest['post']; ?></p>
         <?php
-            if($guest['admin_comment']) {
+            if ($guest['admin_comment']) {
                 echo '<blockquote class="blockquote-reverse">';
                 echo '<img src="static/img/user_photos/thumbnails/admin.jpg" alt="Admin" />';
                 echo '<h5 class="text-info">Admin has replied:</h5>';

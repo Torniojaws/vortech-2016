@@ -35,7 +35,7 @@
             $uri = $_SERVER['REQUEST_URI'];
             $routelist = explode('/', $uri);
             foreach ($routelist as $route) {
-                if(trim($route) != "") {
+                if (trim($route) != '') {
                     $routes[] = $route;
                 }
             }
@@ -53,16 +53,16 @@
 
         private function buildTemplatePath()
         {
-            if($this->last_URI == 'api') {
+            if ($this->last_URI == 'api') {
                 $target = './api/index.php';
             } else {
-                if($this->second_last_URI == 'photos') {
-                    $target = "./templates/photos-" . $this->last_URI . ".php";
+                if ($this->second_last_URI == 'photos') {
+                    $target = './templates/photos-' . $this->last_URI . '.php';
                 } else {
                     $target = './templates/' . $this->last_URI . '.php';
                 }
             }
-            if(file_exists($target) == false) {
+            if (file_exists($target) == false) {
                 $target = './templates/main.php';
             }
             $this->template_path = $target;

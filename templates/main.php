@@ -26,7 +26,7 @@
                 );
                 $context = stream_context_create($options);
                 $result = file_get_contents(SERVER_URL . $increment_api, false, $context);
-                if($result === false) {
+                if ($result === false) {
                     echo "Could not update count!";
                 }
             ?>

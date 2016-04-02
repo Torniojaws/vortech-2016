@@ -4,7 +4,7 @@
     {
         public $result;
 
-        public function __construct($request, $filters=null)
+        public function __construct($request, $filters = null)
         {
             $this->result = $this->getQuery($request, $filters);
         }
@@ -14,11 +14,9 @@
             return $this->result;
         }
 
-        private function getQuery($args, $filters=null)
+        private function getQuery($args, $filters = null)
         {
-            switch($args)
-            {
-
+            switch($args) {
                 # /shows
                 case isset($args[2]) == false and isset($filters) == false:
                     $query['statement'] = 'SELECT * FROM shows';
@@ -31,8 +29,7 @@
                     parse_str($filters);
                     $query['statement'] = 'SELECT * FROM shows WHERE YEAR(show_date) = :year';
                     $query['params'] = array("year" => (int)$year);
-                    if(isset($month))
-                    {
+                    if(isset($month)) {
                         $query['statement'] .= ' AND MONTH(posted) = :month';
                         $query['params']['month'] = (int)$month;
                     }
@@ -46,7 +43,8 @@
 
                 # /shows/:id/comments
                 case isset($args[2]) and isset($args[3]) and isset($args[4]) == false:
-                    $query['statement'] = 'SELECT show_comments.*, users.id AS userid, users.photo_id, users.name AS username
+                    $query['statement'] = 'SELECT show_comments.*, users.id AS userid,
+                                                  users.photo_id, users.name AS username
                                            FROM show_comments
                                            LEFT JOIN users ON users.id = show_comments.author_id
                                            WHERE show_id = :id';
@@ -55,7 +53,8 @@
 
                 # /shows/:id/comments/:id
                 case isset($args[2]) and isset($args[3]) and isset($args[4]):
-                    $query['statement'] = 'SELECT show_comments.*, users.id AS userid, users.photo_id, users.name AS username
+                    $query['statement'] = 'SELECT show_comments.*, users.id AS userid,
+                                                  users.photo_id, users.name AS username
                                            FROM show_comments
                                            LEFT JOIN users ON users.id = show_comments.author_id
                                            WHERE comment_subid = :id AND show_id = :show_id LIMIT 1';
