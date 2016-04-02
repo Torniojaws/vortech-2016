@@ -1,7 +1,7 @@
 <?php
 
     $api = 'api/v1/photos/promo';
-    $photos_list_json = file_get_contents(SERVER_URL . $api);
+    $photos_list_json = file_get_contents(SERVER_URL.$api);
 
     echo 'Promo photos';
 
@@ -18,6 +18,6 @@
         if ($counter % 4 == 0) {
             echo '</div><hr />';
         }
-        $counter++;
+        ++$counter;
     }
     echo '</div>';

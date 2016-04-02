@@ -1,6 +1,6 @@
 <?php
 
-    require_once 'visitor-update-api.php';
+    require_once 'VisitorUpdateAPI.php';
 
     class PUTDispatcher
     {
@@ -31,5 +31,4 @@
         {
             return $this->sql['params'];
         }
-
     }

@@ -32,10 +32,10 @@
             try {
                 $query = $this->pdo->prepare($statement);
                 $query->execute($params);
+
                 return $query->fetchAll(PDO::FETCH_ASSOC);
             } catch (Exception $err) {
                 echo $err;
             }
         }
-
     }

@@ -4,7 +4,7 @@
     {
         public $result;
 
-        public function __construct($request, $filters=null)
+        public function __construct($request, $filters = null)
         {
             $this->result = $this->getQuery($request, $filters);
         }
@@ -14,7 +14,7 @@
             return $this->result;
         }
 
-        private function getQuery($args, $filters=null)
+        private function getQuery($args, $filters = null)
         {
             switch ($args) {
                 # /members
@@ -30,15 +30,15 @@
                     if (isset($active) and strtolower($active) == 'yes') {
                         $query['statement'] = 'SELECT * FROM performers WHERE YEAR(quit) = 9999';
                         $query['params'] = array();
-                    } else if (isset($active) and strtolower($active) == 'no') {
+                    } elseif (isset($active) and strtolower($active) == 'no') {
                         $query['statement'] = 'SELECT * FROM performers WHERE YEAR(quit) < 9999';
                         $query['params'] = array();
                     }
                     // Guest artists
-                    else if (isset($guest) and strtolower($guest) == 'yes') {
+                    elseif (isset($guest) and strtolower($guest) == 'yes') {
                         $query['statement'] = 'SELECT * FROM performers WHERE type LIKE "Guest%"';
                         $query['params'] = array();
-                    } else if (isset($guest) and strtolower($guest) == 'no') {
+                    } elseif (isset($guest) and strtolower($guest) == 'no') {
                         $query['statement'] = 'SELECT * FROM performers WHERE type NOT LIKE "Guest%"';
                         $query['params'] = array();
                     }
@@ -47,13 +47,13 @@
                 # /members/:id
                 case isset($args[2]) and isset($args[3]) == false:
                     $query['statement'] = 'SELECT * FROM performers WHERE id = :id LIMIT 1';
-                    $query['params'] = array("id" => (int)$args[2]);
+                    $query['params'] = array('id' => (int) $args[2]);
                     break;
 
                 # /members/:id/comments
                 case isset($args[2]) and isset($args[3]) and $args[3] == 'comments' and isset($args[4]) == false:
                     $query['statement'] = 'SELECT * FROM performer_comments WHERE performer_id = :id';
-                    $query['params'] = array("id" => (int)$args[2]);
+                    $query['params'] = array('id' => (int) $args[2]);
                     break;
 
                 # /members/:id/comments/:id
@@ -61,7 +61,7 @@
                     $query['statement'] = 'SELECT *
                                            FROM performer_comments
                                            WHERE comment_subid = :id AND performer_id = :performer_id LIMIT 1';
-                    $query['params'] = array("id" => (int)$args[4], "performer_id" => (int)$args[2]);
+                    $query['params'] = array('id' => (int) $args[4], 'performer_id' => (int) $args[2]);
                     break;
 
                 # Show all - same as /releases
@@ -69,7 +69,7 @@
                     $query['statement'] = 'SELECT * FROM performers ORDER BY id DESC';
                     $query['params'] = array();
             }
+
             return $query;
         }
-
     }

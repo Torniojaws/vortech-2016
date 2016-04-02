@@ -22,12 +22,12 @@
                     // Expected to create variable "increment"
                     parse_str($data);
                     $query['statement'] = 'UPDATE visitor_count SET count = count + :increment';
-                    $query['params'] = array("increment" => (int)$increment);
+                    $query['params'] = array('increment' => (int) $increment);
                     break;
                 default:
                     $query = '';
             }
+
             return $query;
         } // getQuery()
-
     }

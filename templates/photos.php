@@ -1,7 +1,7 @@
 <?php
 
     $api = 'api/v1/photos';
-    $photos_list_json = file_get_contents(SERVER_URL . $api);
+    $photos_list_json = file_get_contents(SERVER_URL.$api);
 
     // true makes an array
     $photos = json_decode($photos_list_json, true);
@@ -20,6 +20,6 @@
         if ($counter % 3 == 0) {
             echo '</div><hr />';
         }
-        $counter++;
+        ++$counter;
     }
     echo '</div>';

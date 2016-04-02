@@ -4,7 +4,6 @@
 
     class DatabaseTest extends PHPUnit_Framework_TestCase
     {
-
         public function __construct()
         {
             $config = parse_ini_file('tests/db_config.ini', true);
@@ -40,26 +39,26 @@
         public function testDatabaseContainsAllRequiredTables()
         {
             $requiredTables = array(
-                "guestbook",
-                "guestbook_comments",
-                "news",
-                "news_comments",
-                "performers",
-                "photo_albums",
-                "photo_categories",
-                "photo_comments",
-                "photos",
-                "release_comments",
-                "releases",
-                "shop_categories",
-                "shop_items",
-                "shows",
-                "songs",
-                "user_access_levels",
-                "users",
-                "video_categories",
-                "videos",
-                "visitor_count",
+                'guestbook',
+                'guestbook_comments',
+                'news',
+                'news_comments',
+                'performers',
+                'photo_albums',
+                'photo_categories',
+                'photo_comments',
+                'photos',
+                'release_comments',
+                'releases',
+                'shop_categories',
+                'shop_items',
+                'shows',
+                'songs',
+                'user_access_levels',
+                'users',
+                'video_categories',
+                'videos',
+                'visitor_count',
             );
             $errors = 0;
             $pdo = new PDO(
@@ -85,11 +84,10 @@
                 $this->user,
                 $this->pass
             );
-            $query = $pdo->prepare("SELECT * FROM news WHERE id = 1");
+            $query = $pdo->prepare('SELECT * FROM news WHERE id = 1');
             $query->execute();
             $data = $query->fetchAll(PDO::FETCH_ASSOC);
 
-            $this->assertEquals("Teki", $data[0]['title']);
+            $this->assertEquals('Teki', $data[0]['title']);
         }
-
     }

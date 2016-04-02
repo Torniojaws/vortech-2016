@@ -1,8 +1,8 @@
 <?php
 
     header('Content-Type: application/json');
-    require_once 'classes/query.php';
-    require_once 'classes/database.php';
+    require_once 'classes/Query.php';
+    require_once 'classes/Database.php';
 
     // Generate the SQL
     $query = new Query(
@@ -24,7 +24,7 @@
     if ($results != null) {
         $json = json_encode($results, JSON_NUMERIC_CHECK);
     } else {
-        $json = json_encode(array("Error" => "No results"));
+        $json = json_encode(array('Error' => 'No results'));
     }
 
     echo $json;

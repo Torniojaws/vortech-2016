@@ -1,7 +1,7 @@
 <?php
 
     $api = 'api/v1/news';
-    $news_list_json = file_get_contents(SERVER_URL . $api);
+    $news_list_json = file_get_contents(SERVER_URL.$api);
 
     // true makes an array
     $newsitems = json_decode($news_list_json, true);

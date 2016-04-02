@@ -23,7 +23,7 @@
                     $query['params'] = array();
                     break;
             }
+
             return $query;
         } // getQuery()
-
     }

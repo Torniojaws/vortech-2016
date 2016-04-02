@@ -1,10 +1,10 @@
 <?php
 
-    require_once 'get-dispatcher.php';
-    require_once 'put-dispatcher.php';
+    require_once 'GETDispatcher.php';
+    require_once 'PUTDispatcher.php';
 
     // TODO
-    #require_once('post-dispatcher.php');
+    #require_once('POSTDispatcher.php');
 
     class Query
     {
@@ -51,6 +51,7 @@
                 default:
                     break;
             }
+
             return $result;
         }
     }

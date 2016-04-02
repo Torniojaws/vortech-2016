@@ -28,17 +28,17 @@
                     // Expected parse_str variables are "year" and optionally "month"
                     parse_str($filters);
                     $query['statement'] = 'SELECT * FROM shows WHERE YEAR(show_date) = :year';
-                    $query['params'] = array("year" => (int)$year);
-                    if(isset($month)) {
+                    $query['params'] = array('year' => (int) $year);
+                    if (isset($month)) {
                         $query['statement'] .= ' AND MONTH(posted) = :month';
-                        $query['params']['month'] = (int)$month;
+                        $query['params']['month'] = (int) $month;
                     }
                     break;
 
                 # /shows/:id
                 case isset($args[2]) and isset($args[3]) == false:
                     $query['statement'] = 'SELECT * FROM shows WHERE id = :id LIMIT 1';
-                    $query['params'] = array("id" => (int)$args[2]);
+                    $query['params'] = array('id' => (int) $args[2]);
                     break;
 
                 # /shows/:id/comments
@@ -48,7 +48,7 @@
                                            FROM show_comments
                                            LEFT JOIN users ON users.id = show_comments.author_id
                                            WHERE show_id = :id';
-                    $query['params'] = array("id" => (int)$args[2]);
+                    $query['params'] = array('id' => (int) $args[2]);
                     break;
 
                 # /shows/:id/comments/:id
@@ -58,7 +58,7 @@
                                            FROM show_comments
                                            LEFT JOIN users ON users.id = show_comments.author_id
                                            WHERE comment_subid = :id AND show_id = :show_id LIMIT 1';
-                    $query['params'] = array("id" => (int)$args[4], "show_id" => (int)$args[2]);
+                    $query['params'] = array('id' => (int) $args[4], 'show_id' => (int) $args[2]);
                     break;
 
                 # Show all - same as /shows
@@ -66,7 +66,7 @@
                     $query['statement'] = 'SELECT * FROM shows ORDER BY show_date DESC';
                     $query['params'] = array();
             }
+
             return $query;
         } // getQuery()
-
     }

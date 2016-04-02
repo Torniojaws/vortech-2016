@@ -1,16 +1,16 @@
 <?php
 
-    require_once 'news-api.php';
-    require_once 'releases-api.php';
-    require_once 'shows-api.php';
-    require_once 'photos-api.php';
-    require_once 'visitor-count-api.php';
-    require_once 'members-api.php';
+    require_once 'NewsAPI.php';
+    require_once 'ReleasesAPI.php';
+    require_once 'ShowsAPI.php';
+    require_once 'PhotosAPI.php';
+    require_once 'VisitorCountAPI.php';
+    require_once 'MembersAPI.php';
 
     // TODO:
-    #require_once 'videos-api.php';
-    #require_once 'shop-api.php';
-    #require_once 'guestbook-api.php';
+    #require_once 'VideosAPI.php';
+    #require_once 'ShopAPI.php';
+    #require_once 'GuestbookAPI.php';
 
     class GETDispatcher
     {
@@ -73,5 +73,4 @@
         {
             return $this->sql['params'];
         }
-
     }
