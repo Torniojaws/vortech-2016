@@ -11,7 +11,7 @@
             // Remove empty elements
             $request = array_filter(explode('/', $original_request), 'strlen');
             $root = $request[1];
-            switch($root) {
+            switch ($root) {
                 case 'visitors':
                     $result = new VisitorUpdateAPI($request, $inputData);
                     $this->sql = $result->getResult();

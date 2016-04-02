@@ -16,7 +16,7 @@
 
         private function getQuery($args, $data)
         {
-            switch($args) {
+            switch ($args) {
                 # /visitors
                 case isset($args[2]) == false and isset($data):
                     // Expected to create variable "increment"

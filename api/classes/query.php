@@ -32,7 +32,7 @@
 
         private function query()
         {
-            switch($this->method) {
+            switch ($this->method) {
                 case 'GET':
                     $dispatcher = new GETDispatcher($this->request, $this->filters);
                     $result[] = $dispatcher->getStatement();

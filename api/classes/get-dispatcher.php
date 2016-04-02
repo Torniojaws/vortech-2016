@@ -21,7 +21,7 @@
             // Remove empty elements
             $request = array_filter(explode('/', $original_request), 'strlen');
             $root = $request[1];
-            switch($root) {
+            switch ($root) {
                 case 'news':
                     $result = new NewsAPI($request, $filters);
                     $this->sql = $result->getResult();
@@ -73,5 +73,5 @@
         {
             return $this->sql['params'];
         }
-        
+
     }

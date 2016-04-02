@@ -12,7 +12,7 @@
     </div>
     <div class="col-sm-4">
         <?php
-            foreach($songs as $song) {
+            foreach ($songs as $song) {
                 echo $song["title"];
                 echo ' (';
                 echo $song["duration"];

@@ -16,7 +16,7 @@
 
         private function getQuery($args, $filters=null)
         {
-            switch($args) {
+            switch ($args) {
                 # /members
                 case isset($args[2]) == false and isset($filters) == false:
                     $query['statement'] = 'SELECT * FROM performers';

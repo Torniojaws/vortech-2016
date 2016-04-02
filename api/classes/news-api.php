@@ -16,7 +16,7 @@
 
         private function getQuery($args, $filters)
         {
-            switch($args) {
+            switch ($args) {
                 # /news
                 case isset($args[2]) == false and isset($filters) == false:
                     $query['statement'] = 'SELECT * FROM news';

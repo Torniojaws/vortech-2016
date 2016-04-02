@@ -16,7 +16,7 @@
 
         private function getQuery($args, $filters=null)
         {
-            switch($args)
+            switch ($args)
             {
 
                 # /photos
@@ -41,7 +41,7 @@
                                            FROM photos
                                            JOIN photo_albums ON photo_albums.id = photos.album_id
                                            JOIN photo_categories ON photo_categories.id = photo_albums.category_id';
-                    if(isset($year)) {
+                    if (isset($year)) {
                         $query['statement'] .= ' WHERE YEAR(date_taken) = :year';
                         $query['params'] = array("year" => (int)$year);
                     } else if (isset($yearrange)) {
@@ -136,7 +136,7 @@
                 default:
                     $query['statement'] = 'SELECT * FROM photos ORDER BY date_taken DESC';
                     $query['params'] = array();
-            } // switch($args)
+            } // switch ($args)
             return $query;
         } // getQuery()
 
