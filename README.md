@@ -23,7 +23,7 @@ Restful Vortech website with jQuery, Bootstrap and PHP API. Will replace the exi
 8. Give the command `echo "ServerName localhost" | sudo tee /etc/apache2/conf-available/servername.conf`
 9. Then edit `/etc/apache2/apache2.conf` and add this to the listing with `<Directory>` to enable pretty urls eg. localhost/news
 
-   ´´´
+   ```
      <Directory /vagrant/>  
          Options Indexes FollowSymLinks MultiViews  
          AllowOverride All  
@@ -31,7 +31,7 @@ Restful Vortech website with jQuery, Bootstrap and PHP API. Will replace the exi
          allow from all  
          Require all granted  
      </Directory>  
-   ´´´
+   ```
 
 10. Then add the site with `cd /etc/apache2/sites-available` and `sudo cp 000-default.conf vortech.conf`
 11. Edit the config next `sudo vim vortech.conf` and modify to:  
