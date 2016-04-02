@@ -2,7 +2,8 @@
 
     // Constants for the site
 
-    # Helsinki
-    define('SERVER_URL', 'http://localhost:5656/');
-    # Espoo
-    # define('SERVER_URL', "http://localhost/");
+    # Use this if Vagrant is setup to redirect 5656 to port 5656 in guest
+    #define('SERVER_URL', 'http://localhost:5656/');
+
+    # Use this if Vagrant is setup to redirect 5656 to port 80 in guest
+    define('SERVER_URL', "http://localhost/");
