@@ -1,6 +1,9 @@
 <div class="row">
     <div class="col-sm-4">
-        <img src="static/img/site/cd.jpg" alt="CD placeholder" /><br />
+        <!-- The release details will open in a modal window -->
+        <a href="#release-modal<?php echo $release['id']; ?>" data-toggle="modal" data-target="#release-modal<?php echo $release['id']; ?>">
+            <img src="static/img/site/cd.jpg" alt="CD placeholder" /><br />
+        </a>
         <h3><?php echo $release['title']; ?> <small>by <?php echo $release['artist']; ?></small></h3>
         <p><?php echo $release['release_date']; ?></p>
         <?php
@@ -25,3 +28,22 @@
     </div>
 </div>
 <hr />
+
+<!-- Modal contents -->
+<div class="modal fade" id="release-modal<?php echo $release['id']; ?>" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"><?php echo $release['title'].' - '.$release['release_date']; ?></h4>
+            </div>
+            <div class="modal-body text-center">
+                <img src="static/img/site/cd.jpg" alt="CD placeholder" />
+                <p><?php echo $release['title']; ?></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
