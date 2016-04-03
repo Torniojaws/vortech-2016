@@ -205,7 +205,16 @@ CREATE TABLE performer_comments(
     comment text,
     posted datetime,
     PRIMARY KEY(id));
-
+CREATE TABLE video_comments(
+    id int,
+    video_id int,
+    video_comment_id int,
+    category_comment_subid int,
+    comment varchar(200),
+    author_id varchar(200),
+    date_commented datetime,
+    PRIMARY KEY(id)
+);
 
 INSERT INTO news VALUES(
     1,
@@ -445,3 +454,21 @@ INSERT INTO performer_comments VALUES(6, 4, 1, "Joomies", 3, "Killer playing!", 
 INSERT INTO performer_comments VALUES(7, 5, 1, "Jokukommentoi", 3, "Brilliant playing!", "2016-04-01 15:04:00");
 INSERT INTO performer_comments VALUES(8, 5, 2, "Nimi on", 3, "Stunning playing!", "2016-04-01 15:04:00");
 INSERT INTO performer_comments VALUES(9, 6, 1, "Enne", 3, "Outstandingly nice playing!", "2016-04-01 15:04:00");
+
+/* The first four numbers are:
+
+    Table index of the comment
+    The ID (in table "videos") of the video that the comment is for
+    The index of the comment for a given video, eg. if video 1 has two comments, the first is 1 and second is 2
+    The index of the comment for a given video category, eg. if video 1 is in category 1, and has three comments, they
+        will be 1, 2, 3 -- kind of silly, though, TODO: Is there a use case for this?
+*/
+INSERT INTO video_comments VALUES(1, 1, 1, 1, "Nice live video", 3, "2016-04-03 00:00:00");
+INSERT INTO video_comments VALUES(2, 1, 2, 2, "Yeah! Video is nice", 3, "2016-04-18 01:00:00");
+INSERT INTO video_comments VALUES(3, 2, 1, 3, "Cool video live", 3, "2016-04-18 02:00:00");
+INSERT INTO video_comments VALUES(4, 2, 2, 4, "Live videos are nice", 3, "2016-04-18 00:00:00");
+INSERT INTO video_comments VALUES(5, 3, 1, 5, "Yeah! Live indeed", 3, "2016-04-18 01:00:00");
+INSERT INTO video_comments VALUES(6, 3, 2, 6, "Finally video!", 3, "2016-04-18 02:00:00");
+INSERT INTO video_comments VALUES(7, 4, 1, 1, "Good promo video", 3, "2016-04-18 00:00:00");
+INSERT INTO video_comments VALUES(8, 5, 1, 2, "Nice video!", 3, "2016-04-18 01:00:00");
+INSERT INTO video_comments VALUES(9, 6, 1, 3, "Awesome promo video!", 3, "2016-04-18 02:00:00");
