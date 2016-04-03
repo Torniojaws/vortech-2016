@@ -5,9 +5,10 @@
 
     // true makes an array
     $photos = json_decode($photos_list_json, true);
-    $counter = 1;
+    $counter = 0;
     echo '<div class="container-fluid">';
     foreach ($photos as $photo) {
+        ++$counter;
         // Some photo albums will not be shown, eg. user avatars, band members
         if ($photo['show_in_gallery'] == 0) {
             continue;
@@ -20,6 +21,6 @@
         if ($counter % 3 == 0) {
             echo '</div><hr />';
         }
-        ++$counter;
+
     }
     echo '</div>';

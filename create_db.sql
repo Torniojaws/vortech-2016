@@ -260,11 +260,11 @@ INSERT INTO photo_categories VALUES(2, "Studio", "studio");
 INSERT INTO photo_categories VALUES(3, "Live", "live");
 INSERT INTO photo_categories VALUES(4, "Misc", "misc");
 
-INSERT INTO photo_albums VALUES(1, 1, "Promo pics from 2016", "All the promo pics taken during 2016", "TRUE");
-INSERT INTO photo_albums VALUES(2, 1, "Older promo pics", "Promo pics taken before 2016", "TRUE");
-INSERT INTO photo_albums VALUES(3, 2, "Studio 2016", "From the recording sessions of 2016", "TRUE");
-INSERT INTO photo_albums VALUES(4, 3, "Live shows from summer", "Pics throughout the summer tour", "TRUE");
-INSERT INTO photo_albums VALUES(5, 4, "Random stuff 15-16", "Interesting pics from 2015 and 2016", "TRUE");
+INSERT INTO photo_albums VALUES(1, 1, "Promo pics from 2016", "All the promo pics taken during 2016", TRUE);
+INSERT INTO photo_albums VALUES(2, 1, "Older promo pics", "Promo pics taken before 2016", TRUE);
+INSERT INTO photo_albums VALUES(3, 2, "Studio 2016", "From the recording sessions of 2016", TRUE);
+INSERT INTO photo_albums VALUES(4, 3, "Live shows from summer", "Pics throughout the summer tour", TRUE);
+INSERT INTO photo_albums VALUES(5, 4, "Random stuff 15-16", "Interesting pics from 2015 and 2016", TRUE);
 
 INSERT INTO photos VALUES(
     1, 4, "2015-06-04 00:00:00", "Juha", "image1.jpg", "thumbnails/image1.jpg", "Live stuff");
@@ -339,7 +339,7 @@ INSERT INTO performers VALUES(
     "Did some awesome guest vocals on The Core, from the album Wasteland", 17);
 
 INSERT INTO photo_categories VALUES(5, "Band members", "band_members");
-INSERT INTO photo_albums VALUES(6, 5, "Band member pictures", "All the members of the band", "FALSE");
+INSERT INTO photo_albums VALUES(6, 5, "Band member pictures", "All the members of the band", FALSE);
 INSERT INTO photos VALUES(
     10, 6, "2014-10-03 00:00:00", "Juha", "juha.jpg", "thumbnails/juha.jpg", "Juha 2014");
 INSERT INTO photos VALUES(
