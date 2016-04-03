@@ -8,10 +8,10 @@
         <p><?php echo $release['release_date']; ?></p>
         <?php
             if (strtolower($release['has_cd']) == 'yes') {
-                echo '<small>CD available</small>';
+                echo '<small>CD available</small><br />';
             }
         ?>
-        <small>Code: <?php echo $release['release_code']; ?></small>
+        <small>Release Code: <?php echo $release['release_code']; ?></small>
     </div>
     <div class="col-sm-4">
         <?php
