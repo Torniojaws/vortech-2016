@@ -472,3 +472,10 @@ INSERT INTO video_comments VALUES(6, 3, 2, 6, "Finally video!", 3, "2016-04-18 0
 INSERT INTO video_comments VALUES(7, 4, 1, 1, "Good promo video", 3, "2016-04-18 00:00:00");
 INSERT INTO video_comments VALUES(8, 5, 1, 2, "Nice video!", 3, "2016-04-18 01:00:00");
 INSERT INTO video_comments VALUES(9, 6, 1, 3, "Awesome promo video!", 3, "2016-04-18 02:00:00");
+
+INSERT INTO news_comments VALUES(1, 1, 1, "Testimies", "Very nice to hear!", "2016-04-03 18:11:00");
+INSERT INTO news_comments VALUES(2, 2, 1, "Jokuman", "Awesome!", "2016-04-03 18:12:00");
+INSERT INTO news_comments VALUES(3, 1, 2, "Kommentoija", "Good to see!", "2016-04-03 18:13:00");
+INSERT INTO news_comments VALUES(4, 2, 2, "Enne", "Looking forward!", "2016-04-03 18:14:00");
+INSERT INTO news_comments VALUES(5, 3, 2, "Kommenthor", "Well done", "2016-04-03 18:15:00");
+INSERT INTO news_comments VALUES(6, 4, 2, "Jess", "Jeah", "2016-04-03 18:16:00");
