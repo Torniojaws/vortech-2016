@@ -7,9 +7,9 @@
     require_once 'VisitorCountAPI.php';
     require_once 'MembersAPI.php';
     require_once 'VideosAPI.php';
+    require_once 'ShopAPI.php';
 
     // TODO:
-    #require_once 'ShopAPI.php';
     #require_once 'GuestbookAPI.php';
 
     class GETDispatcher

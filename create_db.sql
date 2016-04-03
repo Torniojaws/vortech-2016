@@ -215,6 +215,16 @@ CREATE TABLE video_comments(
     date_commented datetime,
     PRIMARY KEY(id)
 );
+CREATE TABLE shopitem_comments(
+    id int,
+    shopitem_id int,
+    shopitem_comment_id int,
+    category_comment_subid int,
+    comment varchar(200),
+    author_id varchar(200),
+    date_commented datetime,
+    PRIMARY KEY(id)
+);
 
 INSERT INTO news VALUES(
     1,
@@ -488,3 +498,20 @@ INSERT INTO release_comments VALUES(5, 2, 2, "Skitta", "Tight stuff!", "2016-04-
 INSERT INTO release_comments VALUES(6, 1, 3, "Testimies", "Nice album!", "2016-04-03 22:55:00");
 INSERT INTO release_comments VALUES(7, 2, 3, "Kommenthor", "Very good album!", "2016-04-03 22:55:00");
 INSERT INTO release_comments VALUES(8, 3, 3, "Kommentman", "Great nice album!", "2016-04-03 22:55:00");
+
+/* The first four numbers are:
+
+    Table index of the comment
+    The ID (in table "shopitems") of the item that the comment is for
+    The index of the comment for a given shopitem, eg. if shopitem 1 has two comments, the first is 1 and second is 2
+    The index of the comment for a given shopitem category, eg. if shopitem 1 is in category 1, and has three comments, they
+        will be 1, 2, 3 -- kind of silly, though, TODO: Is there a use case for this?
+*/
+INSERT INTO shopitem_comments VALUES(1, 1, 1, 1, "Very nice shirt!", 3, "2016-04-04 00:27:00");
+INSERT INTO shopitem_comments VALUES(2, 1, 2, 2, "Cool shirt!", 3, "2016-04-04 00:27:00");
+INSERT INTO shopitem_comments VALUES(3, 2, 1, 1, "Very nice CD", 3, "2016-04-04 00:27:00");
+INSERT INTO shopitem_comments VALUES(4, 2, 2, 2, "Awesome CD!", 3, "2016-04-04 00:27:00");
+INSERT INTO shopitem_comments VALUES(5, 3, 1, 1, "Very nice quality download", 3, "2016-04-04 00:27:00");
+INSERT INTO shopitem_comments VALUES(6, 4, 1, 3, "Very good album!", 3, "2016-04-04 00:27:00");
+INSERT INTO shopitem_comments VALUES(7, 4, 2, 4, "So nice album!", 3, "2016-04-04 00:27:00");
+INSERT INTO shopitem_comments VALUES(8, 4, 3, 5, "Excellent release!", 3, "2016-04-04 00:27:00");
