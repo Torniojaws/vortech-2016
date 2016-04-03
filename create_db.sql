@@ -479,3 +479,12 @@ INSERT INTO news_comments VALUES(3, 1, 2, "Kommentoija", "Good to see!", "2016-0
 INSERT INTO news_comments VALUES(4, 2, 2, "Enne", "Looking forward!", "2016-04-03 18:14:00");
 INSERT INTO news_comments VALUES(5, 3, 2, "Kommenthor", "Well done", "2016-04-03 18:15:00");
 INSERT INTO news_comments VALUES(6, 4, 2, "Jess", "Jeah", "2016-04-03 18:16:00");
+
+INSERT INTO release_comments VALUES(1, 1, 1, "Tekstaaja", "Very nice album!", "2016-04-03 22:55:00");
+INSERT INTO release_comments VALUES(2, 2, 1, "Jokuman", "Awesome release!", "2016-04-03 22:55:00");
+INSERT INTO release_comments VALUES(3, 3, 1, "Kommentoija", "Kickass", "2016-04-03 22:55:00");
+INSERT INTO release_comments VALUES(4, 1, 2, "Enne", "My favourite", "2016-04-03 22:55:00");
+INSERT INTO release_comments VALUES(5, 2, 2, "Skitta", "Tight stuff!", "2016-04-03 22:55:00");
+INSERT INTO release_comments VALUES(6, 1, 3, "Testimies", "Nice album!", "2016-04-03 22:55:00");
+INSERT INTO release_comments VALUES(7, 2, 3, "Kommenthor", "Very good album!", "2016-04-03 22:55:00");
+INSERT INTO release_comments VALUES(8, 3, 3, "Kommentman", "Great nice album!", "2016-04-03 22:55:00");
