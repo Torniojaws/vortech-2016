@@ -3,10 +3,24 @@
         <h2><?php echo $news['title']; ?></h2>
         <p><?php echo $news['contents']; ?></p>
         <small><?php echo $news['tags']; ?></small>
+        <hr />
         <aside class="news-comments">
+            <h3>Latest comments</h3>
+            <?php
+                // We'll get all comments here for showing in the modal and latest 2 for preview
+                $api = 'api/v1/news/'.$news['id'].'/comments';
+                $comments = file_get_contents(SERVER_URL.$api);
+                $comments = json_decode($comments, true);
+
+                // Get the latest 2 comments
+                $last = count($comments) - 1;
+                $second_last = $last - 1;
+                echo '<strong>'.$comments[$second_last]['author'].'</strong>: '.$comments[$second_last]['comment'].'<br />';
+                echo '<strong>'.$comments[$last]['author'].'</strong>: '.$comments[$last]['comment'].'<br />';
+            ?>
             <button type="button" class="btn btn-info btn-lg" data-toggle="modal"
                     data-target="#news-modal<?php echo $news['id']; ?>">
-                Show all comments
+                Show all comments (<?php echo count($comments); ?>)
             </button>
         </aside>
     </div>
@@ -30,9 +44,7 @@
                 <p><?php echo $news['contents']; ?></p>
                 <h3>Comments</h3>
                 <?php
-                    $api = 'api/v1/news/'.$news['id'].'/comments';
-                    $comments = file_get_contents(SERVER_URL.$api);
-                    $comments = json_decode($comments, true);
+                    // We'll show all comments here - data loaded near row 10
                     foreach ($comments as $comment) {
                         echo '<strong>'.$comment['author'].'</strong>: '.$comment['comment'].'<br />';
                     }
