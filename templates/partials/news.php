@@ -1,38 +1,78 @@
 <div class="container-fluid">
     <div class="row">
-        <div class="col-sm-8">
-            <h2><?php echo $news['title']; ?></h2>
-            <p><?php echo $news['contents']; ?></p>
-            <small><?php echo $news['tags']; ?></small>
-        </div>
-        <div class="col-sm-4">
+        <div class="col-sm-2">
             <img src="static/img/site/admin.jpg" alt="Admin" /><br />
             <b><?php echo $news['author'];?></b>
-            <aside><small>Posted on <?php echo $news['posted']; ?></small></aside>
+            <aside><small>Posted on<br /> <?php echo $news['posted']; ?></small></aside>
+        </div>
+        <div class="col-sm-10">
+            <h2><?php echo $news['title']; ?></h2>
+            <p><?php echo $news['contents']; ?></p>
+            <small>Tags:
+                <?php
+                    $tags = explode(',', $news['tags']);
+                    $tagCount = count($tags);
+                    $counter = 0;
+                    foreach ($tags as $tag) {
+                        $tag = trim($tag);
+                        echo "<a href=\"news?tag=$tag\">".$tag.'</a>';
+                        ++$counter;
+                        if($counter < $tagCount) {
+                            echo ' &middot; ';
+                        }
+                    }
+                ?>
+            </small>
         </div>
     </div>
     <div class="row">
-        <aside class="well">
-            <h4>Latest comments</h4>
-            <?php
-                // We'll get all comments here for showing in the modal and latest 2 for preview
-                $api = 'api/v1/news/'.$news['id'].'/comments';
-                $comments = file_get_contents(SERVER_URL.$api);
-                $comments = json_decode($comments, true);
+        <div class="col-sm-2 text-right">
+            <h4>Comments</h4>
+        </div>
+        <div class="col-sm-6">
+            <aside class="well">
+                <?php
+                    // We'll get all comments here for showing in the modal and latest 2 for preview
+                    $api = 'api/v1/news/'.$news['id'].'/comments';
+                    $comments = file_get_contents(SERVER_URL.$api);
+                    $comments = json_decode($comments, true);
 
-                // Get the latest 2 comments
-                $last = count($comments) - 1;
-                $second_last = $last - 1;
-                echo '<strong>'.$comments[$second_last]['author'].'</strong>: '.$comments[$second_last]['comment'].'<br />';
-                echo '<strong>'.$comments[$last]['author'].'</strong>: '.$comments[$last]['comment'].'<br />';
-            ?>
+                    // Get the latest comments
+                    $count = count($comments);
+                    $last = count($comments) - 1;
+                    if ($count >= 2) {
+                        $second_last = $last - 1;
+                        echo '<strong>'.$comments[$second_last]['author'].'</strong>: '.$comments[$second_last]['comment'].'<br />';
+                        echo '<strong>'.$comments[$last]['author'].'</strong>: '.$comments[$last]['comment'].'<br />';
+                    } elseif($count == 1 and isset($comments[$last]['comment'])) {
+                        echo '<strong>'.$comments[$last]['author'].'</strong>: '.$comments[$last]['comment'].'<br />';
+                    } else {
+                        echo 'No comments yet - add yours?<br />';
+                    }
+                ?>
+                <!-- Comment form -->
+                <hr />
+                <form class="form-inline" role="form">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon3">Username</span>
+                            <input type="text" class="form-control" id="comment" aria-describedby="basic-addon3" placeholder="Your comment">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-default">Submit</button>
+                </form>
+                <br />
+            </aside>
+        </div>
+        <div class="col-sm-4">
+            <!-- Modal window -->
             <button type="button" class="btn btn-info btn-lg" data-toggle="modal"
                     data-target="#news-modal<?php echo $news['id']; ?>">
                 Show all comments (<?php echo count($comments); ?>)
             </button>
-        </aside>
+        </div>
     </div>
-</div>
+</div> <!-- Container -->
 <hr />
 
 <!-- Modal contents -->
