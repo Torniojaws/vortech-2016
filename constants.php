@@ -7,3 +7,6 @@
 
     # Use this if Vagrant is setup to redirect 5656 to port 80 in guest
     #define('SERVER_URL', "http://localhost/");
+
+    # This is the base url in production
+    #define('SERVER_URL', 'http://www.vortechmusic.com');

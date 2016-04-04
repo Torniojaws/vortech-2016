@@ -47,9 +47,12 @@ Restful Vortech website with jQuery, Bootstrap and PHP API. Will replace the exi
   `extension=pdo_mysql.so`
 
 15. Now run `mysql -u root`
-16. Then import the "create_db.sql" file to your database with `source /vagrant/create_db.sql;`
+16. Then import the "create_db.sql" file to your database with `source /vagrant/api/create_db.sql;`
 17. Now open the site with you browser from `http://localhost:5656`
  * Note that if your Vagrant redirects port 5656 to 80 in guest, change the definition in `constants.php` first
+
+## Tests
+* You can run tests with PHPUnit in the root dir with `phpunit tests`
 
 ## Todo
 * ~~Database access refactoring (OOP)~~  
