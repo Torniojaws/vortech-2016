@@ -3,7 +3,7 @@
     // Constants for the site
 
     # Use this if Vagrant is setup to redirect 5656 to port 5656 in guest
-    #define('SERVER_URL', 'http://localhost:5656/');
+    define('SERVER_URL', 'http://localhost:5656/');
 
     # Use this if Vagrant is setup to redirect 5656 to port 80 in guest
-    define('SERVER_URL', "http://localhost/");
+    #define('SERVER_URL', "http://localhost/");
