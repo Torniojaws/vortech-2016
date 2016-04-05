@@ -2,19 +2,22 @@
 $(document).ready(function () {
 
     // Submit a new paste
-    $('#paste-form').submit(function (e) {
+    $('#ad-form').submit(function (e) {
         e.preventDefault();
         var data = $(this).serialize();
         console.log(data);
         $.ajax({
             type: 'post',
-            url: 'functions/process-form.php',
+            url: 'templates/process-admin-form.php',
             data: data,
             success: function(data) {
-                $('#paste-form').each(function () {
+                $('#ad-form').each(function () {
                     this.reset();
-                    $('.alert').removeAttr('hidden').fadeOut(2000);
+                    $('.notification').removeAttr('hidden').fadeOut(4000);
                 });
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+                alert("Status: " + textStatus); alert("Error: " + errorThrown);
             }
         });
     });

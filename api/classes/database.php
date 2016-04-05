@@ -4,7 +4,12 @@
     {
         public function __construct()
         {
-            $config = parse_ini_file('db_config.ini', true);
+            $paths = explode('/', __DIR__);
+            if($paths[count[$paths] == 'classes']) {
+                $config = parse_ini_file('../../db_config.ini', true);
+            } else {
+                $config = parse_ini_file('db_config.ini', true);
+            }
             // mariaDB at the moment
             $this->driver = $config['database']['driver'];
             $this->host = $config['database']['host'];
