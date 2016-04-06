@@ -68,7 +68,7 @@
                                            LIMIT 1';
                     $query['params'] = array(
                         'id' => (int) $args[4],
-                        'show_id' => (int) $args[2]
+                        'show_id' => (int) $args[2],
                     );
                     break;
 

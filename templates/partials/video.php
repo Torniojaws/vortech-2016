@@ -2,7 +2,7 @@
     <div class="col-sm-3">
         <a href="<?php echo $video['url']; ?>">
             <?php
-                if (file_exists("static/img/" . $video['thumbnail']) == false) {
+                if (file_exists('static/img/'.$video['thumbnail']) == false) {
                     $video['thumbnail'] = 'videos/thumbnails/video.png';
                 }
              ?>
@@ -18,7 +18,7 @@
                     echo ' &ndash; ';
                     echo $video['duration'];
                     echo '<br />';
-                    echo 'At <strong>' . $video['host'] . '</strong>';
+                    echo 'At <strong>'.$video['host'].'</strong>';
                 ?>
             </small>
         </aside>

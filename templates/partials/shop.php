@@ -1,9 +1,9 @@
 <div class="row">
     <div class="col-sm-3">
-        <a href="static/img/<?php echo strtolower($shop['name_id']) . "/"; echo $shop['full']; ?>">
+        <a href="static/img/<?php echo strtolower($shop['name_id']).'/'; echo $shop['full']; ?>">
             <img src="static/img/<?php
-                    $image = strtolower($shop['name_id']) . "/" . $shop['thumbnail'];
-                    if (file_exists('static/img/' . $image)) {
+                    $image = strtolower($shop['name_id']).'/'.$shop['thumbnail'];
+                    if (file_exists('static/img/'.$image)) {
                         echo $image;
                     } else {
                         echo 'no-photo.jpg';

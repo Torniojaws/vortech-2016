@@ -57,7 +57,7 @@
             if ($this->last_URI == 'api') {
                 $target = './api/index.php';
             } elseif ($this->last_URI == 'admin') {
-                $target= './templates/admin.php';
+                $target = './templates/admin.php';
             } else {
                 if ($this->second_last_URI == 'photos') {
                     $target = './templates/photos-'.$this->last_URI.'.php';

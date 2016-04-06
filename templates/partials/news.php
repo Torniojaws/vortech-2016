@@ -17,7 +17,7 @@
                         $tag = trim($tag);
                         echo "<a href=\"news?tag=$tag\">".$tag.'</a>';
                         ++$counter;
-                        if($counter < $tagCount) {
+                        if ($counter < $tagCount) {
                             echo ' &middot; ';
                         }
                     }
@@ -44,7 +44,7 @@
                         $second_last = $last - 1;
                         echo '<strong>'.$comments[$second_last]['author'].'</strong>: '.$comments[$second_last]['comment'].'<br />';
                         echo '<strong>'.$comments[$last]['author'].'</strong>: '.$comments[$last]['comment'].'<br />';
-                    } elseif($count == 1 and isset($comments[$last]['comment'])) {
+                    } elseif ($count == 1 and isset($comments[$last]['comment'])) {
                         echo '<strong>'.$comments[$last]['author'].'</strong>: '.$comments[$last]['comment'].'<br />';
                     } else {
                         echo 'No comments yet - add yours?<br />';
@@ -93,18 +93,22 @@
                     <?php
                         // We'll show all comments here - data loaded near row 10
                         foreach ($comments as $comment) {
-                    ?><div class="row">
+                            ?><div class="row">
                         <div class="col-sm-2">
-                            <?php echo '<small>'.date('Y-m-d', strtotime($comment['posted'])).'</small>'.PHP_EOL; ?>
+                            <?php echo '<small>'.date('Y-m-d', strtotime($comment['posted'])).'</small>'.PHP_EOL;
+                            ?>
                         </div>
                         <div class="col-sm-2">
-                            <?php echo '<strong>'.$comment['author'].'</strong>'.PHP_EOL; ?>
+                            <?php echo '<strong>'.$comment['author'].'</strong>'.PHP_EOL;
+                            ?>
                         </div>
                         <div class="col-sm-6">
-                            <?php echo $comment['comment'].PHP_EOL; ?>
+                            <?php echo $comment['comment'].PHP_EOL;
+                            ?>
                         </div>
                     </div>
-                    <?php } ?>
+                    <?php 
+                        } ?>
                 </div>
             </div>
             <div class="modal-footer">

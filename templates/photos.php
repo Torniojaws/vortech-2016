@@ -21,6 +21,5 @@
         if ($counter % 3 == 0) {
             echo '</div><hr />';
         }
-
     }
     echo '</div>';

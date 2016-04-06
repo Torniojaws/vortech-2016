@@ -16,9 +16,9 @@
     <div class="col-sm-4">
         <?php
             foreach ($songs as $song) {
-                echo $song["title"];
+                echo $song['title'];
                 echo ' (';
-                echo $song["duration"];
+                echo $song['duration'];
                 echo ')<br />';
             }
         ?>

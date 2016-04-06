@@ -3,7 +3,7 @@
         <h3>
             <?php
                 echo $show['country'];
-                echo ", " . $show['city'];
+                echo ', '.$show['city'];
             ?>
         </h3>
         <small><?php echo $show['show_date']; ?></small>
@@ -15,7 +15,7 @@
             <?php
                 $songs = explode('|', $show['setlist']);
                 foreach ($songs as $song) {
-                    echo '<li>' . $song . '</li>';
+                    echo '<li>'.$song.'</li>';
                 }
             ?>
         </ol>
@@ -27,7 +27,7 @@
                 $members = explode(', ', $show['performers']);
                 foreach ($members as $member) {
                     $details = explode('|', $member);
-                    echo '<span class="text-info">' . $details[0] . '</span> - ' . $details[1];
+                    echo '<span class="text-info">'.$details[0].'</span> - '.$details[1];
                     echo '<br />';
                 }
             ?>
@@ -39,11 +39,11 @@
                     $details = explode('|', $band);
                     echo '<a href="';
                     if (substr($details[1], 0, 4) != 'http') {
-                        echo 'http://' . $details[1];
+                        echo 'http://'.$details[1];
                     } else {
                         echo $details[1];
                     }
-                    echo '">' . $details[0] . '</a><br />';
+                    echo '">'.$details[0].'</a><br />';
                 }
             ?>
         </small>

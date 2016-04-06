@@ -106,7 +106,7 @@
                                                 AND video_comments.video_comment_id = :comment_id';
                     $query['params'] = array(
                         'id' => (int) $args[2],
-                        'comment_id' => (int) $args[4]
+                        'comment_id' => (int) $args[4],
                     );
                     break;
 
