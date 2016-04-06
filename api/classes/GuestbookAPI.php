@@ -17,11 +17,11 @@
         private function getQuery($args, $filters)
         {
             switch ($args) {
-                # /guestbook-posts
+                # /guestbook
                 case isset($args[2]) == false and isset($filters) == false:
                     $query['statement'] = 'SELECT guestbook.*,
                                                   users.id AS userid,
-                                                  users.photo_id,
+                                                  # users.photo_id, # TODO
                                                   users.name AS username,
                                                   guestbook_comments.author_id AS admin_id,
                                                   guestbook_comments.comment AS admin_comment,
@@ -35,7 +35,7 @@
                     $query['params'] = array();
                     break;
 
-                # /guestbook-posts?year=2015
+                # /guestbook?year=2015
                 case isset($args[2]) == false and isset($filters):
                     // Expected parse_str variables are "year" and optionally "month"
                     parse_str($filters);
@@ -60,7 +60,7 @@
                     $query['statement'] .= ' ORDER BY guestbook.posted DESC';
                     break;
 
-                # /guestbook-posts/:id
+                # /guestbook/:id
                 case isset($args[2]) and isset($args[3]) == false:
                     $query['statement'] = 'SELECT guestbook.*,
                                                   users.id AS userid,
@@ -79,7 +79,7 @@
                     $query['params'] = array('id' => (int) $args[2]);
                     break;
 
-                # Show all - same as /guestbook-posts
+                # Show all - same as /guestbook
                 default:
                     $query['statement'] = 'SELECT * FROM guestbook ORDER BY posted DESC';
                     $query['params'] = array();

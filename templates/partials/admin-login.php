@@ -11,5 +11,6 @@
         </div>
         <button type="submit" class="btn btn-primary" name="Submit" id="send-ad-form">Enter the fray</button>
     </form>
-    <div class="notification text-success" hidden>Successfully logged in! Enjoy...</div>
+    <div id="login-ok" class="text-success" hidden>Successfully logged in! Enjoy...</div>
+    <div id="login-failed" class="text-danger" hidden>Incorrect login</div>
 </div>

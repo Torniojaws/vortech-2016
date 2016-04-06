@@ -1,23 +1,52 @@
+/*jslint node: true */
+/*jslint browser: true*/
+/*global $, jQuery, alert*/
 'use strict';
+
 $(document).ready(function () {
 
-    // Submit a new paste
+    // Admin login
     $('#ad-form').submit(function (e) {
         e.preventDefault();
         var data = $(this).serialize();
-        console.log(data);
         $.ajax({
             type: 'post',
             url: 'templates/process-admin-form.php',
             data: data,
-            success: function(data) {
-                $('#ad-form').each(function () {
-                    this.reset();
-                    $('.notification').removeAttr('hidden').fadeOut(4000);
-                });
-            },
-            error: function(XMLHttpRequest, textStatus, errorThrown) {
-                alert("Status: " + textStatus); alert("Error: " + errorThrown);
+            success: function (data) {
+                if (data.status === 'success') {
+                    $('#login-failed').hide();
+                    $('#ad-form').each(function () {
+                        this.reset();
+                    });
+                    $('#login-ok').removeAttr('hidden').fadeOut(2000);
+                    setTimeout(function () { location.reload(); }, 2000);
+                } else if (data.status === 'error') {
+                    $('#login-failed').removeAttr('hidden');
+                }
+            }
+        });
+    });
+
+    // Admin logout
+    $('#ad-logout-form').submit(function (e) {
+        e.preventDefault();
+        var data = $(this).serialize();
+        $.ajax({
+            type: 'post',
+            url: 'templates/process-admin-form.php',
+            data: data,
+            success: function (data) {
+                if (data.status === 'success') {
+                    $('#logout-failed').hide();
+                    $('#ad-logout-form').each(function () {
+                        this.reset();
+                    });
+                    $('#logout-ok').removeAttr('hidden').fadeOut(2000);
+                    setTimeout(function () { location.reload(); }, 2000);
+                } else if (data.status === 'error') {
+                    $('#logout-failed').removeAttr('hidden');
+                }
             }
         });
     });
@@ -32,9 +61,9 @@ $(document).ready(function () {
             type: 'post',
             url: 'functions/mark-item.php',
             data: {"id": current_id},
-            success: function() {
-                var item = $('#'+current_id);
-                if (item.text() == 'Mark') {
+            success: function () {
+                var item = $('#' + current_id);
+                if (item.text() === 'Mark') {
                     item.fadeIn(500).text("Unmark");
                 } else {
                     item.fadeIn(500).text("Mark");

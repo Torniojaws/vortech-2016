@@ -6,7 +6,7 @@
     {
         public function __construct()
         {
-            $config = parse_ini_file('api/db_config.ini', true);
+            $config = parse_ini_file('tests/db_config.ini', true);
             $this->driver = $config['database']['driver'];
             $this->host = $config['database']['host'];
             $this->dbname = $config['database']['schema'];
@@ -17,8 +17,14 @@
 
         public function testConfigFileExists()
         {
-            $config = 'api/db_config.ini';
+            $config = 'tests/db_config.ini';
             $this->assertFileExists($config);
+        }
+
+        public function testConfigFileContainsCorrectData()
+        {
+            $config = parse_ini_file('tests/db_config.ini', true);
+            $this->assertEquals('tech0', $config['database']['schema']);
         }
 
         public function testDatabaseConnection()

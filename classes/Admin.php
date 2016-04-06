@@ -8,21 +8,29 @@
 
         public function __construct()
         {
-            if(isset($_SESSION['authorized']) && $_SESSION['authorized'] == 1) {
+            if (isset($_SESSION['authorized']) && $_SESSION['authorized'] == 1) {
                 $this->loggedIn = true;
             }
         }
 
-        public function isLoggedIn() {
-            return $loggedIn;
+        public function isLoggedIn()
+        {
+            return $this->loggedIn;
         }
 
-        public function showLoginForm() {
+        public function showLoginForm()
+        {
             require './templates/partials/admin-login.php';
         }
 
-        public function logout() {
-            if ($this->isLoggedIn()) {
+        public function showLogoutButton()
+        {
+            require './templates/partials/admin-logout.php';
+        }
+
+        public function logout()
+        {
+            if ($this->isLoggedIn() == false) {
                 echo 'Already logged out';
             } else {
                 $_SESSION = array();
