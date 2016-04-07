@@ -5,8 +5,8 @@
         public function __construct()
         {
             // Sometimes it is "localhost:5656/", sometimes "/vagrant/v"
-            $realpath = realpath ($_SERVER['DOCUMENT_ROOT']."/");
-            $root = str_replace ("//", "/", $realpath);
+            $realpath = realpath($_SERVER['DOCUMENT_ROOT'].'/');
+            $root = str_replace('//', '/', $realpath);
             $config = parse_ini_file($root.'/api/db_config.ini', true);
 
             // mariaDB at the moment

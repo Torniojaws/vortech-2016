@@ -41,9 +41,15 @@
                             // For Bootstrap active tab support with PHP Rewrite on
                             $cur = str_replace('/', '', $_SERVER['REQUEST_URI']);
                         ?>
-                        <li <?php if ($cur == 'news') echo 'class="active"'; ?>><a href="news">News</a></li>
-                        <li <?php if ($cur == 'releases') echo 'class="active"'; ?>><a href="releases">Releases</a></li>
-                        <li <?php if ($cur == 'shows') echo 'class="active"'; ?>><a href="shows">Shows</a></li>
+                        <li <?php if ($cur == 'news') {
+    echo 'class="active"';
+} ?>><a href="news">News</a></li>
+                        <li <?php if ($cur == 'releases') {
+    echo 'class="active"';
+} ?>><a href="releases">Releases</a></li>
+                        <li <?php if ($cur == 'shows') {
+    echo 'class="active"';
+} ?>><a href="shows">Shows</a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                                 aria-haspopup="true" aria-expanded="false">Photos <span class="caret"></span></a>
@@ -56,11 +62,21 @@
                                 <li><a href="photos">All photos</a></li>
                             </ul>
                         </li>
-                        <li <?php if ($cur == 'bio') echo 'class="active"'; ?>><a href="bio">Bio</a></li>
-                        <li <?php if ($cur == 'videos') echo 'class="active"'; ?>><a href="videos">Videos</a></li>
-                        <li <?php if ($cur == 'contact') echo 'class="active"'; ?>><a href="contact">Contact</a></li>
-                        <li <?php if ($cur == 'shop') echo 'class="active"'; ?>><a href="shop">Shop</a></li>
-                        <li <?php if ($cur == 'guestbook') echo 'class="active"'; ?>>
+                        <li <?php if ($cur == 'bio') {
+    echo 'class="active"';
+} ?>><a href="bio">Bio</a></li>
+                        <li <?php if ($cur == 'videos') {
+    echo 'class="active"';
+} ?>><a href="videos">Videos</a></li>
+                        <li <?php if ($cur == 'contact') {
+    echo 'class="active"';
+} ?>><a href="contact">Contact</a></li>
+                        <li <?php if ($cur == 'shop') {
+    echo 'class="active"';
+} ?>><a href="shop">Shop</a></li>
+                        <li <?php if ($cur == 'guestbook') {
+    echo 'class="active"';
+} ?>>
                             <a href="guestbook">Guestbook</a>
                         </li>
                     </ul>

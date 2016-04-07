@@ -21,7 +21,6 @@
                 case isset($args[2]) == false and isset($filters) == false:
                     $query['statement'] = 'SELECT guestbook.*,
                                                   users.id AS userid,
-                                                  # users.photo_id, # TODO
                                                   users.name AS username,
                                                   guestbook_comments.author_id AS admin_id,
                                                   guestbook_comments.comment AS admin_comment,

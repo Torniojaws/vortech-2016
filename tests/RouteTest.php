@@ -13,15 +13,92 @@
             $test_url = 'http://wwww.vortechmusic.com/photos/live';
             $routes_test = $this->getFullRoute($test_url);
             $route_count = count($routes_test);
-            $this->assertEquals(2, $route_count);
+
+            $this->assertEquals(4, $route_count);
         }
 
-        /* Data stuff */
-
-        public function getTemplate()
+        public function testSecondLastRouteIsReceived()
         {
-            require $this->template_path;
+            $test_url = 'http://wwww.vortechmusic.com/photos/live';
+            $testRoutes = $this->getFullRoute($test_url);
+            $second_last_number = count($testRoutes) - 1 - 1;
+            $second_last = $testRoutes[$second_last_number];
+
+            $this->assertEquals('photos', $second_last);
         }
+
+        public function testApiTemplateExistsAndIsAccessible()
+        {
+            $target = './api/index.php';
+
+            if (file_exists($target)) {
+                $result = true;
+            } else {
+                $result = false;
+            }
+
+            $this->assertEquals(true, $result);
+        }
+
+        public function testAdminTemplateExistsAndIsAccessible()
+        {
+            $target = './templates/admin.php';
+
+            if (file_exists($target)) {
+                $result = true;
+            } else {
+                $result = false;
+            }
+
+            $this->assertEquals(true, $result);
+        }
+
+        public function testNormalPageTemplateExistsAndIsAccessible()
+        {
+            $target = './templates/news.php';
+
+            if (file_exists($target)) {
+                $result = true;
+            } else {
+                $result = false;
+            }
+
+            $this->assertEquals(true, $result);
+        }
+
+        public function testNormalSubPageTemplateExistsAndIsAccessible()
+        {
+            $target = './templates/photos-live.php';
+
+            if (file_exists($target)) {
+                $result = true;
+            } else {
+                $result = false;
+            }
+
+            $this->assertEquals(true, $result);
+        }
+
+        public function testTemplateDoesNotExistAndTheCorrectAlternativeIsGiven()
+        {
+            $target = './templates/does-not-exist';
+
+            if (file_exists($target) == false) {
+                $alternative = './templates/main.php';
+            } else {
+                $alternative = 'wrong';
+            }
+
+            if (file_exists($alternative)) {
+                $result = true;
+            } else {
+                $result = false;
+            }
+
+            $this->assertEquals(true, $result);
+        }
+
+        /* Support functions */
 
         private function getFullRoute($uri)
         {
@@ -33,34 +110,5 @@
             }
 
             return $routes;
-        }
-
-        // Used for special routes like /photos/live/
-        private function getSecondLastURI()
-        {
-            // 0-index conversion and second last in array
-            $second_last = count($this->routes) - 1 - 1;
-            $result = $this->routes[$second_last];
-
-            return $result;
-        }
-
-        private function buildTemplatePath()
-        {
-            if ($this->last_URI == 'api') {
-                $target = './api/index.php';
-            } elseif ($this->last_URI == 'admin') {
-                $target = './templates/admin.php';
-            } else {
-                if ($this->second_last_URI == 'photos') {
-                    $target = './templates/photos-'.$this->last_URI.'.php';
-                } else {
-                    $target = './templates/'.$this->last_URI.'.php';
-                }
-            }
-            if (file_exists($target) == false) {
-                $target = './templates/main.php';
-            }
-            $this->template_path = $target;
         }
     }
