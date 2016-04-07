@@ -84,6 +84,8 @@
 
                 # /photos/:category
                 case isset($args[2]) and is_numeric($args[2]) == false and isset($args[3]) == false:
+                    // Convert dashes to underscores
+                    $category = str_replace('-', '_', $args[2]);
                     $query['statement'] = 'SELECT photos.*,
                                                   photo_albums.id AS photo_album_id,
                                                   photo_albums.category_id,
@@ -96,7 +98,7 @@
                                            JOIN photo_categories
                                                 ON photo_categories.id = photo_albums.category_id
                                            WHERE photo_categories.name_id = :category';
-                    $query['params'] = array('category' => $args[2]);
+                    $query['params'] = array('category' => $category);
                     break;
 
                 # /photos/:id/comments

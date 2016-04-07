@@ -9,6 +9,7 @@
     require_once 'VideosAPI.php';
     require_once 'ShopAPI.php';
     require_once 'GuestbookAPI.php';
+    require_once 'UsersAPI.php';
 
     class GETDispatcher
     {
@@ -54,6 +55,10 @@
                     break;
                 case 'guestbook':
                     $result = new GuestbookAPI($request, $filters);
+                    $this->sql = $result->getResult();
+                    break;
+                case 'users':
+                    $result = new UsersAPI($request, $filters);
                     $this->sql = $result->getResult();
                     break;
                 default:

@@ -4,8 +4,11 @@
     {
         public function __construct()
         {
-            $root = $_SERVER['DOCUMENT_ROOT'];
-            $config = parse_ini_file($root.'api/db_config.ini', true);
+            // Sometimes it is "localhost:5656/", sometimes "/vagrant/v"
+            $realpath = realpath ($_SERVER['DOCUMENT_ROOT']."/");
+            $root = str_replace ("//", "/", $realpath);
+            $config = parse_ini_file($root.'/api/db_config.ini', true);
+
             // mariaDB at the moment
             $this->driver = $config['database']['driver'];
             $this->host = $config['database']['host'];

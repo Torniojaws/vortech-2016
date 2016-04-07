@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-sm-3">
-        <img src="static/img/<?php echo $avatar['name_id'].'/'.$avatar['thumbnail']; ?>"
-             alt="<?php echo $avatar['caption']; ?>" />
+        <img src="static/img/<?php echo $user_photo['name_id'].'/'.$user_photo['thumbnail']; ?>"
+             alt="<?php echo $user_photo['caption']; ?>" />
         <h4><?php echo $guest['name']; ?></h4>
         <small><?php echo $guest['posted']; ?></small>
     </div>
