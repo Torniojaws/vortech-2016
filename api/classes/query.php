@@ -35,22 +35,18 @@
             switch ($this->method) {
                 case 'GET':
                     $dispatcher = new GETDispatcher($this->request, $this->filters);
-                    $result[] = $dispatcher->getStatement();
-                    $result[] = $dispatcher->getParams();
                     break;
                 case 'POST':
                     $dispatcher = new POSTDispatcher($this->request, $this->input);
-                    $result[] = $dispatcher->getStatement();
-                    $result[] = $dispatcher->getParams();
                     break;
                 case 'PUT':
                     $dispatcher = new PUTDispatcher($this->request, $this->input);
-                    $result[] = $dispatcher->getStatement();
-                    $result[] = $dispatcher->getParams();
                     break;
                 default:
                     break;
             }
+            $result[] = $dispatcher->getStatement();
+            $result[] = $dispatcher->getParams();
 
             return $result;
         }
