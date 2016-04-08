@@ -1,7 +1,5 @@
 <?php
 
-    require_once 'constants.php';
-
     class DatabaseTest extends PHPUnit_Framework_TestCase
     {
         public function __construct()

@@ -20,7 +20,7 @@ $(document).ready(function () {
                         this.reset();
                     });
                     $('#login-ok').removeAttr('hidden').fadeOut(2000);
-                    setTimeout(function () { location.reload(); }, 2000);
+                    location.reload();
                 } else if (data.status === 'error') {
                     $('#login-failed').removeAttr('hidden');
                 }
@@ -43,7 +43,9 @@ $(document).ready(function () {
                         this.reset();
                     });
                     $('#logout-ok').removeAttr('hidden').fadeOut(2000);
-                    setTimeout(function () { location.reload(); }, 2000);
+                    setTimeout(function () {
+                        location.reload();
+                    }, 2000);
                 } else if (data.status === 'error') {
                     $('#logout-failed').removeAttr('hidden');
                 }
@@ -71,4 +73,31 @@ $(document).ready(function () {
             }
         });
     });
+
+    // Add release form
+    $('#ad-release-form').submit(function (e) {
+        e.preventDefault();
+        var data = $(this).serialize();
+        $.ajax({
+            type: 'post',
+            url: 'templates/process-release-form.php',
+            data: data,
+            success: function (data) {
+                if (data.status === 'success') {
+                    $('#add-failed').hide();
+                    $('#added-ok').each(function () {
+                        this.reset();
+                    });
+                    $('#added-ok').removeAttr('hidden').fadeOut(2000);
+                    setTimeout(function () {
+                        // Close modal window after 2 seconds upon success
+                        $('#release-form').modal('hide');
+                    }, 2000);
+                } else if (data.status === 'error') {
+                    $('#add-failed').removeAttr('hidden');
+                }
+            }
+        });
+    });
+
 });

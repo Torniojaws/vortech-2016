@@ -1,3 +1,4 @@
+DROP DATABASE tech0;
 CREATE USER 'teejii'@'localhost' IDENTIFIED BY 'samppeli';
 GRANT ALL ON tech0.* TO 'teejii'@'localhost';
 
@@ -5,7 +6,7 @@ CREATE DATABASE tech0;
 USE tech0;
 
 CREATE TABLE news(
-    id int,
+    id int AUTO_INCREMENT,
     title varchar(255),
     contents text,
     posted datetime,
@@ -14,16 +15,17 @@ CREATE TABLE news(
     PRIMARY KEY(id)
 );
 CREATE TABLE releases(
-    id int,
+    id int AUTO_INCREMENT,
     title varchar(255),
     release_code varchar(10),
     release_date datetime,
     artist varchar(100),
     has_cd varchar(3),
+    publish_date datetime,
     PRIMARY KEY(id)
 );
 CREATE TABLE songs(
-    song_id int,
+    song_id int AUTO_INCREMENT,
     release_id int,
     release_song_id int,
     title varchar(255),
@@ -31,7 +33,7 @@ CREATE TABLE songs(
     PRIMARY KEY(song_id)
 );
 CREATE TABLE shows(
-    id int,
+    id int AUTO_INCREMENT,
     show_date datetime,
     continent varchar(50),
     country varchar(100),
@@ -44,13 +46,13 @@ CREATE TABLE shows(
     PRIMARY KEY(id)
 );
 CREATE TABLE photo_categories(
-    id int,
+    id int AUTO_INCREMENT,
     name varchar(200),
     name_id varchar(200),
     PRIMARY KEY(id)
 );
 CREATE TABLE photo_albums(
-    id int,
+    id int AUTO_INCREMENT,
     category_id int,
     name varchar(200),
     description text,
@@ -58,7 +60,7 @@ CREATE TABLE photo_albums(
     PRIMARY KEY(id)
 );
 CREATE TABLE photos(
-    id int,
+    id int AUTO_INCREMENT,
     album_id int,
     date_taken datetime,
     taken_by varchar(200),
@@ -68,7 +70,7 @@ CREATE TABLE photos(
     PRIMARY KEY(id)
 );
 CREATE TABLE photo_comments(
-    id int,
+    id int AUTO_INCREMENT,
     photo_id int,
     photo_comment_id int,
     category_comment_subid int,
@@ -78,7 +80,7 @@ CREATE TABLE photo_comments(
     PRIMARY KEY(id)
 );
 CREATE TABLE users(
-    id int,
+    id int AUTO_INCREMENT,
     name varchar(200),
     username varchar(200),
     password text,
@@ -86,12 +88,12 @@ CREATE TABLE users(
     PRIMARY KEY(id)
 );
 CREATE TABLE user_access_levels(
-    id int,
+    id int AUTO_INCREMENT,
     description varchar(200),
     PRIMARY KEY(id)
 );
 CREATE TABLE performers(
-    id int,
+    id int AUTO_INCREMENT,
     name varchar(200),
     type varchar(100),
     instrument varchar(100),
@@ -102,7 +104,7 @@ CREATE TABLE performers(
     PRIMARY KEY(id)
 );
 CREATE TABLE videos(
-    id int,
+    id int AUTO_INCREMENT,
     title varchar(200),
     url text,
     host varchar(200),
@@ -112,18 +114,18 @@ CREATE TABLE videos(
     PRIMARY KEY(id)
 );
 CREATE TABLE video_categories(
-    id int,
+    id int AUTO_INCREMENT,
     name varchar(200),
     description varchar(500),
     PRIMARY KEY(id)
 );
 CREATE TABLE visitor_count(
-    id int,
+    id int AUTO_INCREMENT,
     count int,
     PRIMARY KEY(id)
 );
 CREATE TABLE shop_items(
-    id int,
+    id int AUTO_INCREMENT,
     category_id int,
     name varchar(200),
     album_id int,
@@ -141,14 +143,14 @@ CREATE TABLE shop_items(
     PRIMARY KEY(id)
 );
 CREATE TABLE shop_categories(
-    id int,
+    id int AUTO_INCREMENT,
     name_id varchar(200),
     title varchar(200),
     description text,
     PRIMARY KEY(id)
 );
 CREATE TABLE guestbook(
-    id int,
+    id int AUTO_INCREMENT,
     poster_id int,
     name varchar(200),
     post varchar(2000),
@@ -156,7 +158,7 @@ CREATE TABLE guestbook(
     PRIMARY KEY(id)
 );
 CREATE TABLE news_comments(
-    id int,
+    id int AUTO_INCREMENT,
     comment_subid int,
     news_id int,
     author varchar(200),
@@ -164,7 +166,7 @@ CREATE TABLE news_comments(
     posted datetime,
     PRIMARY KEY(id));
 CREATE TABLE release_comments(
-    id int,
+    id int AUTO_INCREMENT,
     comment_subid int,
     release_id int,
     author varchar(200),
@@ -172,14 +174,14 @@ CREATE TABLE release_comments(
     posted datetime,
     PRIMARY KEY(id));
 CREATE TABLE guestbook_comments(
-    id int,
+    id int AUTO_INCREMENT,
     comment_subid int,
     author_id int,
     comment text,
     posted datetime,
     PRIMARY KEY(id));
 CREATE TABLE show_comments(
-    id int,
+    id int AUTO_INCREMENT,
     show_id int,
     comment_subid int,
     author varchar(200),
@@ -188,7 +190,7 @@ CREATE TABLE show_comments(
     posted datetime,
     PRIMARY KEY(id));
 CREATE TABLE song_comments(
-    id int,
+    id int AUTO_INCREMENT,
     song_id int,
     comment_subid int,
     author varchar(200),
@@ -197,7 +199,7 @@ CREATE TABLE song_comments(
     posted datetime,
     PRIMARY KEY(id));
 CREATE TABLE performer_comments(
-    id int,
+    id int AUTO_INCREMENT,
     performer_id int,
     comment_subid int,
     author varchar(200),
@@ -206,7 +208,7 @@ CREATE TABLE performer_comments(
     posted datetime,
     PRIMARY KEY(id));
 CREATE TABLE video_comments(
-    id int,
+    id int AUTO_INCREMENT,
     video_id int,
     video_comment_id int,
     category_comment_subid int,
@@ -216,7 +218,7 @@ CREATE TABLE video_comments(
     PRIMARY KEY(id)
 );
 CREATE TABLE shopitem_comments(
-    id int,
+    id int AUTO_INCREMENT,
     shopitem_id int,
     shopitem_comment_id int,
     category_comment_subid int,
@@ -242,9 +244,9 @@ INSERT INTO news VALUES(
     "Juha",
     "Tag, Test, Toinen"
 );
-INSERT INTO releases VALUES(1, "Debut Album", "CD001", "2010-04-04 00:00:00", "Artiste", "yes");
-INSERT INTO releases VALUES(2, "Album 2: The Return", "CD002", "2012-04-05 00:00:00", "Artiste", "no");
-INSERT INTO releases VALUES(3, "Album 3: Resurrection", "CD003", "2014-04-05 00:00:00", "Artiste", "yes");
+INSERT INTO releases VALUES(1, "Debut Album", "CD001", "2010-04-04 00:00:00", "Artiste", "yes", "2010-04-04 00:00:00");
+INSERT INTO releases VALUES(2, "Album 2: The Return", "CD002", "2012-04-05 00:00:00", "Artiste", "no", "2012-04-05 00:00:00");
+INSERT INTO releases VALUES(3, "Album 3: Resurrection", "CD003", "2014-04-05 00:00:00", "Artiste", "yes", "2014-04-05 00:00:00");
 INSERT INTO songs VALUES(1, 1, 1, "Song number 1", "00:03:16");
 INSERT INTO songs VALUES(2, 1, 2, "Song number 2", "00:03:46");
 INSERT INTO songs VALUES(3, 2, 1, "A new song", "00:06:16");
