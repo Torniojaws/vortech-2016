@@ -39,7 +39,7 @@
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <?php
-                            // For Bootstrap active tab support with PHP Rewrite on
+                            // For Bootstrap active tab support with Apache rewrites on
                             $cur = str_replace('/', '', $_SERVER['REQUEST_URI']);
                         ?>
                         <li <?php if ($cur == 'news') { echo 'class="active"'; } ?>><a href="news">News</a></li>

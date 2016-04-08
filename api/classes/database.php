@@ -36,7 +36,7 @@
         {
             try {
                 $query = $this->pdo->prepare($statement);
-                if($query->execute($params)) {
+                if ($query->execute($params)) {
                     $this->last_action_successful = true;
                 } else {
                     $this->last_action_successful = false;
