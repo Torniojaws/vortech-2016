@@ -35,17 +35,30 @@
         public function run($statement, $params)
         {
             try {
-                $query = $this->pdo->prepare($statement);
-                if ($query->execute($params)) {
+                $this->query = $this->pdo->prepare($statement);
+                if ($this->query->execute($params)) {
                     $this->last_action_successful = true;
                 } else {
                     $this->last_action_successful = false;
                 }
 
-                return $query->fetchAll(PDO::FETCH_ASSOC);
+                return $this->query->fetchAll(PDO::FETCH_ASSOC);
             } catch (Exception $err) {
                 echo $err;
             }
+        }
+
+        public function close()
+        {
+            $this->pdo = null;
+        }
+
+        public function getError()
+        {
+            echo $this->pdo->errorCode().'<br />';
+            print_r($this->pdo->errorInfo());
+            echo $this->query->errorCode().'<br />';
+            print_r($this->query->errorInfo());
         }
 
         public function querySuccessful()

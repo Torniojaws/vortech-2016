@@ -47,69 +47,75 @@
                     $query['params'] = array('id' => (int) $args[2]);
                     break;
 
-                # /releases/:id
-                case isset($args[2]) and is_numeric($args[2]) and isset($args[3]) == false:
-                    $query['statement'] = 'SELECT * FROM releases WHERE id = :id LIMIT 1';
-                    $query['params'] = array('id' => (int) $args[2]);
+                # /releases/:release_code
+                case isset($args[2]) and isset($args[3]) == false:
+                    $query['statement'] = 'SELECT *
+                                           FROM releases
+                                           WHERE release_code = :release_code LIMIT 1';
+                    $query['params'] = array('release_code' => $args[2]);
                     break;
 
-                # /releases/:id/comments
-                case isset($args[2]) and is_numeric($args[2]) and isset($args[3])
-                     and $args[3] == 'comments' and isset($args[4]) == false:
-                    $query['statement'] = 'SELECT * FROM release_comments WHERE release_id = :id';
-                    $query['params'] = array('id' => (int) $args[2]);
+                # /releases/:release_code/comments
+                case isset($args[2]) and isset($args[3]) and $args[3] == 'comments'
+                     and isset($args[4]) == false:
+                    $query['statement'] = 'SELECT * FROM release_comments
+                                           WHERE release_code = :release_code';
+                    $query['params'] = array('release_code' => $args[2]);
                     break;
 
-                # /releases/:id/songs
-                case isset($args[2]) and is_numeric($args[2]) and isset($args[3])
-                     and $args[3] == 'songs' and isset($args[4]) == false:
-                    $query['statement'] = 'SELECT * FROM songs WHERE release_id = :id';
-                    $query['params'] = array('id' => (int) $args[2]);
+                # /releases/:release_code/songs
+                case isset($args[2]) and isset($args[3]) and $args[3] == 'songs'
+                     and isset($args[4]) == false:
+                    $query['statement'] = 'SELECT * FROM songs WHERE release_code = :release_code';
+                    $query['params'] = array('release_code' => $args[2]);
                     break;
 
-                # /releases/:id/comments/:id
-                case isset($args[2]) and is_numeric($args[2]) and isset($args[3])
-                     and $args[3] == 'comments' and isset($args[4]):
+                # /releases/:release_code/comments/:id
+                case isset($args[2]) and isset($args[3]) and $args[3] == 'comments'
+                     and isset($args[4]):
                     $query['statement'] = 'SELECT *
                                            FROM release_comments
-                                           WHERE comment_subid = :id AND release_id = :release_id LIMIT 1';
-                    $query['params'] = array('id' => (int) $args[4], 'release_id' => (int) $args[2]);
+                                           WHERE comment_subid = :id
+                                                AND release_code = :release_code
+                                           LIMIT 1';
+                    $query['params'] = array('id' => (int) $args[4], 'release_code' => $args[2]);
                     break;
 
-                # /releases/:id/songs/:id
-                case isset($args[2]) and is_numeric($args[2]) and isset($args[3])
-                     and $args[3] == 'songs' and isset($args[4]) and is_numeric($args[4])
-                     and isset($args[5]) == false:
+                # /releases/:release_code/songs/:id
+                case isset($args[2]) and isset($args[3]) and $args[3] == 'songs'
+                     and isset($args[4]) and is_numeric($args[4]) and isset($args[5]) == false:
                     $query['statement'] = 'SELECT songs.*, releases.id, releases.title
                                            FROM songs
-                                           LEFT JOIN releases ON releases.id = :release_id
-                                           WHERE release_song_id = :id AND release_id = :release_id';
-                    $query['params'] = array('id' => (int) $args[4], 'release_id' => (int) $args[2]);
+                                           LEFT JOIN releases
+                                                ON releases.release_code = :release_code
+                                           WHERE release_song_id = :id
+                                                AND release_code = :release_code';
+                    $query['params'] = array('id' => (int) $args[4], 'release_code' => $args[2]);
                     break;
 
-                # /releases/:id/songs/:id/comments
-                case isset($args[2]) and is_numeric($args[2]) and isset($args[3])
-                     and $args[3] == 'songs' and isset($args[4]) and is_numeric($args[4])
-                     and $args[5] == 'comments' and isset($args[6]) == false:
+                # /releases/:release_code/songs/:id/comments
+                case isset($args[2]) and isset($args[3]) and $args[3] == 'songs'
+                     and isset($args[4]) and is_numeric($args[4]) and $args[5] == 'comments'
+                     and isset($args[6]) == false:
                     $query['statement'] = 'SELECT song_comments.*, releases.title, releases.release_date
                                            FROM song_comments
-                                           JOIN releases ON releases.id = :release_id
+                                           JOIN releases ON releases.release_code = :release_code
                                            WHERE song_comments.song_id = :id';
-                    $query['params'] = array('id' => (int) $args[4], 'release_id' => (int) $args[2]);
+                    $query['params'] = array('id' => (int) $args[4], 'release_code' => $args[2]);
                     break;
 
-                # /releases/:id/songs/:id/comments/:id
-                case isset($args[2]) and is_numeric($args[2]) and isset($args[3])
-                     and $args[3] == 'songs' and isset($args[4]) and is_numeric($args[4])
-                     and $args[5] == 'comments' and isset($args[6]):
+                # /releases/:release_code/songs/:id/comments/:id
+                case isset($args[2]) and isset($args[3]) and $args[3] == 'songs'
+                     and isset($args[4]) and is_numeric($args[4]) and $args[5] == 'comments'
+                     and isset($args[6]):
                     $query['statement'] = 'SELECT song_comments.*, releases.title, releases.release_date
                                            FROM song_comments
-                                           JOIN releases ON releases.id = :release_id
+                                           JOIN releases ON releases.release_code = :release_code
                                            WHERE song_comments.song_id = :id
                                            AND song_comments.comment_subid = :comment_id';
                     $query['params'] = array(
                         'id' => (int) $args[4],
-                        'release_id' => (int) $args[2],
+                        'release_code' => $args[2],
                         'comment_id' => (int) $args[6],
                     );
                     break;

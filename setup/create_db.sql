@@ -26,7 +26,7 @@ CREATE TABLE releases(
 );
 CREATE TABLE songs(
     song_id int AUTO_INCREMENT,
-    release_id int,
+    release_code varchar(10),
     release_song_id int,
     title varchar(255),
     duration time,
@@ -168,7 +168,7 @@ CREATE TABLE news_comments(
 CREATE TABLE release_comments(
     id int AUTO_INCREMENT,
     comment_subid int,
-    release_id int,
+    release_code varchar(10),
     author varchar(200),
     comment text,
     posted datetime,

@@ -24,7 +24,7 @@
         ?>
     </div>
     <div class="col-sm-4">
-        Recored and produced
+        Recored and produced - this should be added to DB table
     </div>
 </div>
 <hr />

@@ -27,6 +27,8 @@
                         </div>
                         <!-- Additional details -->
                         <div class="form-group">
+                            <label for="songs">Songs <small class="text-muted">One song per row in format: [# title (01:23)]</small></label>
+                            <textarea class="form-control" rows="5" id="songs" name="songlist" placeholder="# title (01:23)"></textarea>
                             <label for="code">
                                 Release Code
                                 <small class="text-muted">
