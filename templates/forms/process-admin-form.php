@@ -6,10 +6,11 @@
     $pass = $_POST['adPass'];
     $logout = $_POST['adLogout'];
 
+    // Because this runs from a subdir /root/templates/forms
+    $root = str_replace('templates/forms', '', dirname(__FILE__));
+
     // Only process if the form was actually submitted
     if (isset($user) && isset($pass)) {
-        // Because this runs from a subdir /root/templates
-        $root = str_replace('templates', '', dirname(__FILE__));
         require_once $root.'/api/classes/database.php';
 
         $db = new Database();
@@ -23,6 +24,7 @@
 
         if ($result != null) {
             $_SESSION['authorized'] = 1;
+            $_SESSION['username'] = $result[0]['name'];
             $response['status'] = 'success';
             $response['message'] = 'Login OK';
         } else {
@@ -33,7 +35,6 @@
 
     // Admin wants to logout
     if (isset($logout)) {
-        $root = str_replace('templates', '', dirname(__FILE__));
         require_once $root.'/classes/Admin.php';
         $admin = new Admin();
         $admin->logout();

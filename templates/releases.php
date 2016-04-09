@@ -1,6 +1,6 @@
 <?php
 
-    if($_SESSION['authorized'] == 1) {
+    if ($_SESSION['authorized'] == 1) {
         include './templates/partials/admin/add-release.php';
     }
 

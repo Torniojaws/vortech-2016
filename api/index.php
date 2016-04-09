@@ -20,7 +20,10 @@
     // Run the prepared query
     $results = $db->run($statement, $params);
 
-    // and return the results
+    // and print the results as JSON.
+    // Note that this is never going to be used by prepared INSERT statements, so simply checking
+    // if the result is null is enough. The expected data must be valid anyway. If ever needed,
+    // you can also use the boolean querySuccessful() method of the $db instance.
     if ($results != null) {
         $json = json_encode($results, JSON_NUMERIC_CHECK);
     } else {

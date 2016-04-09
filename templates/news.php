@@ -1,5 +1,9 @@
 <?php
 
+    if ($_SESSION['authorized'] == 1) {
+        include './templates/partials/admin/add-news.php';
+    }
+
     $api = 'api/v1/news';
     $news_list_json = file_get_contents(SERVER_URL.$api);
 

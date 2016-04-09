@@ -11,7 +11,7 @@ $(document).ready(function () {
         var data = $(this).serialize();
         $.ajax({
             type: 'post',
-            url: 'templates/process-admin-form.php',
+            url: 'templates/forms/process-admin-form.php',
             data: data,
             success: function (data) {
                 if (data.status === 'success') {
@@ -34,7 +34,7 @@ $(document).ready(function () {
         var data = $(this).serialize();
         $.ajax({
             type: 'post',
-            url: 'templates/process-admin-form.php',
+            url: 'templates/forms/process-admin-form.php',
             data: data,
             success: function (data) {
                 if (data.status === 'success') {
@@ -80,7 +80,7 @@ $(document).ready(function () {
         var data = $(this).serialize();
         $.ajax({
             type: 'post',
-            url: 'templates/process-release-form.php',
+            url: 'templates/forms/process-release-form.php',
             data: data,
             success: function (data) {
                 if (data.status === 'success') {
@@ -88,11 +88,34 @@ $(document).ready(function () {
                     $('#added-ok').each(function () {
                         this.reset();
                     });
-                    $('#added-ok').removeAttr('hidden').fadeOut(2000);
+                    $('#added-ok').removeAttr('hidden');
                     setTimeout(function () {
                         // Close modal window after 2 seconds upon success
                         $('#release-form').modal('hide');
                     }, 2000);
+                } else if (data.status === 'error') {
+                    $('#add-failed').removeAttr('hidden');
+                }
+            }
+        });
+    });
+
+    // Add news form
+    $('#ad-news-form').submit(function (e) {
+        e.preventDefault();
+        var data = $(this).serialize();
+        $.ajax({
+            type: 'post',
+            url: 'templates/forms/process-news-form.php',
+            data: data,
+            success: function (data) {
+                if (data.status === 'success') {
+                    $('#add-failed').hide();
+                    $('#added-ok').each(function () {
+                        this.reset();
+                    });
+                    $('#added-ok').removeAttr('hidden');
+                    $('#news-form').modal('hide');
                 } else if (data.status === 'error') {
                     $('#add-failed').removeAttr('hidden');
                 }
