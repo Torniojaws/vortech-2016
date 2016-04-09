@@ -19,7 +19,8 @@
             switch ($args) {
                 # /news
                 case isset($args[2]) == false and isset($filters) == false:
-                    $query['statement'] = 'SELECT * FROM news';
+                    $query['statement'] = 'SELECT * FROM news
+                                           ORDER BY posted DESC';
                     $query['params'] = array();
                     break;
 
@@ -33,11 +34,14 @@
                         $query['statement'] .= ' AND MONTH(posted) = :month';
                         $query['params']['month'] = (int) $month;
                     }
+                    $query['statement'] .= ' ORDER BY posted DESC';
                     break;
 
                 # /news/:id
                 case isset($args[2]) and isset($args[3]) == false:
-                    $query['statement'] = 'SELECT * FROM news WHERE id = :id LIMIT 1';
+                    $query['statement'] = 'SELECT * FROM news WHERE id = :id
+                                           ORDER BY posted DESC
+                                           LIMIT 1';
                     $query['params'] = array('id' => (int) $args[2]);
                     break;
 
