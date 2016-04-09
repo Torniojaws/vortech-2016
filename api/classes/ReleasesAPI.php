@@ -19,7 +19,8 @@
             switch ($args) {
                 # /releases
                 case isset($args[2]) == false and isset($filters) == false:
-                    $query['statement'] = 'SELECT * FROM releases';
+                    $query['statement'] = 'SELECT * FROM releases
+                                           ORDER BY release_date DESC';
                     $query['params'] = array();
                     break;
 
@@ -37,6 +38,7 @@
                                                WHERE YEAR(release_date) BETWEEN :yearstart AND :yearend';
                         $query['params'] = array('yearstart' => (int) $yearstart, 'yearend' => (int) $yearend);
                     }
+                    $query['statement'] .= 'ORDER BY release_date DESC';
                     break;
 
                 # /releases/latest
