@@ -123,4 +123,27 @@ $(document).ready(function () {
         });
     });
 
+    // Add show form
+    $('#ad-liveshow-form').submit(function (e) {
+        e.preventDefault();
+        var data = $(this).serialize();
+        $.ajax({
+            type: 'post',
+            url: 'templates/forms/process-show-form.php',
+            data: data,
+            success: function (data) {
+                if (data.status === 'success') {
+                    $('#add-failed').hide();
+                    $('#added-ok').each(function () {
+                        this.reset();
+                    });
+                    $('#added-ok').removeAttr('hidden');
+                    $('#liveshow-form').modal('hide');
+                } else if (data.status === 'error') {
+                    $('#add-failed').removeAttr('hidden');
+                }
+            }
+        });
+    });
+
 });

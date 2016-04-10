@@ -1,5 +1,9 @@
 <?php
 
+    if ($_SESSION['authorized'] == 1) {
+        include './templates/partials/admin/add-show.php';
+    }
+
     $api = 'api/v1/shows';
     $shows_list_json = file_get_contents(SERVER_URL.$api);
 
