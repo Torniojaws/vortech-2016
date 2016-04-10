@@ -79,7 +79,6 @@
             'setlist' => $setlist,
             'performers' => $performers,
         );
-        var_dump($params);
         $db->run($statement, $params);
         $db->close();
 

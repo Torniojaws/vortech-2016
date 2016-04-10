@@ -85,7 +85,7 @@ $(document).ready(function () {
             success: function (data) {
                 if (data.status === 'success') {
                     $('#add-failed').hide();
-                    $('#added-ok').each(function () {
+                    $('#ad-release-form').each(function () {
                         this.reset();
                     });
                     $('#added-ok').removeAttr('hidden');
@@ -93,6 +93,7 @@ $(document).ready(function () {
                         // Close modal window after 2 seconds upon success
                         $('#release-form').modal('hide');
                     }, 2000);
+                    location.reload();
                 } else if (data.status === 'error') {
                     $('#add-failed').removeAttr('hidden');
                 }
@@ -111,11 +112,12 @@ $(document).ready(function () {
             success: function (data) {
                 if (data.status === 'success') {
                     $('#add-failed').hide();
-                    $('#added-ok').each(function () {
+                    $('#ad-news-form').each(function () {
                         this.reset();
                     });
                     $('#added-ok').removeAttr('hidden');
                     $('#news-form').modal('hide');
+                    location.reload();
                 } else if (data.status === 'error') {
                     $('#add-failed').removeAttr('hidden');
                 }
@@ -134,11 +136,12 @@ $(document).ready(function () {
             success: function (data) {
                 if (data.status === 'success') {
                     $('#add-failed').hide();
-                    $('#added-ok').each(function () {
+                    $('#ad-liveshow-form').each(function () {
                         this.reset();
                     });
                     $('#added-ok').removeAttr('hidden');
                     $('#liveshow-form').modal('hide');
+                    location.reload();
                 } else if (data.status === 'error') {
                     $('#add-failed').removeAttr('hidden');
                 }

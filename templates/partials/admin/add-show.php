@@ -43,14 +43,14 @@
 
                             <label for="setlist">Setlist
                                 <small class="text-muted">
-                                    Pipe-separated list of songs performed at the show, no linebreaks
+                                    List of songs performed at the show. One song per row.
                                 </small>
                             </label>
-                            <textarea class="form-control" rows="5" id="setlist" name="setlist" placeholder="Song 1|Song 2|Song 3"></textarea>
+                            <textarea class="form-control" rows="5" id="setlist" name="setlist" placeholder="Setlist"></textarea>
 
                             <label for="performers">Performers
                                 <small class="text-muted">
-                                    Comma-separated list of performers at the show, pipe-separate the instrument (Name|instrument)
+                                    List of performers at the show - one performer per row. Pipe-separate the instrument (Name|instrument)
                                 </small>
                             </label>
                             <textarea class="form-control" rows="5" id="performers" name="performers" placeholder="Name|Instrument, Name|Instrument"></textarea>
