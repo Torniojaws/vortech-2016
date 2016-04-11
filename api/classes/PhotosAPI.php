@@ -82,6 +82,18 @@
                     $query['params'] = array('id' => (int) $args[2]);
                     break;
 
+                # /photos/categories
+                case isset($args[2]) and $args[2] == 'categories' and isset($args[3]) == false:
+                    $query['statement'] = 'SELECT * FROM photo_categories';
+                    $query['params'] = array();
+                    break;
+
+                # /photos/albums
+                case isset($args[2]) and $args[2] == 'albums' and isset($args[3]) == false:
+                    $query['statement'] = 'SELECT * FROM photo_albums';
+                    $query['params'] = array();
+                    break;
+
                 # /photos/:category
                 case isset($args[2]) and is_numeric($args[2]) == false and isset($args[3]) == false:
                     // Convert dashes to underscores
