@@ -90,7 +90,11 @@
 
                 # /photos/albums
                 case isset($args[2]) and $args[2] == 'albums' and isset($args[3]) == false:
-                    $query['statement'] = 'SELECT * FROM photo_albums';
+                    $query['statement'] = 'SELECT photo_albums.*,
+                                                  photo_categories.name_id
+                                           FROM photo_albums
+                                           JOIN photo_categories
+                                                ON photo_categories.id = photo_albums.category_id';
                     $query['params'] = array();
                     break;
 

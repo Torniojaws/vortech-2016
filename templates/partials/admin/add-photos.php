@@ -33,13 +33,13 @@
                             <!-- Radio button to switch between selecting existing album or creating new -->
                             <label for="code">Use existing photo album?</label>
                             <div class="radio">
-                                <label><input type="radio" name="use-existing" value="yes" checked="checked" />Yes</label>
+                                <label><input type="radio" name="use-existing" value="1" />Yes</label>
                             </div>
                             <div class="radio">
-                                <label><input type="radio" name="use-existing" value="no" />No</label>
+                                <label><input type="radio" name="use-existing" value="2" />No</label>
                             </div>
                             <!-- Only if radio button for existing is yes -->
-                            <div id="existing">
+                            <div id="show1" class="toHide" style="display:none;">
                                 <label for="text">Select Existing Album</label>
                                 <select class="form-control" id="selected-album">
                                 <?php
@@ -48,20 +48,20 @@
                                     $albums = json_decode($albums_list, true);
 
                                     foreach ($albums as $album) {
-                                        echo '<option value="'.$album['id'].'">'.$album['name'].'</option>'.PHP_EOL;
+                                        echo '<option value="'.$album['id'].'" data-tag="'.$album['name_id'].'">'.$album['name'].'</option>'.PHP_EOL;
                                     }
                                 ?>
                                 </select>
                             </div>
                             <!-- Only shown if radio button for existing is no -->
-                            <div id="create-new">
-                                <label for="new-album">Create New Album</label>
+                            <div id="show2" class="toHide" style="display:none;">
+                                <h2>Create New Album</h2>
                                 <div class="form-group" id="new-album">
                                     <label for="category-newalbum">Select Category</label>
                                     <select class="form-control" id="category-newalbum">
                                     <?php
                                         foreach ($categories as $category) {
-                                            echo '<option value="'.$category['id'].'">'.$category['name'].'</option>'.PHP_EOL;
+                                            echo '<option value="'.$category['id'].'" data-tag="'.$category['name_id'].'">'.$category['name'].'</option>'.PHP_EOL;
                                         }
                                     ?>
                                     </select>
@@ -78,15 +78,22 @@
                                     </div>
                                 </div>
                             </div>
-                            <textarea class="form-control" rows="5" id="text" name="text" placeholder="Write your news here"></textarea>
-                            <label for="tags">Tags for the news <small class="text-muted">(separate with comma)</small></label>
-                            <input type="text" class="form-control" id="tags" name="tags" placeholder="Tag 1, Tag 2, Tag 3, ..." />
+                            <hr />
+                            <label for="date-photos">Date for the photos</label>
+                            <input type="text" class="form-control" id="date-newalbum" name="date" placeholder="yyyy-mm-dd hh:mm:ss" />
+                            <label for="taken-by">Pictures taken by</label>
+                            <input type="text" class="form-control" id="takenby-newalbum" name="taken-by" placeholder="Name" />
+                            <label for="photos">Photos</label><br />
+                            <span class="btn btn-default btn-file">
+                                Browse <input type="file" id="photos" name="photos" />
+                            </span><br />
+                            <small>Captions can be added after upload</small>
                         </div>
 
-                        <button type="submit" class="btn btn-primary" name="Submit" id="send-news-form">Add the news</button>
+                        <button type="submit" class="btn btn-primary" name="Submit" id="send-photos-form">Add the photos</button>
                     </form>
-                    <div id="added-ok" class="text-success" hidden><h3>Successfully added news! Boom...</h3></div>
-                    <div id="add-failed" class="text-danger" hidden><h3>Failed to add news!</h3></div>
+                    <div id="added-ok" class="text-success" hidden><h3>Successfully added photos! Boom...</h3></div>
+                    <div id="add-failed" class="text-danger" hidden><h3>Failed to add photos!</h3></div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

@@ -3,10 +3,9 @@
     session_start();
 
     // Mandatory fields
-    $title = $_POST['title'];
-    $text = $_POST['text'];
-    $tags = $_POST['tags']; // Comma separated
+    var_dump($_POST);
 
+    exit("Testing");
     date_default_timezone_set('Europe/Helsinki');
     $posted = date('Y-m-d H:i:s');
 

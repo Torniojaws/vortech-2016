@@ -74,6 +74,36 @@ $(document).ready(function () {
         });
     });
 
+    // Switching between adding a new album and using existing
+    $('input[name=use-existing]').click(function () {
+        $('.toHide').hide();
+        $('#show' + $(this).val()).show('slow');
+    });
+
+    // Updates the Photo Albums list based on Category that was chosen
+    $('#category').on('change', function () {
+        var selected = $(this).val();
+        $('#category-newalbum option').each(function () {
+            var element = $(this);
+            if (element.data('tag') !== selected) {
+                element.hide();
+            } else {
+                element.show();
+            }
+        });
+        $('#selected-album option').each(function () {
+            var element = $(this);
+            if (element.data('tag') !== selected) {
+                element.hide();
+            } else {
+                element.show();
+            }
+        });
+
+        $('#category-newalbum').val($('#category-newalbum option:visible:first').val());
+        $('#selected-album').val($('#selected-album option:visible:first').val());
+    });
+
     // Add release form
     $('#ad-release-form').submit(function (e) {
         e.preventDefault();
@@ -141,6 +171,30 @@ $(document).ready(function () {
                     });
                     $('#added-ok').removeAttr('hidden');
                     $('#liveshow-form').modal('hide');
+                    location.reload();
+                } else if (data.status === 'error') {
+                    $('#add-failed').removeAttr('hidden');
+                }
+            }
+        });
+    });
+
+    // Add photos form
+    $('#ad-photos-form').submit(function (e) {
+        e.preventDefault();
+        var data = $(this).serialize();
+        $.ajax({
+            type: 'post',
+            url: 'templates/forms/process-photos-form.php',
+            data: data,
+            success: function (data) {
+                if (data.status === 'success') {
+                    $('#add-failed').hide();
+                    $('#ad-photos-form').each(function () {
+                        this.reset();
+                    });
+                    $('#added-ok').removeAttr('hidden');
+                    $('#photos-form').modal('hide');
                     location.reload();
                 } else if (data.status === 'error') {
                     $('#add-failed').removeAttr('hidden');
