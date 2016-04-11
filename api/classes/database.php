@@ -27,6 +27,8 @@
                     $this->user,
                     $this->pass
                 );
+                // For added security with MySQL / MariaDB
+                $this->pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
             } catch (PDOException $exception) {
                 echo $exception;
             }
