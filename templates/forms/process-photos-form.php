@@ -29,14 +29,13 @@
     $image_path = '/static/img/'.$path_for_uploads;
     $thumbnail_path = $image_path.'/thumbnails/';
     $store_in = $root.$image_path;
-    foreach ($_FILES as $file => $details)
-    {
+    foreach ($_FILES as $file => $details) {
         ++$photo_count;
         $tmp = $details['tmp_name'];
         $target = $details['name'];
-        // TODO: Create a thumbnail
         try {
             if (move_uploaded_file($tmp, $store_in.'/'.$target)) {
+                // TODO: Create a thumbnail
                 copy($store_in.'/'.$target, $root.$thumbnail_path.$target);
             }
         } catch (Exception $ex) {
@@ -59,8 +58,7 @@
 
         $db = new Database();
 
-        foreach ($photos as $photo)
-        {
+        foreach ($photos as $photo) {
             $db->connect();
             $statement = 'INSERT INTO photos VALUES(
                 0,
@@ -84,7 +82,7 @@
         $db->close();
 
         // Create new photo album
-        if($use_existing_album == false) {
+        if ($use_existing_album == false) {
             $db->connect();
 
             $statement = 'INSERT INTO photo_albums VALUES(
