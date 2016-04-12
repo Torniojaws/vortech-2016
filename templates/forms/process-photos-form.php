@@ -35,8 +35,20 @@
         $target = $details['name'];
         try {
             if (move_uploaded_file($tmp, $store_in.'/'.$target)) {
-                // TODO: Create a thumbnail
-                copy($store_in.'/'.$target, $root.$thumbnail_path.$target);
+                // Create thumbnail and copy it to the target path
+                require_once $root.'classes/ImageResizer.php';
+                $resizer = new ImageResizer($root);
+                /*
+                 * params:
+                 * Full image path
+                 * target path for thumbnail
+                 * target width of thumbnail
+                 */
+                $original = $store_in.'/'.$target;
+                $thumbnail_fullpath = $thumbnail_path;
+                $thumb_filename = $target;
+                $resizer->createThumbnail($original, $thumbnail_fullpath, $thumb_filename, 200);
+                $thumbnail_created_ok = $resizer->thumbnailStatus();
             }
         } catch (Exception $ex) {
             die($ex);
@@ -103,7 +115,7 @@
             $db->close();
         }
 
-        if ($db->querySuccessful()) {
+        if ($db->querySuccessful() and $thumbnail_created_ok) {
             $response['status'] = 'success';
             $response['message'] = 'Photos added to DB';
         } else {
