@@ -35,15 +35,15 @@
         $tmp = $details['tmp_name'];
         $target = $details['name'];
         // TODO: Create a thumbnail
-        // Captions are added after upload
-        $caption = null;
         try {
             if (move_uploaded_file($tmp, $store_in.'/'.$target)) {
-                copy($store_in.'/'.$target, $root.$thumbnail_path);
+                copy($store_in.'/'.$target, $root.$thumbnail_path.$target);
             }
         } catch (Exception $ex) {
             die($ex);
         }
+        // Captions are added after upload
+        $caption = null;
         $photos[] = array(
             'full-image' => $target,
             'thumbnail' => 'thumbnails/'.$target,
