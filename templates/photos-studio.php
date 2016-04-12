@@ -1,7 +1,7 @@
 <?php
 
     if ($_SESSION['authorized'] == 1) {
-        include './templates/partials/admin/add-release.php';
+        include './templates/partials/admin/add-photos.php';
     }
 
     $api = 'api/v1/photos/studio';
