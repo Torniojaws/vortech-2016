@@ -87,6 +87,8 @@ $(document).ready(function () {
             var element = $(this);
             if (element.data('tag') !== selected) {
                 element.hide();
+                // This prevents the hidden field from being submitted in POST
+                element.prop("disabled", true);
             } else {
                 element.show();
             }
@@ -95,6 +97,8 @@ $(document).ready(function () {
             var element = $(this);
             if (element.data('tag') !== selected) {
                 element.hide();
+                // This prevents the hidden field from being submitted in POST
+                element.prop("disabled", true);
             } else {
                 element.show();
             }
@@ -182,17 +186,18 @@ $(document).ready(function () {
     // Add photos form
     $('#ad-photos-form').submit(function (e) {
         e.preventDefault();
-        var data = $(this).serialize();
+        var form_data = new FormData($(this)[0]);
         $.ajax({
             type: 'post',
             url: 'templates/forms/process-photos-form.php',
-            data: data,
+            cache: false,
+            data: form_data,
+            async: false,
+            processData: false,
+            contentType: false,
             success: function (data) {
                 if (data.status === 'success') {
                     $('#add-failed').hide();
-                    $('#ad-photos-form').each(function () {
-                        this.reset();
-                    });
                     $('#added-ok').removeAttr('hidden');
                     $('#photos-form').modal('hide');
                     location.reload();

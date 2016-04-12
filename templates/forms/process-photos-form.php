@@ -2,55 +2,115 @@
 
     session_start();
 
-    // Mandatory fields
-    var_dump($_POST);
-
-    exit("Testing");
-    date_default_timezone_set('Europe/Helsinki');
-    $posted = date('Y-m-d H:i:s');
-
-    // Tags are a comma separated list, which will be formatted in a standard way
-    // eg. "tag, another tag, third tag"
-    if (isset($tags)) {
-        // Remove empty items and extraneous white spaces
-        $tags = array_filter(explode(',', $tags), 'strlen');
-        $tags = array_map('trim', $tags);
-        $processed_tags = implode(', ', $tags);
-    }
-
     // Because this runs from a subdir /root/templates/forms
     $root = str_replace('templates/forms', '', dirname(__FILE__));
 
-    if ($_SESSION['authorized'] == 1 && isset($title) && isset($text)) {
+    // If this is not 1, a new photo album will be created
+    if ($_POST['use-existing'] == 1) {
+        $use_existing_album = true;
+        $existing_album_id = (int) $_POST['selected-album'];
+    } else {
+        $use_existing_album = false;
+        $new_album_name = $_POST['name'];
+        $new_album_description = $_POST['description'];
+        if ($_POST['gallery-newalbum'] == 'yes') {
+            $new_album_show_in_gallery = 1;
+        } else {
+            $new_album_show_in_gallery = 0;
+        }
+    }
+
+    $path_for_uploads = $_POST['album-category'];
+    $date_of_photos = $_POST['date'];
+    $photographer = $_POST['taken-by'];
+
+    // The pictures
+    $photo_count = 0;
+    $image_path = '/static/img/'.$path_for_uploads;
+    $thumbnail_path = $image_path.'/thumbnails/';
+    $store_in = $root.$image_path;
+    foreach ($_FILES as $file => $details)
+    {
+        ++$photo_count;
+        $tmp = $details['tmp_name'];
+        $target = $details['name'];
+        // TODO: Create a thumbnail
+        // Captions are added after upload
+        $caption = null;
+        try {
+            if (move_uploaded_file($tmp, $store_in.'/'.$target)) {
+                copy($store_in.'/'.$target, $root.$thumbnail_path);
+            }
+        } catch (Exception $ex) {
+            die($ex);
+        }
+        $photos[] = array(
+            'full-image' => $target,
+            'thumbnail' => 'thumbnails/'.$target,
+            'caption' => $caption,
+        );
+    }
+
+    date_default_timezone_set('Europe/Helsinki');
+
+    if ($_SESSION['authorized'] == 1 && isset($photo_count) && $photo_count > 0
+        && isset($date_of_photos) && strlen($date_of_photos) > 0) {
         require_once $root.'/api/classes/Database.php';
 
         $db = new Database();
-        $db->connect();
 
-        $statement = 'INSERT INTO news VALUES(
-            0,
-            :title,
-            :newstext,
-            :posted,
-            :author,
-            :tags
-        )';
-        $params = array(
-            'title' => $title,
-            'newstext' => $text,
-            'posted' => $posted,
-            'author' => $_SESSION['username'],
-            'tags' => $processed_tags,
-        );
-        $db->run($statement, $params);
+        foreach ($photos as $photo)
+        {
+            $db->connect();
+            $statement = 'INSERT INTO photos VALUES(
+                0,
+                :album_id,
+                :date_taken,
+                :taken_by,
+                :full,
+                :thumbnail,
+                :caption
+            )';
+            $params = array(
+                'album_id' => $existing_album_id,
+                'date_taken' => $date_of_photos,
+                'taken_by' => $photographer,
+                'full' => $photo['full-image'],
+                'thumbnail' => $photo['thumbnail'],
+                'caption' => $photo['caption'],
+            );
+            $db->run($statement, $params);
+        }
         $db->close();
+
+        // Create new photo album
+        if($use_existing_album == false) {
+            $db->connect();
+
+            $statement = 'INSERT INTO photo_albums VALUES(
+                0,
+                :category_id,
+                :album_name,
+                :description,
+                :show_in_gallery
+            )';
+
+            $params = array(
+                'category_id' => $existing_album_id,
+                'album_name' => $new_album_name,
+                'description' => $new_album_description,
+                'show_in_gallery' => $new_album_show_in_gallery,
+            );
+            $db->run($statement, $params);
+            $db->close();
+        }
 
         if ($db->querySuccessful()) {
             $response['status'] = 'success';
-            $response['message'] = 'News added to DB';
+            $response['message'] = 'Photos added to DB';
         } else {
             $response['status'] = 'error';
-            $response['message'] = 'Failed to add news to DB!';
+            $response['message'] = 'Failed to add photos to DB!';
         }
     } else {
         if (isset($_SESSION['authorized']) == false) {
@@ -58,7 +118,7 @@
             exit;
         } else {
             $response['status'] = 'error';
-            $response['message'] = 'Missing news title or news text';
+            $response['message'] = 'Missing photo details';
         }
     }
 
