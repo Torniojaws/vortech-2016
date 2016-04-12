@@ -29,6 +29,7 @@
     $image_path = '/static/img/'.$path_for_uploads;
     $thumbnail_path = $image_path.'/thumbnails/';
     $store_in = $root.$image_path;
+    $thumbnail_errors = 0;
     foreach ($_FILES as $file => $details) {
         ++$photo_count;
         $tmp = $details['tmp_name'];
@@ -48,7 +49,9 @@
                 $thumbnail_fullpath = $thumbnail_path;
                 $thumb_filename = $target;
                 $resizer->createThumbnail($original, $thumbnail_fullpath, $thumb_filename, 200);
-                $thumbnail_created_ok = $resizer->thumbnailStatus();
+                if ($resizer->thumbnailStatus() == false) {
+                    $thumbnail_errors += 1;
+                }
             }
         } catch (Exception $ex) {
             die($ex);
@@ -115,7 +118,7 @@
             $db->close();
         }
 
-        if ($db->querySuccessful() and $thumbnail_created_ok) {
+        if ($db->querySuccessful() and $thumbnail_errors == 0) {
             $response['status'] = 'success';
             $response['message'] = 'Photos added to DB';
         } else {
