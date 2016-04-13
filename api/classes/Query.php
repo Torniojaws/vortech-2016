@@ -1,11 +1,5 @@
 <?php
 
-    require_once 'GETDispatcher.php';
-    require_once 'PUTDispatcher.php';
-
-    // TODO
-    #require_once('POSTDispatcher.php');
-
     class Query
     {
         private $query;
@@ -34,12 +28,16 @@
         {
             switch ($this->method) {
                 case 'GET':
+                    require_once 'GETDispatcher.php';
                     $dispatcher = new GETDispatcher($this->request, $this->filters);
                     break;
                 case 'POST':
+                    require_once 'PUTDispatcher.php';
                     $dispatcher = new POSTDispatcher($this->request, $this->input);
                     break;
                 case 'PUT':
+                    // TODO
+                    #require_once('POSTDispatcher.php');
                     $dispatcher = new PUTDispatcher($this->request, $this->input);
                     break;
                 default:

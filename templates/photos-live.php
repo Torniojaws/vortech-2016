@@ -3,7 +3,7 @@
     if ($_SESSION['authorized'] == 1) {
         include './templates/partials/admin/add-photos.php';
     }
-    
+
     $api = 'api/v1/photos/live';
     $photos_list_json = file_get_contents(SERVER_URL.$api);
 

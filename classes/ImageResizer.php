@@ -97,6 +97,7 @@
          * Then return the resource for thumbnail creation.
          *
          * @param $original The original image
+         *
          * @return $source_image The processed source image resource for thumbnail creation
          */
         private function processOriginalPhoto($original)
