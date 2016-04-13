@@ -1,5 +1,9 @@
 <?php
 
+    if ($_SESSION['authorized'] == 1) {
+        include './templates/partials/admin/add-video.php';
+    }
+
     $api = 'api/v1/videos';
     $videos_list = file_get_contents(SERVER_URL.$api);
 

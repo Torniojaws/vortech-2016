@@ -60,4 +60,26 @@
 
             $this->assertEquals(true, $image_ok);
         }
+
+        public function testGDLibraryIsInstalled()
+        {
+            if (extension_loaded('gd')) {
+                $gd_library_is_ok = true;
+            } else {
+                $gd_library_is_ok = false;
+            }
+
+            $this->assertEquals(true, $gd_library_is_ok);
+        }
+
+        public function testGDLibraryIsAvailable()
+        {
+            if (function_exists('gd_info')) {
+                $gd_is_available = true;
+            } else {
+                $gd_is_available = false;
+            }
+
+            $this->assertEquals(true, $gd_is_available);
+        }
     }

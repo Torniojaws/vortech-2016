@@ -46,14 +46,15 @@ Restful Vortech website with jQuery, Bootstrap and PHP API. Will replace the exi
 
   `extension=pdo_mysql.so`
 
-15. Then install GD for resizing thumbnails in the Photos section: `sudo apt-get install php5-gd && sudo service apache2 restart`
+15. Then install GD for resizing thumbnails in the Photos section:  
+    `sudo apt-get install php5-gd && sudo service apache2 restart`
 16. Now run `mysql -u root`
 17. Then import the "create_db.sql" file to your database with `source /vagrant/api/create_db.sql;`
 18. Now open the site with you browser from `http://localhost:5656`
  * Note that if your Vagrant redirects port 5656 to 80 in guest, change the definition in `constants.php` first
 
 ## Tests
-* You can run tests with PHPUnit in the root dir with `phpunit tests`
+* You can run tests with PHPUnit in the root dir with `phpunit tests`. It works the best when used within Vagrant. Sometimes Windows cannot access all the database features
 
 ## Todo
 * ~~Database access refactoring (OOP)~~  

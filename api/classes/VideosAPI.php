@@ -62,6 +62,22 @@
                     $query['params'] = array('type_id' => (int) $type_id);
                     break;
 
+                # /videos/categories
+                case isset($args[2]) and $args[2] == 'categories' and isset($args[3]) == false:
+                    $query['statement'] = 'SELECT * FROM video_categories';
+                    $query['params'] = array();
+                    break;
+
+                # /videos/categories/:id
+                case isset($args[2]) and $args[2] == 'categories' and isset($args[3])
+                     and is_numeric($args[3]):
+                    $query['statement'] = 'SELECT *
+                                           FROM video_categories
+                                           WHERE id = :id
+                                           LIMIT 1';
+                    $query['params'] = array('id' => (int) $args[3]);
+                    break;
+
                 # /videos/:id
                 case isset($args[2]) and is_numeric($args[2]) and isset($args[3]) == false:
                     $query['statement'] = 'SELECT videos.*,
