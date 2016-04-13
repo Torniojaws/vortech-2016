@@ -2,7 +2,12 @@
     <div class="col-sm-4">
         <!-- The release details will open in a modal window -->
         <a href="#release-modal<?php echo $release['id']; ?>" data-toggle="modal" data-target="#release-modal<?php echo $release['id']; ?>">
-            <img src="static/img/site/cd.jpg" alt="CD placeholder" /><br />
+            <img src="<?php
+                        if (file_exists($release['thumbnail'])) {
+                            echo $release['thumbnail'];
+                        } else {
+                            echo 'static/img/site/cd.jpg';
+                        } ?>" alt="<?php echo $release['title']; ?>" /><br />
         </a>
         <h3><?php echo $release['title']; ?> <small>by <?php echo $release['artist']; ?></small></h3>
         <p><?php echo $release['release_date']; ?></p>
@@ -24,7 +29,7 @@
         ?>
     </div>
     <div class="col-sm-4">
-        Recored and produced - this should be added to DB table
+        <?php echo $release['release_notes']; ?>
     </div>
 </div>
 <hr />

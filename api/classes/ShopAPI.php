@@ -58,6 +58,22 @@
                     }
                     break;
 
+                # /shopitems/categories
+                case isset($args[2]) and $args[2] == 'categories' and isset($args[3]) == false:
+                    $query['statement'] = 'SELECT * FROM shop_categories';
+                    $query['params'] = array();
+                    break;
+
+                # /shopitems/categories/:id
+                case isset($args[2]) and $args[2] == 'categories' and isset($args[3])
+                     and is_numeric($args[3]):
+                    $query['statement'] = 'SELECT *
+                                           FROM shop_categories
+                                           WHERE id = :id
+                                           LIMIT 1';
+                    $query['params'] = array('id' => $args[3]);
+                    break;
+
                 # /shopitems/:id
                 case isset($args[2]) and isset($args[3]) == false:
                     $query['statement'] = 'SELECT shop_items.*,

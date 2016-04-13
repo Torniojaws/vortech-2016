@@ -22,6 +22,9 @@ CREATE TABLE releases(
     artist varchar(100),
     has_cd varchar(3),
     publish_date datetime,
+    full varchar(200),
+    thumbnail varchar(200),
+    release_notes text,
     PRIMARY KEY(id)
 );
 CREATE TABLE songs(
@@ -244,9 +247,9 @@ INSERT INTO news VALUES(
     "Juha",
     "Tag, Test, Toinen"
 );
-INSERT INTO releases VALUES(1, "Debut Album", "CD001", "2010-04-04 00:00:00", "Artiste", "yes", "2010-04-04 00:00:00");
-INSERT INTO releases VALUES(2, "Album 2: The Return", "CD002", "2012-04-05 00:00:00", "Artiste", "no", "2012-04-05 00:00:00");
-INSERT INTO releases VALUES(3, "Album 3: Resurrection", "CD003", "2014-04-05 00:00:00", "Artiste", "yes", "2014-04-05 00:00:00");
+INSERT INTO releases VALUES(1, "Debut Album", "CD001", "2010-04-04 00:00:00", "Artiste", "yes", "2010-04-04 00:00:00", "cd.jpg", "thumbnails/cd.jpg", "Release notes");
+INSERT INTO releases VALUES(2, "Album 2: The Return", "CD002", "2012-04-05 00:00:00", "Artiste", "no", "2012-04-05 00:00:00", "cd.jpg", "thumbnails/cd.jpg", "Release notes");
+INSERT INTO releases VALUES(3, "Album 3: Resurrection", "CD003", "2014-04-05 00:00:00", "Artiste", "yes", "2014-04-05 00:00:00", "cd.jpg", "thumbnails/cd.jpg", "Release notes");
 INSERT INTO songs VALUES(1, 1, 1, "Song number 1", "00:03:16");
 INSERT INTO songs VALUES(2, 1, 2, "Song number 2", "00:03:46");
 INSERT INTO songs VALUES(3, 2, 1, "A new song", "00:06:16");

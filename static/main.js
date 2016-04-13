@@ -233,4 +233,43 @@ $(document).ready(function () {
         });
     });
 
+    // Shows album selection field when adding a CD or Digital Album, otherwise hidden,
+    // and also shows photo upload field when not adding a CD or digital album
+    $('select[name=shop-category]').on('change', function () {
+        var shop_category = parseInt($(this).val());
+        // 2 = CD, 3 = Digital album
+        if (shop_category === 2 || shop_category === 3) {
+            $('#release').show('slow');
+            $('#shop-photo').hide('slow');
+        } else {
+            $('.toHide').hide('slow');
+            $('#shop-photo').show('slow');
+        }
+    });
+
+    // Add shop item form
+    $('#ad-shopitem-form').submit(function (e) {
+        e.preventDefault();
+        var shop_form_data = new FormData($(this)[0]);
+        $.ajax({
+            type: 'post',
+            url: 'templates/forms/process-shop-form.php',
+            cache: false,
+            data: shop_form_data,
+            async: false,
+            processData: false,
+            contentType: false,
+            success: function (shop_data) {
+                if (shop_data.status === 'success') {
+                    $('#add-failed').hide();
+                    $('#added-ok').removeAttr('hidden');
+                    $('#shop-form').modal('hide');
+                    location.reload();
+                } else if (shop_data.status === 'error') {
+                    $('#add-failed').removeAttr('hidden');
+                }
+            }
+        });
+    });
+
 });

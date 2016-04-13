@@ -1,5 +1,9 @@
 <?php
 
+    if ($_SESSION['authorized'] == 1) {
+        include './templates/partials/admin/add-shopitem.php';
+    }
+
     $api = 'api/v1/shopitems';
     $shop_list = file_get_contents(SERVER_URL.$api);
 

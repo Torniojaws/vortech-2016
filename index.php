@@ -82,13 +82,21 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+    <!-- With fallback to local -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="static/fallback.jquery.min.js"><\/script>')</script>
+
     <!-- Form handling -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
+
     <!-- Latest compiled and minified JavaScript -->
+    <!-- With fallback to local -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
             integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
             crossorigin="anonymous"></script>
+    <script>    $.fn.modal || document.write('<script src="static/fallback.bootstrap.min.js">\x3C/script>')</script>
+    
     <!-- Custom jquery -->
     <script src="static/main.js"></script>
 
