@@ -16,35 +16,46 @@
         <p><?php echo $shop['description']; ?></p>
         <aside>
             <small>
-                Price: <span class="label label-primary label-pill pull-xs-right"><?php echo $shop['price']; ?></span>
+                Price:
+                <?php
+                    require_once $root.'classes/CurrencyConverter.php';
+                    $convert = new CurrencyConverter();
+                    $usd = $convert->euroTo('USD', (float) $shop['price']);
+                ?>
+                <span class="label label-primary label-pill pull-xs-right">
+                    <?php echo $shop['price']; ?> EUR
+                </span>&nbsp;&dash; Current exchange rate (ECB): 
+                <span class="label label-primary label-pill pull-xs-right">
+                    <?php echo $usd; ?> USD
+                </span>
             </small>
         </aside>
         <br />
         <section class="shops">
             Get it from:
             <?php
-                if (isset($shop['paypal_link'])) {
-                    echo '<a href="'.$shop['paypal_link'].'"
+                if (strlen($shop['paypal_link']) > 0) {
+                    echo '<a href="'.$shop['paypal_link'].'">
                           <span class="label label-info label-pill pull-xs-right">PayPal</span></a> ';
                 }
-                if (isset($shop['bandcamp_link'])) {
-                    echo '<a href="'.$shop['bandcamp_link'].'"
+                if (strlen($shop['bandcamp_link']) > 0) {
+                    echo '<a href="'.$shop['bandcamp_link'].'">
                           <span class="label label-info label-pill pull-xs-right">BandCamp</span></a> ';
                 }
-                if (isset($shop['amazon_link'])) {
-                    echo '<a href="'.$shop['amazon_link'].'"
+                if (strlen($shop['amazon_link']) > 0) {
+                    echo '<a href="'.$shop['amazon_link'].'">
                           <span class="label label-info label-pill pull-xs-right">Amazon</span></a> ';
                 }
-                if (isset($shop['spotify_link'])) {
-                    echo '<a href="'.$shop['spotify_link'].'"
+                if (strlen($shop['spotify_link']) > 0) {
+                    echo '<a href="'.$shop['spotify_link'].'">
                           <span class="label label-info label-pill pull-xs-right">Spotify</span></a> ';
                 }
-                if (isset($shop['deezer_link'])) {
-                    echo '<a href="'.$shop['deezer_link'].'"
+                if (strlen($shop['deezer_link']) > 0) {
+                    echo '<a href="'.$shop['deezer_link'].'">
                           <span class="label label-info label-pill pull-xs-right">Deezer</span></a> ';
                 }
-                if (isset($shop['itunes_link'])) {
-                    echo '<a href="'.$shop['itunes_link'].'"
+                if (strlen($shop['itunes_link']) > 0) {
+                    echo '<a href="'.$shop['itunes_link'].'">
                           <span class="label label-info label-pill pull-xs-right">iTunes</span></a> ';
                 }
             ?>

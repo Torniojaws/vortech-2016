@@ -6,11 +6,13 @@
     $root = str_replace('templates/forms', '', dirname(__FILE__));
     require_once $root.'constants.php';
 
-    // Form data
+    // Mandatory fields
     $shop_category = $_POST['shop-category'];
     $product_name = $_POST['name'];
     $description = $_POST['description'];
     $price = (float) $_POST['price'];
+
+    // Optional fields
     $paypal_button = $_POST['pp-button'];
     $paypal = $_POST['paypal'];
     $bandcamp = $_POST['bandcamp'];
@@ -29,6 +31,8 @@
         $release_details = file_get_contents(SERVER_URL.$release_api);
         $release = json_decode($release_details, true);
         $thumbnail = $release['thumbnail'];
+        $full = $release['full'];
+        $release_id = (int) $release['id'];
     } else {
         // Other types of shop items can/should have a thumbnail uploaded
         $thumbnail_path = 'merch/thumbnails/';
@@ -42,84 +46,62 @@
                 die($ex);
             }
         }
-        $thumbnail = $thumbnail_path.$target;
+        $thumbnail = 'thumbnails/'.$target;
+        $full = $target;
+        $release_id = (int) "0"; // Not used for non-CD/Digital items
     }
 
 
 
-    if ($_SESSION['authorized'] == 1 && isset($photo_count) && $photo_count > 0
-        && isset($date_of_photos) && strlen($date_of_photos) > 0) {
+    if ($_SESSION['authorized'] == 1 && isset($product_name)
+        && isset($price) && $price > 0 && strlen($description) > 0) {
         require_once $root.'/api/classes/Database.php';
 
         $db = new Database();
 
-        // Create new photo album
-        if ($use_existing_album == false) {
-            $db->connect();
-
-            $statement = 'INSERT INTO photo_albums VALUES(
-                0,
-                :category_id,
-                :album_name,
-                :description,
-                :show_in_gallery
-            )';
-
-            $params = array(
-                'category_id' => $new_album_category_id,
-                'album_name' => $new_album_name,
-                'description' => $new_album_description,
-                'show_in_gallery' => $new_album_show_in_gallery,
-            );
-            $db->run($statement, $params);
-            $db->close();
-        }
-
-        // Get the ID of the new album
-        if ($use_existing_album == false) {
-            $db->connect();
-
-            $statement = 'SELECT id
-                          FROM photo_albums
-                          WHERE name = :new_album_name';
-            $params = array(
-                'new_album_name' => $new_album_name,
-            );
-            $result = $db->run($statement, $params);
-            $album_id = (int) $result[0]['id'];
-            $db->close();
-        }
-
-        // Add new photos
-        foreach ($photos as $photo) {
-            $db->connect();
-            $statement = 'INSERT INTO photos VALUES(
-                0,
-                :album_id,
-                :date_taken,
-                :taken_by,
-                :full,
-                :thumbnail,
-                :caption
-            )';
-            $params = array(
-                'album_id' => $album_id,
-                'date_taken' => $date_of_photos,
-                'taken_by' => $photographer,
-                'full' => $photo['full-image'],
-                'thumbnail' => $photo['thumbnail'],
-                'caption' => $photo['caption'],
-            );
-            $db->run($statement, $params);
-        }
+        $db->connect();
+        $statement = 'INSERT INTO shop_items VALUES(
+            0,
+            :category_id,
+            :product_name,
+            :conditional_album_id,
+            :description,
+            :price,
+            :full,
+            :thumbnail,
+            :paypal_button,
+            :paypal_link,
+            :bandcamp_link,
+            :amazon_link,
+            :spotify_link,
+            :deezer_link,
+            :itunes_link
+        )';
+        $params = array(
+            'category_id' => $shop_category,
+            'product_name' => $product_name,
+            'conditional_album_id' => $release_id,
+            'description' => $description,
+            'price' => $price,
+            'full' => $full,
+            'thumbnail' => $thumbnail,
+            'paypal_button' => $paypal_button,
+            'paypal_link' => $paypal,
+            'bandcamp_link' => $bandcamp,
+            'amazon_link' => $amazon,
+            'spotify_link' => $spotify,
+            'deezer_link' => $deezer,
+            'itunes_link' => $itunes,
+        );
+        $db->run($statement, $params);
         $db->close();
 
-        if ($db->querySuccessful() and $thumbnail_errors == 0) {
+        if ($db->querySuccessful()) {
             $response['status'] = 'success';
-            $response['message'] = 'Photos added to DB';
+            $response['message'] = 'Shop item added to DB';
         } else {
             $response['status'] = 'error';
-            $response['message'] = 'Failed to add photos to DB!';
+            $response['message'] = 'Failed to add shop item to DB!';
         }
     } else {
         if (isset($_SESSION['authorized']) == false) {
@@ -127,7 +109,7 @@
             exit;
         } else {
             $response['status'] = 'error';
-            $response['message'] = 'Missing photo details';
+            $response['message'] = 'Missing shop item details';
         }
     }
 

@@ -43,7 +43,11 @@
 
                             <!-- Only if shop item is an album (= cd / digital) -->
                             <div id="release" class="toHide" style="display:none;">
-                                <label for="text">Select existing release</label>
+                                <label for="text">Select existing release
+                                    <small class="text-muted">
+                                        (The expectation is that a new release is first added to releases)
+                                    </small>
+                                </label>
                                 <select class="form-control" id="selected-album" name="selected-album">
                                 <?php
                                     $albums_api = 'api/v1/releases';
@@ -76,6 +80,9 @@
                                     Browse <input type="file" id="photo" name="photo" />
                                 </span><br />
                             </div>
+
+                            <hr />
+                            <h3 class="text-info">External links <small>(Optional)</small></h3>
 
                             <!-- Paypal Button -->
                             <label for="price">PayPal Button</label>
