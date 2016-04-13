@@ -1,7 +1,5 @@
 <?php
 
-    require_once 'VisitorUpdateAPI.php';
-
     class PUTDispatcher
     {
         private $sql;
@@ -13,6 +11,7 @@
             $root = $request[1];
             switch ($root) {
                 case 'visitors':
+                    require_once 'VisitorUpdateAPI.php';
                     $result = new VisitorUpdateAPI($request, $inputData);
                     $this->sql = $result->getResult();
                     break;
