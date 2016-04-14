@@ -39,8 +39,8 @@
 
         public function testRateIsConvertedCorrectly()
         {
-            $rate_from_datafile = "1.1298";
-            $test_amount_euros = "12.99";
+            $rate_from_datafile = '1.1298';
+            $test_amount_euros = '12.99';
 
             // Simply a sanity check
             $value = (float) $rate_from_datafile * (float) $test_amount_euros;

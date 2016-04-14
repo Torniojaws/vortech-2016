@@ -48,10 +48,8 @@
         }
         $thumbnail = 'thumbnails/'.$target;
         $full = $target;
-        $release_id = (int) "0"; // Not used for non-CD/Digital items
+        $release_id = (int) '0'; // Not used for non-CD/Digital items
     }
-
-
 
     if ($_SESSION['authorized'] == 1 && isset($product_name)
         && isset($price) && $price > 0 && strlen($description) > 0) {

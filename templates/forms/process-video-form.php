@@ -72,8 +72,10 @@
     }
 
     /**
-     * Get the host of a video from the url
+     * Get the host of a video from the url.
+     *
      * @param $url The address of the video
+     *
      * @return $host The host of the video
      */
     function get_host($url)
@@ -81,7 +83,8 @@
         $parsed = parse_url($url);
         $host = str_replace('.com', '', $parsed['host']);
         $host = str_replace('www.', '', $host);
-        $host = ucfirst($host);        
+        $host = ucfirst($host);
+
         return $host;
     }
 
