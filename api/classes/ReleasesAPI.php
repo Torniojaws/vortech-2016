@@ -86,12 +86,12 @@
                 # /releases/:release_code/songs/:id
                 case isset($args[2]) and isset($args[3]) and $args[3] == 'songs'
                      and isset($args[4]) and is_numeric($args[4]) and isset($args[5]) == false:
-                    $query['statement'] = 'SELECT songs.*, releases.id, releases.title
+                    $query['statement'] = 'SELECT songs.*, releases.id, releases.title, releases.release_code
                                            FROM songs
-                                           LEFT JOIN releases
+                                           JOIN releases
                                                 ON releases.release_code = :release_code
-                                           WHERE release_song_id = :id
-                                                AND release_code = :release_code';
+                                           WHERE songs.release_song_id = :id
+                                           LIMIT 1';
                     $query['params'] = array('id' => (int) $args[4], 'release_code' => $args[2]);
                     break;
 

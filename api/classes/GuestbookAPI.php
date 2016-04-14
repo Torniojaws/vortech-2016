@@ -40,7 +40,6 @@
                     parse_str($filters);
                     $query['statement'] = 'SELECT guestbook.*,
                                                   users.id AS userid,
-                                                  users.photo_id,
                                                   users.name AS username,
                                                   guestbook_comments.author_id AS admin_id,
                                                   guestbook_comments.comment AS admin_comment,
@@ -63,7 +62,6 @@
                 case isset($args[2]) and isset($args[3]) == false:
                     $query['statement'] = 'SELECT guestbook.*,
                                                   users.id AS userid,
-                                                  users.photo_id,
                                                   users.name AS username,
                                                   guestbook_comments.author_id AS admin_id,
                                                   guestbook_comments.comment AS admin_comment,
