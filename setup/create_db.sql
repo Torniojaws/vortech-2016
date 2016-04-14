@@ -250,11 +250,11 @@ INSERT INTO news VALUES(
 INSERT INTO releases VALUES(1, "Debut Album", "CD001", "2010-04-04 00:00:00", "Artiste", "yes", "2010-04-04 00:00:00", "cd.jpg", "thumbnails/cd.jpg", "Release notes");
 INSERT INTO releases VALUES(2, "Album 2: The Return", "CD002", "2012-04-05 00:00:00", "Artiste", "no", "2012-04-05 00:00:00", "cd.jpg", "thumbnails/cd.jpg", "Release notes");
 INSERT INTO releases VALUES(3, "Album 3: Resurrection", "CD003", "2014-04-05 00:00:00", "Artiste", "yes", "2014-04-05 00:00:00", "cd.jpg", "thumbnails/cd.jpg", "Release notes");
-INSERT INTO songs VALUES(1, 1, 1, "Song number 1", "00:03:16");
-INSERT INTO songs VALUES(2, 1, 2, "Song number 2", "00:03:46");
-INSERT INTO songs VALUES(3, 2, 1, "A new song", "00:06:16");
-INSERT INTO songs VALUES(4, 3, 1, "Triple trouble", "00:04:26");
-INSERT INTO songs VALUES(5, 3, 2, "Quadrouble", "00:04:56");
+INSERT INTO songs VALUES(1, "CD001", 1, "Song number 1", "00:03:16");
+INSERT INTO songs VALUES(2, "CD001", 2, "Song number 2", "00:03:46");
+INSERT INTO songs VALUES(3, "CD002", 1, "A new song", "00:06:16");
+INSERT INTO songs VALUES(4, "CD003", 1, "Triple trouble", "00:04:26");
+INSERT INTO songs VALUES(5, "CD003", 2, "Quadrouble", "00:04:56");
 INSERT INTO shows VALUES(
     1,
     "2015-03-03 00:00:00",
