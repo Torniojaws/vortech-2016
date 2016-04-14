@@ -3,6 +3,7 @@
     class CurrencyConverter
     {
         private $rate_datafile;
+        private $rate_xml;
         private $current_rates;
 
         public function __construct()
