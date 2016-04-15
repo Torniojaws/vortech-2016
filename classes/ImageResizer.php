@@ -18,7 +18,7 @@
          * "thumbnails", directly under the directory of the original fullsize photo.
          *
          * @param $original The path of the original fullsize picture, including filename
-         * @param $target_path The path where the thumbnail will be created
+         * @param $target_path The relative path where the thumbnail will be created
          * @param $target_file The filename for the thumbnail - same as original
          * @param $target_width The intended width for the thumbnail.
          */
@@ -48,6 +48,8 @@
             // And write it to the target path
             if (is_writable($this->rootpath.$target_path)) {
                 $this->createFile($virtual_image);
+            } else {
+                echo 'Resizer: Cannot write to ['.$this->rootpath.$target_path.']';
             }
         }
 
