@@ -45,41 +45,37 @@
 
     } else {
         // Other types of shop items can/should have a photo uploaded
-        $photo_count = 0;
-        $relative_thumbnail_path = IMAGE_DIR.'merch/thumbnails/';
-        $full_image_path = $root.IMAGE_DIR.'merch/';
+        require_once $root.'classes/ImageUploader.php';
+        $absolute_upload_path = $root.IMAGE_DIR.'merch/';
 
-        foreach ($_FILES as $file => $details) {
-            ++$photo_count;
-            $tmp = $details['tmp_name'];
-            $target = $details['name'];
-            try {
-                if (move_uploaded_file($tmp, $full_image_path.$target)) {
-                    // Create thumbnail and copy it to the target path
-                    require_once $root.'classes/ImageResizer.php';
-                    $resizer = new ImageResizer($root);
+        $imageUploader = new ImageUploader($root, $absolute_upload_path);
+        $imageUploader->processUploadedImages();
+        // Each array element contains info about one successfully uploaded image
+        $uploads = $imageUploader->getAssocArrayOfUploadedImages();
 
-                    $original = $full_image_path.$target;
-                    $thumb_filename = $target;
-                    if (file_exists($original) && is_writable($root.$thumbnail_path)) {
-                        $resizer->createThumbnail($original, $relative_thumbnail_path, $thumb_filename, 200);
-                    } else {
-                        echo 'Original file not found!';
-                        $thumbnail_errors += 1;
-                    }
-                    if ($resizer->thumbnailStatus() == false) {
-                        $thumbnail_errors += 1;
-                    }
-                } else {
-                    $image_errors += 1;
-                    echo 'Could not upload image!';
-                }
-            } catch (Exception $ex) {
-                echo 'Got exception: '.$ex;
-            }
+        // Thumbnail creation
+        require_once $root.'classes/ImageResizer.php';
+        $resizer = new ImageResizer($root);
+
+        foreach ($uploads as $image) {
+            $resizer->createThumbnail(
+                $image['fullpath'].$image['filename'],
+                $absolute_upload_path.'thumbnails/',
+                $image['filename'],
+                200
+            );
         }
-        $thumbnail = 'thumbnails/'.$target;
-        $full = $target;
+
+        // Check that everything went OK
+        if ($imageUploader->successfullyUploadedAll() == false) {
+            $image_errors += 1;
+        }
+        if ($resizer->thumbnailStatus() == false) {
+            $thumbnail_errors += 1;
+        }
+
+        $full = $image['filename'];
+        $thumbnail = 'thumbnails/'.$image['filename'];
         $release_id = (int) '0'; // Not used for non-CD/Digital items
     }
 

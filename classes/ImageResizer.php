@@ -6,7 +6,7 @@
         private $thumbnailCreatedSuccessfully;
         private $format;
 
-        public function __construct($rootpath)
+        public function __construct()
         {
             $this->rootpath = $rootpath;
             $this->thumbnailCreatedSuccessfully = false;
@@ -25,7 +25,7 @@
         public function createThumbnail($original, $target_path, $target_file, $target_width)
         {
             // Setup
-            $this->thumbnail_path = $this->rootpath.$target_path.$target_file;
+            $this->thumbnail_path = $target_path.$target_file;
             $source_image = $this->processOriginalPhoto($original);
 
             // For resizing the thumbnail
@@ -35,7 +35,7 @@
 
             // Create the thumbnail
             $virtual_image = imagecreatetruecolor($target_width, $target_height);
-            imagecopyresampled(
+            if (imagecopyresampled(
                 $virtual_image,
                 $source_image,
                 0, 0, 0, 0,
@@ -43,7 +43,9 @@
                 $target_height,
                 $width,
                 $height
-            );
+            ) == false) {
+                echo 'Resizer: Could not process image';
+            }
 
             // And write it to the target path
             if (is_writable($this->rootpath.$target_path)) {
