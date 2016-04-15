@@ -4,7 +4,7 @@
     /**
      * Will test that each API endpoint returns expected data,
      * especially good for making sure all API changes still
-     * return correct things
+     * return correct things.
      */
     class APIDataTest extends PHPUnit_Framework_TestCase
     {

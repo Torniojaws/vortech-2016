@@ -45,13 +45,18 @@
             <div class="modal-body">
                 <div class="container-fluid">
                     <div class="row">
-                        <img src="static/img/site/cd.jpg" alt="CD placeholder" />
+                        <img src="<?php
+                                    if (file_exists($release['thumbnail'])) {
+                                        echo $release['thumbnail'];
+                                    } else {
+                                        echo 'static/img/site/cd.jpg';
+                                    } ?>" alt="<?php echo $release['title']; ?>" />
                         <p><?php echo $release['title']; ?></p>
                     </div>
                     <div class="row">
                         <section class="well">
                             <?php
-                                $api = 'api/v1/releases/'.$release['id'].'/comments';
+                                $api = 'api/v1/releases/'.$release['release_code'].'/comments';
                                 $release_comments = file_get_contents(SERVER_URL.$api);
                                 $release_comments = json_decode($release_comments, true);
                                 foreach ($release_comments as $comment) {

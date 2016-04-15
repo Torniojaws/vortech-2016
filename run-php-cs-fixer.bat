@@ -19,3 +19,4 @@ php C:\Juha\php\php-cs-fixer.phar fix templates/shop.php --level=symfony
 php C:\Juha\php\php-cs-fixer.phar fix templates/shows.php --level=symfony
 php C:\Juha\php\php-cs-fixer.phar fix templates/videos.php --level=symfony
 php C:\Juha\php\php-cs-fixer.phar fix tests/ --level=symfony
+php C:\Juha\php\php-cs-fixer.phar fix constants.php --level=symfony
