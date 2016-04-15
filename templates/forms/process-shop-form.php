@@ -42,7 +42,6 @@
         $thumbnail = $release[0]['thumbnail'];
         $full = $release[0]['full'];
         $release_id = (int) $release['id'];
-
     } else {
         // Other types of shop items can/should have a photo uploaded
         require_once $root.'classes/ImageUploader.php';
