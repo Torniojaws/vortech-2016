@@ -2,13 +2,11 @@
 
     class ImageResizer
     {
-        private $rootpath;
         private $thumbnailCreatedSuccessfully;
         private $format;
 
         public function __construct()
         {
-            $this->rootpath = $rootpath;
             $this->thumbnailCreatedSuccessfully = false;
         }
 

@@ -22,53 +22,56 @@
         $new_album_category_id = (int) $_POST['category-newalbum'];
     }
 
-    $path_for_uploads = $_POST['album-category'];
+    $path_for_uploads = $_POST['album-category'].'/';
     $date_of_photos = $_POST['date'];
     $photographer = $_POST['taken-by'];
 
-    // The pictures
-    $photo_count = 0;
-    $image_path = '/static/img/'.$path_for_uploads;
-    $thumbnail_path = $image_path.'/thumbnails/';
-    $store_in = $root.$image_path;
+    // Process the photos
     $thumbnail_errors = 0;
-    foreach ($_FILES as $file => $details) {
-        ++$photo_count;
-        $tmp = $details['tmp_name'];
-        $target = $details['name'];
-        try {
-            if (move_uploaded_file($tmp, $store_in.'/'.$target)) {
-                // Create thumbnail and copy it to the target path
-                require_once $root.'classes/ImageResizer.php';
-                $resizer = new ImageResizer($root);
-                /*
-                 * params:
-                 * Full image path
-                 * target path for thumbnail
-                 * target width of thumbnail
-                 */
-                $original = $store_in.'/'.$target;
-                $thumbnail_fullpath = $thumbnail_path;
-                $thumb_filename = $target;
-                $resizer->createThumbnail($original, $thumbnail_fullpath, $thumb_filename, 200);
-                if ($resizer->thumbnailStatus() == false) {
-                    $thumbnail_errors += 1;
-                }
-            }
-        } catch (Exception $ex) {
-            die($ex);
-        }
+    $image_errors = 0;
+
+    require_once $root.'classes/ImageUploader.php';
+    $absolute_upload_path = $root.IMAGE_DIR.$path_for_uploads;
+
+    $imageUploader = new ImageUploader($root, $absolute_upload_path);
+    $imageUploader->processUploadedImages();
+    // Each array element contains info about one successfully uploaded image
+    $uploads = $imageUploader->getAssocArrayOfUploadedImages();
+
+    // Thumbnail creation
+    require_once $root.'classes/ImageResizer.php';
+    $resizer = new ImageResizer($root);
+
+    foreach ($uploads as $image) {
+        $resizer->createThumbnail(
+            $image['fullpath'].$image['filename'],
+            $absolute_upload_path.'thumbnails/',
+            $image['filename'],
+            200
+        );
+
         // Captions are added after upload
         $caption = null;
         $photos[] = array(
-            'full-image' => $target,
-            'thumbnail' => 'thumbnails/'.$target,
+            'full-image' => $image['filename'],
+            'thumbnail' => 'thumbnails/'.$image['filename'],
             'caption' => $caption,
         );
     }
 
-    if ($_SESSION['authorized'] == 1 && isset($photo_count) && $photo_count > 0
-        && isset($date_of_photos) && strlen($date_of_photos) > 0) {
+    // Check that everything went OK
+    if ($imageUploader->successfullyUploadedAll() == false) {
+        $image_errors += 1;
+    }
+    if ($resizer->thumbnailStatus() == false) {
+        $thumbnail_errors += 1;
+    }
+
+    $full = $image['filename'];
+    $thumbnail = 'thumbnails/'.$image['filename'];
+
+    if ($_SESSION['authorized'] == 1 && isset($date_of_photos) && strlen($date_of_photos) > 0
+        && $image_errors == 0 && $thumbnail_errors == 0) {
         require_once $root.'/api/classes/Database.php';
 
         $db = new Database();
@@ -134,12 +137,18 @@
         }
         $db->close();
 
-        if ($db->querySuccessful() and $thumbnail_errors == 0) {
+        if ($db->querySuccessful() and $thumbnail_errors == 0 and $image_errors == 0) {
             $response['status'] = 'success';
             $response['message'] = 'Photos added to DB';
         } else {
             $response['status'] = 'error';
             $response['message'] = 'Failed to add photos to DB!';
+            if ($thumbnail_errors > 0) {
+                $response['message'] .= ' Could not create thumbnails';
+            }
+            if ($image_errors > 0) {
+                $response['message'] .= ' Could not upload images';
+            }
         }
     } else {
         if (isset($_SESSION['authorized']) == false) {
