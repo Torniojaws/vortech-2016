@@ -178,7 +178,7 @@ CREATE TABLE release_comments(
     PRIMARY KEY(id));
 CREATE TABLE guestbook_comments(
     id int AUTO_INCREMENT,
-    comment_subid int,
+    comment_subid int UNIQUE,
     author_id int,
     comment text,
     posted datetime,

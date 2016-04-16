@@ -20,15 +20,18 @@
                 </blockquote>
 
                 <!-- Add guestbook comment -->
-                <form role="form" class="form" id="ad-guestbook-comment-form" name="add-guestbook-comment-form">
+                <form role="form" class="form" id="ad-guestbook-comment-form<?php echo $guest['id']; ?>"
+                      name="add-guestbook-comment-form">
 
                     <div class="form-group">
                         <label for="text">Your comment</label>
-                        <textarea class="form-control" rows="5" id="text" name="text" placeholder="Write your comment here"></textarea>
-                        <input type="text" name="original_id" value="<?php echo $guest['id']; ?>" hidden />
+                        <textarea class="form-control" rows="5" id="text<?php echo $guest['id']; ?>"
+                                  name="text" placeholder="Write your comment here"></textarea>
+                        <input type="text" id="original_id" name="original_id" value="<?php echo $guest['id']; ?>" hidden />
                     </div>
 
-                    <button type="submit" class="btn btn-primary" name="Submit" id="send-guestbook-comment-form">Add the comment</button>
+                    <button type="submit" class="btn btn-primary" name="Submit"
+                            id="send-guestbook-comment-form<?php echo $guest['id']; ?>">Add the comment</button>
                 </form>
                 <div id="added-ok" class="text-success" hidden><h3>Successfully added comment! Boom...</h3></div>
                 <div id="add-failed" class="text-danger" hidden><h3>Failed to add comment!</h3></div>

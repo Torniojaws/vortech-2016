@@ -273,19 +273,14 @@ $(document).ready(function () {
     });
 
     // Add guestbook comment form
-    $('#ad-guestbook-comment-form').submit(function (e) {
+    $('[id^=ad-guestbook-comment-form').submit(function (e) {
         e.preventDefault();
-        var guestbook_ad_data = $(this).serialize();
-        console.log(this);
-        console.log($(this));
-        console.log(guestbook_ad_data);
-        /*
         $.ajax({
             type: 'post',
             url: 'templates/forms/process-guestbook-comment-form.php',
-            guestbook_ad_data: guestbook_ad_data,
-            success: function (guestbook_ad_data) {
-                if (guestbook_ad_data.status === 'success') {
+            data: $(this).serialize(),
+            success: function (gb_data) {
+                if (gb_data.status === 'success') {
                     $('#add-failed').hide();
                     $('#ad-guestbook-comment-form').each(function () {
                         this.reset();
@@ -293,12 +288,11 @@ $(document).ready(function () {
                     $('#added-ok').removeAttr('hidden');
                     $('#guestbook-comment-form').modal('hide');
                     location.reload();
-                } else if (guestbook_ad_data.status === 'error') {
+                } else if (gb_data.status === 'error') {
                     $('#add-failed').removeAttr('hidden');
                 }
             }
         });
-        */
     });
 
 });
