@@ -236,7 +236,7 @@ $(document).ready(function () {
     // Shows album selection field when adding a CD or Digital Album, otherwise hidden,
     // and also shows photo upload field when not adding a CD or digital album
     $('select[name=shop-category]').on('change', function () {
-        var shop_category = parseInt($(this).val());
+        var shop_category = parseInt($(this).val(), 10);
         // 2 = CD, 3 = Digital album
         if (shop_category === 2 || shop_category === 3) {
             $('#release').show('slow');
@@ -270,6 +270,35 @@ $(document).ready(function () {
                 }
             }
         });
+    });
+
+    // Add guestbook comment form
+    $('#ad-guestbook-comment-form').submit(function (e) {
+        e.preventDefault();
+        var guestbook_ad_data = $(this).serialize();
+        console.log(this);
+        console.log($(this));
+        console.log(guestbook_ad_data);
+        /*
+        $.ajax({
+            type: 'post',
+            url: 'templates/forms/process-guestbook-comment-form.php',
+            guestbook_ad_data: guestbook_ad_data,
+            success: function (guestbook_ad_data) {
+                if (guestbook_ad_data.status === 'success') {
+                    $('#add-failed').hide();
+                    $('#ad-guestbook-comment-form').each(function () {
+                        this.reset();
+                    });
+                    $('#added-ok').removeAttr('hidden');
+                    $('#guestbook-comment-form').modal('hide');
+                    location.reload();
+                } else if (guestbook_ad_data.status === 'error') {
+                    $('#add-failed').removeAttr('hidden');
+                }
+            }
+        });
+        */
     });
 
 });

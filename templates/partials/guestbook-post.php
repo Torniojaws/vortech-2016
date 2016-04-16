@@ -15,6 +15,8 @@
                 echo '<p>'.$guest['admin_comment'].'<br />';
                 echo '<small>'.date('Y-m-d H:i', strtotime($guest['admin_comment_date'])).'</small></p>';
                 echo '</blockquote>';
+            } elseif (isset($_SESSION['authorized']) && $_SESSION['authorized'] == 1) {
+                include 'templates/partials/admin/add-guestbook-comment.php';
             }
         ?>
     </div>
