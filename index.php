@@ -96,7 +96,11 @@
             integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
             crossorigin="anonymous"></script>
     <script>    $.fn.modal || document.write('<script src="static/fallback.bootstrap.min.js">\x3C/script>')</script>
-    
+
+
+    <!-- Inline editing of fields // http://www.appelsiini.net/projects/jeditable-->
+    <script src="static/jquery.jeditable.mini.js"></script>
+
     <!-- Custom jquery -->
     <script src="static/main.js"></script>
 

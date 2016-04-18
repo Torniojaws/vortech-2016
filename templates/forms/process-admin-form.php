@@ -28,13 +28,15 @@
             $response['status'] = 'success';
             $response['message'] = 'Login OK';
         } else {
+            // true deletes the old session
+            session_regenerate_id(true);
             $response['status'] = 'error';
             $response['message'] = 'Login failed';
         }
     }
 
     // Admin wants to logout
-    if (isset($logout)) {
+    if (isset($_SESSION['authorized']) && $_SESSION['authorized'] == 1 && isset($logout)) {
         require_once $root.'/classes/Admin.php';
         $admin = new Admin();
         $admin->logout();

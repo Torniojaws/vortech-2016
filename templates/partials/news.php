@@ -6,9 +6,15 @@
             <aside><small>Posted on<br /> <?php echo $news['posted']; ?></small></aside>
         </div>
         <div class="col-sm-10">
-            <h2><?php echo $news['title']; ?></h2>
-            <p><?php echo $news['contents']; ?></p>
-            <small>Tags:
+            <h2 id="title-<?php echo $news['id']; ?>"
+                <?php if($_SESSION['authorized'] == 1) { echo ' class="edit-news"'; } ?>><?php
+                echo $news['title']; ?></h2>
+            <p id="contents-<?php echo $news['id']; ?>"
+                <?php if($_SESSION['authorized'] == 1) { echo ' class="edit-news"'; } ?>><?php
+                echo $news['contents']; ?></p>
+            <small id="tags-<?php echo $news['id']; ?>"
+                <?php if($_SESSION['authorized'] == 1) { echo ' class="edit-news"'; } ?>>
+                Tags:
                 <?php
                     $tags = explode(',', $news['tags']);
                     $tagCount = count($tags);
@@ -56,7 +62,8 @@
                     <div class="form-group">
                         <div class="input-group">
                             <span class="input-group-addon" id="basic-addon3">Username</span>
-                            <input type="text" class="form-control" id="comment" aria-describedby="basic-addon3" placeholder="Your comment">
+                            <input type="text" class="form-control" id="comment"
+                                aria-describedby="basic-addon3" placeholder="Your comment" />
                         </div>
                     </div>
                     <button type="submit" class="btn btn-default">Submit</button>
@@ -107,7 +114,7 @@
                             ?>
                         </div>
                     </div>
-                    <?php 
+                    <?php
                         } ?>
                 </div>
             </div>

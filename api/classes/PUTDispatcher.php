@@ -15,6 +15,11 @@
                     $result = new VisitorUpdateAPI($request, $inputData);
                     $this->sql = $result->getResult();
                     break;
+                case 'news':
+                    require_once 'NewsUpdateAPI.php';
+                    $result = new NewsUpdateAPI($request, $inputData);
+                    $this->sql = $result->getResult();
+                    break;
                 default:
                     $this->sql = '';
             }

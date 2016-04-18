@@ -303,4 +303,17 @@ $(document).ready(function () {
         });
     });
 
+    // Edit news (admin)
+    $('.edit-news').editable('templates/edits/edit-news.php', {
+        indicator: 'Saving...',
+        tooltip: 'Click to edit...'
+    });
+    $('.edit-news-area').editable('templates/edits/edit-news.php', {
+        type: 'textarea',
+        submit: 'OK',
+        cancel: 'Cancel',
+        indicator: 'indicator',
+        tooltip: 'Click to edit...'
+    });
+
 });
