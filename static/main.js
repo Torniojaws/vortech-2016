@@ -78,6 +78,12 @@ $(document).ready(function () {
     $('input[name=use-existing]').click(function () {
         $('.toHide').hide();
         $('#show' + $(this).val()).show('slow');
+        $('#category').trigger('change');
+
+        // When creating a new album, hide the select related to it
+        // It submits the ID of the category, while the top-most select
+        // sends the name_id of the category. Both are needed.
+        $('#category-newalbum').hide();
     });
 
     // Updates the Photo Albums list based on Category that was chosen
@@ -91,6 +97,7 @@ $(document).ready(function () {
                 element.prop("disabled", true);
             } else {
                 element.show();
+                element.prop("disabled", false);
             }
         });
         $('#selected-album option').each(function () {
@@ -101,6 +108,7 @@ $(document).ready(function () {
                 element.prop("disabled", true);
             } else {
                 element.show();
+                element.prop("disabled", false);
             }
         });
 

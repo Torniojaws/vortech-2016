@@ -1,20 +1,20 @@
-CASE 1:
-Leave category unchanged
-Press Yes
-Select existing should only show promo albums
---> now it shows everything
+-- OK CASE 1:
+	Leave category unchanged
+	Press Yes
+	Select existing should only show promo albums
+	--> now it shows everything
 
-CASE 2:
-Leave category unchanged
-Press No
-select a different category under create new album
-should update category under add photos
---> now it doesn't change at all
+-- OK CASE 2:
+	Leave category unchanged
+	Press No
+	select a different category under create new album
+	should update category under add photos
+	--> now it doesn't change at all
 
-CASE 3:
-Change category to live
-Press Yes
-Select anything in existing album
-Change category back to promotional
-You should be able to select any existing album
---> Only the first one is possible to select
+-- OK CASE 3:
+	Change category to live
+	Press Yes
+	Select anything in existing album
+	Change category back to promotional
+	You should be able to select any existing album
+	--> Only the first one is possible to select

@@ -69,8 +69,8 @@
                             <div id="show2" class="toHide" style="display:none;">
                                 <h2>Create New Album</h2>
                                 <div class="form-group" id="new-album">
-                                    <label for="category-newalbum">Select Category</label>
-                                    <select class="form-control" id="category-newalbum" name="category-newalbum">
+                                    <!-- The below is hidden for compatibility reasons -->
+                                    <select class="form-control" id="category-newalbum" name="category-newalbum" hidden>
                                     <?php
                                         foreach ($categories as $category) {
                                             echo '<option value="'.$category['id'].'" ';
