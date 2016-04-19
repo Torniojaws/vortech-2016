@@ -12,7 +12,7 @@
         </a>
     </div>
     <div class="col-sm-9">
-        <h2 id="shop-<?php echo $shop['id']; ?>"
+        <h2 id="shopname-<?php echo $shop['id']; ?>"
             <?php if($_SESSION['authorized'] == 1) { echo ' class="edit-shop"'; } ?>><?php
             echo $shop['name']; ?></h2>
         <p id="shopdesc-<?php echo $shop['id']; ?>"
@@ -26,18 +26,16 @@
                     $convert = new CurrencyConverter();
                     $usd = $convert->euroTo('USD', (float) $shop['price']);
                 ?>
-                <span class="label label-primary label-pill pull-xs-right">
-                    <?php
-                        if($_SESSION['authorized'] == 1) {
-                            echo '<span id="shopprice-'.$shop['id'].'" class="edit-shop">';
-                        }
-                        echo $shop['price'];
-                        if($_SESSION['authorized'] == 1) {
-                            echo '</span>';
-                        }
-                    ?>
-                    EUR
-                </span>
+                <?php
+                    if($_SESSION['authorized'] == 1) {
+                        echo '<span id="shopprice-'.$shop['id'].'" class="edit-shop">';
+                    } else {
+                        echo '<span class="label label-primary label-pill pull-xs-right">';
+                    }
+                    echo $shop['price'];
+                    echo '</span>';
+                ?>
+                EUR
                 &nbsp;&dash; Current exchange rate (ECB):
                 <span class="label label-primary label-pill pull-xs-right">
                     <?php echo $usd; ?> USD

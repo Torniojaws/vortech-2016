@@ -330,11 +330,11 @@ $(document).ready(function () {
     });
 
     // Edit shop items (admin)
-    $('.edit-shop').editable('templates/edits/edit-guestbook.php', {
+    $('.edit-shop').editable('templates/edits/edit-shop.php', {
         indicator: 'Saving...',
         tooltip: 'Click to edit...'
     });
-    $('.edit-shop-area').editable('templates/edits/edit-guestbook.php', {
+    $('.edit-shop-area').editable('templates/edits/edit-shop.php', {
         type: 'textarea',
         submit: 'OK',
         cancel: 'Cancel',

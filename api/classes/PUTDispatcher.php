@@ -25,6 +25,11 @@
                     $result = new GuestbookUpdateAPI($request, $inputData);
                     $this->sql = $result->getResult();
                     break;
+                case 'shopitems':
+                    require_once 'ShopUpdateAPI.php';
+                    $result = new ShopUpdateAPI($request, $inputData);
+                    $this->sql = $result->getResult();
+                    break;
                 default:
                     $this->sql = '';
             }
