@@ -10,7 +10,7 @@
         list($field, $id) = explode('-', $_POST['id']);
         $new_value = $_POST['value'];
 
-        // PUT http://www.vortechmusic.com/api/v1/news/123
+        // PUT http://www.vortechmusic.com/api/v1/guestbook/123
         $api = SERVER_URL.'api/v1/guestbook/'.$id;
 
         // Generate the PUT request

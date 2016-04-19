@@ -12,8 +12,12 @@
         </a>
     </div>
     <div class="col-sm-9">
-        <h2><?php echo $shop['name']; ?></h2>
-        <p><?php echo $shop['description']; ?></p>
+        <h2 id="shop-<?php echo $shop['id']; ?>"
+            <?php if($_SESSION['authorized'] == 1) { echo ' class="edit-shop"'; } ?>><?php
+            echo $shop['name']; ?></h2>
+        <p id="shopdesc-<?php echo $shop['id']; ?>"
+            <?php if($_SESSION['authorized'] == 1) { echo ' class="edit-shop"'; } ?>><?php
+            echo $shop['description']; ?></p>
         <aside>
             <small>
                 Price:
@@ -23,8 +27,18 @@
                     $usd = $convert->euroTo('USD', (float) $shop['price']);
                 ?>
                 <span class="label label-primary label-pill pull-xs-right">
-                    <?php echo $shop['price']; ?> EUR
-                </span>&nbsp;&dash; Current exchange rate (ECB): 
+                    <?php
+                        if($_SESSION['authorized'] == 1) {
+                            echo '<span id="shopprice-'.$shop['id'].'" class="edit-shop">';
+                        }
+                        echo $shop['price'];
+                        if($_SESSION['authorized'] == 1) {
+                            echo '</span>';
+                        }
+                    ?>
+                    EUR
+                </span>
+                &nbsp;&dash; Current exchange rate (ECB):
                 <span class="label label-primary label-pill pull-xs-right">
                     <?php echo $usd; ?> USD
                 </span>

@@ -329,4 +329,17 @@ $(document).ready(function () {
         tooltip: 'Click to edit...'
     });
 
+    // Edit shop items (admin)
+    $('.edit-shop').editable('templates/edits/edit-guestbook.php', {
+        indicator: 'Saving...',
+        tooltip: 'Click to edit...'
+    });
+    $('.edit-shop-area').editable('templates/edits/edit-guestbook.php', {
+        type: 'textarea',
+        submit: 'OK',
+        cancel: 'Cancel',
+        indicator: 'indicator',
+        tooltip: 'Click to edit...'
+    });
+
 });
