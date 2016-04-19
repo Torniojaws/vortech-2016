@@ -5,16 +5,13 @@
         <h4><?php echo $guest['name']; ?></h4>
         <small><?php echo $guest['posted']; ?></small>
     </div>
-    <div class="col-sm-9">
+    <div class="col-sm-6">
         <p><?php echo $guest['post']; ?></p>
+    </div>
+    <div class="col-sm-3">
         <?php
             if ($guest['admin_comment']) {
-                echo '<blockquote class="blockquote-reverse">';
-                echo '<img src="static/img/user_photos/thumbnails/admin.jpg" alt="Admin" />';
-                echo '<h5 class="text-info">Admin has replied:</h5>';
-                echo '<p>'.$guest['admin_comment'].'<br />';
-                echo '<small>'.date('Y-m-d H:i', strtotime($guest['admin_comment_date'])).'</small></p>';
-                echo '</blockquote>';
+                include 'templates/partials/guestbook-admin-comment.php';
             } elseif (isset($_SESSION['authorized']) && $_SESSION['authorized'] == 1) {
                 include 'templates/partials/admin/add-guestbook-comment.php';
             }

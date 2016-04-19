@@ -191,7 +191,7 @@
             if ($data[0]['admin_id'] != 1) {
                 ++$missing;
             }
-            if ($data[0]['admin_comment'] != 'Shame on maple leaf') {
+            if ($data[0]['admin_comment'] != 'Shame on maple leaf, eh') {
                 ++$missing;
             }
             if ($data[0]['admin_comment_date'] != '2016-03-29 10:00:00') {
@@ -229,10 +229,10 @@
             if ($data[0]['id'] != 2) {
                 ++$missing;
             }
-            if ($data[0]['title'] != 'Another news title') {
+            if ($data[0]['title'] != 'Another news title test22') {
                 ++$missing;
             }
-            if ($data[0]['contents'] != 'More news contents') {
+            if ($data[0]['contents'] != 'More news contents2') {
                 ++$missing;
             }
             if ($data[0]['posted'] != '2016-01-02 02:00:00') {

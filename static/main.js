@@ -316,4 +316,17 @@ $(document).ready(function () {
         tooltip: 'Click to edit...'
     });
 
+    // Edit guestbook comment (admin)
+    $('.edit-gb').editable('templates/edits/edit-guestbook.php', {
+        indicator: 'Saving...',
+        tooltip: 'Click to edit...'
+    });
+    $('.edit-gb-area').editable('templates/edits/edit-guestbook.php', {
+        type: 'textarea',
+        submit: 'OK',
+        cancel: 'Cancel',
+        indicator: 'indicator',
+        tooltip: 'Click to edit...'
+    });
+
 });

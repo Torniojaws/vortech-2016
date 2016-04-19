@@ -92,6 +92,6 @@
             $query->execute();
             $data = $query->fetchAll(PDO::FETCH_ASSOC);
 
-            $this->assertEquals('News title', $data[0]['title']);
+            $this->assertEquals('News title test too', $data[0]['title']);
         }
     }

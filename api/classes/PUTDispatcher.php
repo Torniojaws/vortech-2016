@@ -20,6 +20,11 @@
                     $result = new NewsUpdateAPI($request, $inputData);
                     $this->sql = $result->getResult();
                     break;
+                case 'guestbook':
+                    require_once 'GuestbookUpdateAPI.php';
+                    $result = new GuestbookUpdateAPI($request, $inputData);
+                    $this->sql = $result->getResult();
+                    break;
                 default:
                     $this->sql = '';
             }
