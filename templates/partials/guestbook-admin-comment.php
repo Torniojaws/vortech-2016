@@ -4,9 +4,9 @@
     <?php
         echo '<p id="gb-'.$guest['id'];
         if ($_SESSION['authorized'] == 1) {
-            echo '" class="edit-gb"';
+            echo '" class="edit-gb';
         }
-        echo '>';
+        echo '">';
         echo $guest['admin_comment'];
     ?></p>
     <small><?php echo date('Y-m-d H:i', strtotime($guest['admin_comment_date'])); ?></small>

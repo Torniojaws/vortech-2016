@@ -357,26 +357,19 @@ INSERT INTO user_access_levels VALUES(4, "Blocked");
 INSERT INTO performers VALUES(
     1, "Juha", "Founding member", "Guitar, Bass, Programming", "2000-01-01 00:00:00", "9999-12-12 23:59:59", 10);
 INSERT INTO performers VALUES(
-    2, "Tero", "Founding member", "Bass, Programming, Drums", "2000-01-01 00:00:00", "2004-10-12 23:59:59",
-    "Drummer, bass player and co-songwriter from the beginning", 11);
+    2, "Tero", "Founding member", "Bass, Programming, Drums", "2000-01-01 00:00:00", "2004-10-12 23:59:59", 11);
 INSERT INTO performers VALUES(
-    3, "Matti", "Full member", "Vocals", "2007-11-01 00:00:00", "2011-12-12 23:59:59",
-    "Joined on vocals after Wasteland and was in all live shows", 12);
+    3, "Matti", "Full member", "Vocals", "2007-11-01 00:00:00", "2011-12-12 23:59:59", 12);
 INSERT INTO performers VALUES(
-    4, "Ville", "Full member", "Drums", "2010-12-01 00:00:00", "9999-12-12 23:59:59",
-    "Drumming since 2010 and first live drums on any of our albums with Devoid of Life", 13);
+    4, "Ville", "Full member", "Drums", "2010-12-01 00:00:00", "9999-12-12 23:59:59", 13);
 INSERT INTO performers VALUES(
-    5, "Mikko", "Full member", "Vocals", "2012-03-01 00:00:00", "9999-12-12 23:59:59",
-    "Joined on vocals after the nice performance on Devoid of Life", 14);
+    5, "Mikko", "Full member", "Vocals", "2012-03-01 00:00:00", "9999-12-12 23:59:59", 14);
 INSERT INTO performers VALUES(
-    6, "Samuli", "Live member", "Bass", "2001-10-01 00:00:00", "2001-11-22 23:59:59",
-    "Helped us out in our very first live performance", 15);
+    6, "Samuli", "Live member", "Bass", "2001-10-01 00:00:00", "2001-11-22 23:59:59", 15);
 INSERT INTO performers VALUES(
-    7, "Rami", "Rehearsal member", "Drums", "2001-10-01 00:00:00", "2002-04-12 23:59:59",
-    "Played rehearsal drums for us for a good bit of time", 16);
+    7, "Rami", "Rehearsal member", "Drums", "2001-10-01 00:00:00", "2002-04-12 23:59:59", 16);
 INSERT INTO performers VALUES(
-    8, "Lukas", "Guest artist", "Vocals", "2007-03-01 00:00:00", "2007-04-12 23:59:59",
-    "Did some awesome guest vocals on The Core, from the album Wasteland", 17);
+    8, "Lukas", "Guest artist", "Vocals", "2007-03-01 00:00:00", "2007-04-12 23:59:59", 17);
 
 INSERT INTO photo_categories VALUES(5, "Band members", "band_members");
 INSERT INTO photo_albums VALUES(6, 5, "Band member pictures", "All the members of the band", FALSE);
