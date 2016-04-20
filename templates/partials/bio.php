@@ -19,6 +19,11 @@
                 }
             ?>
         </small>
+        <p id="membershort-<?php echo $member['id']; ?>"<?php
+            if ($_SESSION['authorized'] == 1) {
+                echo ' class="edit-memberbio"';
+            }
+         ?>><?php echo $member_bio['short']; ?></p>
     </div>
 </div>
 <hr />

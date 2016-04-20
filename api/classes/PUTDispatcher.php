@@ -4,7 +4,7 @@
     {
         private $sql;
 
-        public function __construct($original_request, $inputData)
+        public function __construct($original_request, $filters, $inputData)
         {
             // Remove empty elements
             $request = array_filter(explode('/', $original_request), 'strlen');
@@ -33,6 +33,11 @@
                 case 'videos':
                     require_once 'VideosUpdateAPI.php';
                     $result = new VideosUpdateAPI($request, $inputData);
+                    $this->sql = $result->getResult();
+                    break;
+                case 'articles':
+                    require_once 'ArticlesUpdateAPI.php';
+                    $result = new ArticlesUpdateAPI($request, $filters, $inputData);
                     $this->sql = $result->getResult();
                     break;
                 default:

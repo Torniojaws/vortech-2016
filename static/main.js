@@ -355,4 +355,29 @@ $(document).ready(function () {
         tooltip: 'Click to edit...'
     });
 
+    // Edit biography text (admin)
+    $('.edit-bio').editable('templates/edits/edit-bio.php', {
+        indicator: 'Saving...',
+        tooltip: 'Click to edit...'
+    });
+    $('.edit-bio-area').editable('templates/edits/edit-bio.php', {
+        type: 'textarea',
+        submit: 'OK',
+        cancel: 'Cancel',
+        indicator: 'indicator',
+        tooltip: 'Click to edit...'
+    });
+
+    // Edit member bio text (admin)
+    $('.edit-memberbio').editable('templates/edits/edit-memberbio.php', {
+        indicator: 'Saving...',
+        tooltip: 'Click to edit...'
+    });
+    $('.edit-memberbio-area').editable('templates/edits/edit-memberbio.php', {
+        type: 'textarea',
+        submit: 'OK',
+        cancel: 'Cancel',
+        indicator: 'indicator',
+        tooltip: 'Click to edit...'
+    });
 });

@@ -60,6 +60,11 @@
                     $result = new UsersAPI($request, $filters);
                     $this->sql = $result->getResult();
                     break;
+                case 'articles':
+                    require_once 'ArticlesAPI.php';
+                    $result = new ArticlesAPI($request, $filters);
+                    $this->sql = $result->getResult();
+                    break;
                 default:
                     $this->sql = '';
             }

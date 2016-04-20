@@ -38,7 +38,7 @@
                     break;
                 case 'PUT':
                     require_once 'PUTDispatcher.php';
-                    $dispatcher = new PUTDispatcher($this->request, $this->input);
+                    $dispatcher = new PUTDispatcher($this->request, $this->filters, $this->input);
                     break;
                 default:
                     break;

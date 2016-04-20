@@ -178,7 +178,7 @@ CREATE TABLE release_comments(
     PRIMARY KEY(id));
 CREATE TABLE guestbook_comments(
     id int AUTO_INCREMENT,
-    comment_subid int UNIQUE,
+    comment_subid int,
     author_id int,
     comment text,
     posted datetime,
@@ -230,6 +230,23 @@ CREATE TABLE shopitem_comments(
     date_commented datetime,
     PRIMARY KEY(id)
 );
+CREATE TABLE articles(
+    id int AUTO_INCREMENT,
+    category varchar(100),
+    short varchar(200),
+    full text,
+    PRIMARY KEY(id)
+);
+CREATE TABLE article_comments(
+    id int AUTO_INCREMENT,
+    article_id int,
+    comment_subid int,
+    comment varchar(200),
+    author_id varchar(200),
+    date_commented datetime,
+    PRIMARY KEY(id)
+);
+
 
 INSERT INTO news VALUES(
     1,
@@ -520,3 +537,64 @@ INSERT INTO shopitem_comments VALUES(5, 3, 1, 1, "Very nice quality download", 3
 INSERT INTO shopitem_comments VALUES(6, 4, 1, 3, "Very good album!", 3, "2016-04-04 00:27:00");
 INSERT INTO shopitem_comments VALUES(7, 4, 2, 4, "So nice album!", 3, "2016-04-04 00:27:00");
 INSERT INTO shopitem_comments VALUES(8, 4, 3, 5, "Excellent release!", 3, "2016-04-04 00:27:00");
+
+INSERT INTO articles VALUES(0, "biography", "Short bio for the band", "This will be the long biography for the band. Use markdown like [p], [b], [url=link]name[/url] to add paragraphs etc.", 1);
+INSERT INTO articles VALUES(0, "members", "Short text for Juha", "This will be the long article of Juha in bio. Use markdown like [p], [b], [url=link]name[/url] to add paragraphs etc.", 1);
+INSERT INTO articles VALUES(0, "main", "Short text for the main page description", "This will be the long text for the main page. Use markdown like [p], [b], [url=link]name[/url] to add paragraphs etc.", 1);
+INSERT INTO articles VALUES(
+    0,
+    "members",
+    "Short text for Tero",
+    "This will be the long article of Tero. Use markdown like [p], [b], [url=link]name[/url] to add paragraphs etc.",
+    2
+);
+INSERT INTO articles VALUES(
+    0,
+    "members",
+    "Short text for Matti S",
+    "This will be the long article of Matti S. Use markdown like [p], [b], [url=link]name[/url] to add paragraphs etc.",
+    3
+);
+INSERT INTO articles VALUES(
+    0,
+    "members",
+    "Short text for Ville",
+    "This will be the long article of Ville. Use markdown like [p], [b], [url=link]name[/url] to add paragraphs etc.",
+    4
+);
+INSERT INTO articles VALUES(
+    0,
+    "members",
+    "Short text for Mikko N",
+    "This will be the long article of Mikko N. Use markdown like [p], [b], [url=link]name[/url] to add paragraphs etc.",
+    5
+);
+INSERT INTO articles VALUES(
+    0,
+    "members",
+    "Short text for Samuli",
+    "This will be the long article of Samuli. Use markdown like [p], [b], [url=link]name[/url] to add paragraphs etc.",
+    6
+);
+INSERT INTO articles VALUES(
+    0,
+    "members",
+    "Short text for Rami",
+    "This will be the long article of Rami. Use markdown like [p], [b], [url=link]name[/url] to add paragraphs etc.",
+    7
+);
+INSERT INTO articles VALUES(
+    0,
+    "members",
+    "Short text for Lukas",
+    "This will be the long article of Lukas. Use markdown like [p], [b], [url=link]name[/url] to add paragraphs etc.", 
+    8
+);
+
+INSERT INTO article_comments VALUES(0, 1, 1, "Very nice to read all that info!", 3, "2016-04-20 10:30:00");
+INSERT INTO article_comments VALUES(0, 1, 2, "Cool details!", 3, "2016-04-20 10:31:00");
+INSERT INTO article_comments VALUES(0, 1, 3, "Interesting stuff!", 3, "2016-04-20 10:32:00");
+INSERT INTO article_comments VALUES(0, 2, 1, "Very nice to find that out!", 3, "2016-04-20 10:33:00");
+INSERT INTO article_comments VALUES(0, 2, 2, "Oh yeah!", 3, "2016-04-20 10:34:00");
+INSERT INTO article_comments VALUES(0, 3, 1, "Nice intro!", 3, "2016-04-20 10:35:00");
+INSERT INTO article_comments VALUES(0, 3, 2, "Excellent stuff!", 3, "2016-04-20 10:36:00");
