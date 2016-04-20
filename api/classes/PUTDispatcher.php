@@ -30,6 +30,11 @@
                     $result = new ShopUpdateAPI($request, $inputData);
                     $this->sql = $result->getResult();
                     break;
+                case 'videos':
+                    require_once 'VideosUpdateAPI.php';
+                    $result = new VideosUpdateAPI($request, $inputData);
+                    $this->sql = $result->getResult();
+                    break;
                 default:
                     $this->sql = '';
             }

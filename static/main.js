@@ -342,4 +342,17 @@ $(document).ready(function () {
         tooltip: 'Click to edit...'
     });
 
+    // Edit videos (admin)
+    $('.edit-video').editable('templates/edits/edit-video.php', {
+        indicator: 'Saving...',
+        tooltip: 'Click to edit...'
+    });
+    $('.edit-video-area').editable('templates/edits/edit-video.php', {
+        type: 'textarea',
+        submit: 'OK',
+        cancel: 'Cancel',
+        indicator: 'indicator',
+        tooltip: 'Click to edit...'
+    });
+
 });
