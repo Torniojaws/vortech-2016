@@ -1,13 +1,16 @@
 <div class="row">
     <div class="col-sm-4">
         <h3>
-            <?php
-                echo $show['country'];
-                echo ', '.$show['city'];
-            ?>
+            <span><?php echo $show['country']; ?></span>,
+            <span><?php echo $show['city']; ?></span>
         </h3>
         <small><?php echo $show['show_date']; ?></small>
         <p><?php echo $show['band_comments']; ?></p>
+        <?php
+            if ($_SESSION['authorized'] == 1) {
+                include './templates/edits/edit-show-form.php';
+            }
+        ?>
     </div>
     <div class="col-sm-4">
         <h3>Setlist</h3>

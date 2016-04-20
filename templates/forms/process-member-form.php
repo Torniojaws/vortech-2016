@@ -59,7 +59,7 @@
     if ($image_errors == 0 and $thumbnail_errors == 0) {
         $album = 6; // 6 = Band memmbers
         $date = date('Y-m-d H:i:s');
-        $taken_by = "Juha";
+        $taken_by = 'Juha';
 
         $photo_api = 'api/v1/photos/add';
         $photo_request_api = SERVER_URL.$photo_api;

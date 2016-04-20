@@ -328,6 +328,33 @@ $(document).ready(function () {
         });
     });
 
+    // Edit show form
+    $('[id^=ad-edit-show]').submit(function (e) {
+        e.preventDefault();
+        var editshow_form_data = new FormData($(this)[0]);
+        $.ajax({
+            type: 'post',
+            url: 'templates/edits/edit-show.php',
+            cache: false,
+            data: editshow_form_data,
+            async: false,
+            processData: false,
+            contentType: false,
+            success: function (editshow_data) {
+                if (editshow_data.status === 'success') {
+                    $('#add-failed').hide();
+                    $('#added-ok').removeAttr('hidden');
+                    $('[id^=edit-show]').modal('hide');
+                    location.reload();
+                } else if (editshow_data.status === 'error') {
+                    $('#add-failed').removeAttr('hidden');
+                } else {
+                    console.log("Something strange in the neighbourhood");
+                }
+            }
+        });
+    });
+
     // Edit news (admin)
     $('.edit-news').editable('templates/edits/edit-news.php', {
         indicator: 'Saving...',

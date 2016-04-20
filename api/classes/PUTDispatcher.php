@@ -40,6 +40,11 @@
                     $result = new ArticlesUpdateAPI($request, $filters, $inputData);
                     $this->sql = $result->getResult();
                     break;
+                case 'shows':
+                    require_once 'ShowsUpdateAPI.php';
+                    $result = new ShowsUpdateAPI($request, $filters, $inputData);
+                    $this->sql = $result->getResult();
+                    break;
                 default:
                     $this->sql = '';
             }

@@ -32,7 +32,7 @@
                     $dispatcher = new GETDispatcher($this->request, $this->filters);
                     break;
                 case 'POST':
-                    require_once('POSTDispatcher.php');
+                    require_once 'POSTDispatcher.php';
                     $dispatcher = new POSTDispatcher($this->request, $this->filters, $this->input);
                     break;
                 case 'PUT':
