@@ -157,6 +157,29 @@
                     $query['params'] = array('category' => $args[2]);
                     break;
 
+                # /photos/:category/newest
+                # /photos/:category/latest
+                case isset($args[2]) and is_numeric($args[2]) == false and isset($args[3])
+                     and ($args[3] == 'newest' or $args[3] == 'latest') and isset($args[4]) == false:
+                    // Convert dashes to underscores
+                    $category = str_replace('-', '_', $args[2]);
+                    $query['statement'] = 'SELECT photos.*,
+                                                  photo_albums.id AS photo_album_id,
+                                                  photo_albums.category_id,
+                                                  photo_albums.show_in_gallery,
+                                                  photo_categories.name_id,
+                                                  photo_categories.name
+                                           FROM photos
+                                           JOIN photo_albums
+                                                ON photo_albums.id = photos.album_id
+                                           JOIN photo_categories
+                                                ON photo_categories.id = photo_albums.category_id
+                                           WHERE photo_categories.name_id = :category
+                                           ORDER BY id DESC
+                                           LIMIT 1';
+                    $query['params'] = array('category' => $category);
+                    break;
+
                 # /photos/:id/comments/:id
                 case isset($args[2]) and is_numeric($args[2]) and isset($args[3])
                      and $args[3] == 'comments' and isset($args[4]) and is_numeric($args[4]):

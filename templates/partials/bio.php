@@ -28,7 +28,7 @@
 </div>
 <hr />
 
-<!-- Modal contents -->
+<!-- Information Modal contents -->
 <div class="modal fade" id="photo-modal<?php echo $photo['id']; ?>" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">

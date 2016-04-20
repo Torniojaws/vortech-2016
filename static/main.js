@@ -303,6 +303,31 @@ $(document).ready(function () {
         });
     });
 
+    // Add member form
+    $('#ad-member-form').submit(function (e) {
+        e.preventDefault();
+        var member_form_data = new FormData($(this)[0]);
+        $.ajax({
+            type: 'post',
+            url: 'templates/forms/process-member-form.php',
+            cache: false,
+            data: member_form_data,
+            async: false,
+            processData: false,
+            contentType: false,
+            success: function (member_data) {
+                if (member_data.status === 'success') {
+                    $('#add-failed').hide();
+                    $('#added-ok').removeAttr('hidden');
+                    $('#member-form').modal('hide');
+                    location.reload();
+                } else if (member_data.status === 'error') {
+                    $('#add-failed').removeAttr('hidden');
+                }
+            }
+        });
+    });
+
     // Edit news (admin)
     $('.edit-news').editable('templates/edits/edit-news.php', {
         indicator: 'Saving...',

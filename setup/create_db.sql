@@ -102,7 +102,6 @@ CREATE TABLE performers(
     instrument varchar(100),
     started datetime,
     quit datetime,
-    short_bio text,
     photo_id int,
     PRIMARY KEY(id)
 );
@@ -178,7 +177,7 @@ CREATE TABLE release_comments(
     PRIMARY KEY(id));
 CREATE TABLE guestbook_comments(
     id int AUTO_INCREMENT,
-    comment_subid int,
+    comment_subid int UNIQUE,
     author_id int,
     comment text,
     posted datetime,
@@ -235,6 +234,7 @@ CREATE TABLE articles(
     category varchar(100),
     short varchar(200),
     full text,
+    subid int,
     PRIMARY KEY(id)
 );
 CREATE TABLE article_comments(
@@ -355,8 +355,7 @@ INSERT INTO user_access_levels VALUES(3, "Guest");
 INSERT INTO user_access_levels VALUES(4, "Blocked");
 
 INSERT INTO performers VALUES(
-    1, "Juha", "Founding member", "Guitar, Bass, Programming", "2000-01-01 00:00:00", "9999-12-12 23:59:59",
-    "Started playing guitar in 1997 and wrote songs from 2000 on", 10);
+    1, "Juha", "Founding member", "Guitar, Bass, Programming", "2000-01-01 00:00:00", "9999-12-12 23:59:59", 10);
 INSERT INTO performers VALUES(
     2, "Tero", "Founding member", "Bass, Programming, Drums", "2000-01-01 00:00:00", "2004-10-12 23:59:59",
     "Drummer, bass player and co-songwriter from the beginning", 11);
@@ -538,56 +537,74 @@ INSERT INTO shopitem_comments VALUES(6, 4, 1, 3, "Very good album!", 3, "2016-04
 INSERT INTO shopitem_comments VALUES(7, 4, 2, 4, "So nice album!", 3, "2016-04-04 00:27:00");
 INSERT INTO shopitem_comments VALUES(8, 4, 3, 5, "Excellent release!", 3, "2016-04-04 00:27:00");
 
-INSERT INTO articles VALUES(0, "biography", "Short bio for the band", "This will be the long biography for the band. Use markdown like [p], [b], [url=link]name[/url] to add paragraphs etc.", 1);
-INSERT INTO articles VALUES(0, "members", "Short text for Juha", "This will be the long article of Juha in bio. Use markdown like [p], [b], [url=link]name[/url] to add paragraphs etc.", 1);
-INSERT INTO articles VALUES(0, "main", "Short text for the main page description", "This will be the long text for the main page. Use markdown like [p], [b], [url=link]name[/url] to add paragraphs etc.", 1);
+INSERT INTO articles VALUES(
+    0,
+    "biography",
+    "Short bio for the band",
+    "This will be the long biography for the band. Use markdown like [p], [b], [url=link]name[/url] to add paragraphs etc.",
+    1
+);
 INSERT INTO articles VALUES(
     0,
     "members",
-    "Short text for Tero",
+    "Started playing guitar in 1997 and wrote songs from 2000 on",
+    "This will be the long article of Juha in bio. Use markdown like [p], [b], [url=link]name[/url] to add paragraphs etc.",
+    1
+);
+INSERT INTO articles VALUES(
+    0,
+    "main",
+    "Short text for the main page description",
+    "This will be the long text for the main page. Use markdown like [p], [b], [url=link]name[/url] to add paragraphs etc.",
+    1
+);
+INSERT INTO articles VALUES(
+    0,
+    "members",
+    "Drummer, bass player and co-songwriter from the beginning",
     "This will be the long article of Tero. Use markdown like [p], [b], [url=link]name[/url] to add paragraphs etc.",
     2
 );
 INSERT INTO articles VALUES(
     0,
     "members",
-    "Short text for Matti S",
+    "Joined on vocals after Wasteland and was in all live shows",
     "This will be the long article of Matti S. Use markdown like [p], [b], [url=link]name[/url] to add paragraphs etc.",
     3
 );
 INSERT INTO articles VALUES(
     0,
     "members",
-    "Short text for Ville",
+    "Drumming since 2010 and first live drums on any of our albums with Devoid of Life",
     "This will be the long article of Ville. Use markdown like [p], [b], [url=link]name[/url] to add paragraphs etc.",
     4
 );
 INSERT INTO articles VALUES(
     0,
     "members",
-    "Short text for Mikko N",
+    "Joined on vocals after the nice performance on Devoid of Life",
     "This will be the long article of Mikko N. Use markdown like [p], [b], [url=link]name[/url] to add paragraphs etc.",
     5
 );
 INSERT INTO articles VALUES(
     0,
     "members",
-    "Short text for Samuli",
+    "Helped us out in our very first live performance",
     "This will be the long article of Samuli. Use markdown like [p], [b], [url=link]name[/url] to add paragraphs etc.",
     6
 );
 INSERT INTO articles VALUES(
     0,
     "members",
-    "Short text for Rami",
+    "Played rehearsal drums for us for a good bit of time",
     "This will be the long article of Rami. Use markdown like [p], [b], [url=link]name[/url] to add paragraphs etc.",
     7
 );
 INSERT INTO articles VALUES(
     0,
     "members",
-    "Short text for Lukas",
-    "This will be the long article of Lukas. Use markdown like [p], [b], [url=link]name[/url] to add paragraphs etc.", 
+    "Did some awesome guest vocals on The Core, from the album Wasteland",
+    "This will be the long article of Lukas. Use markdown like [p], [b], [url=link]name[/url] to add paragraphs etc.",
     8
 );
 
