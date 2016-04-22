@@ -45,6 +45,11 @@
                     $result = new ShowsUpdateAPI($request, $filters, $inputData);
                     $this->sql = $result->getResult();
                     break;
+                case 'releases':
+                    require_once 'ReleasesUpdateAPI.php';
+                    $result = new ReleasesUpdateAPI($request, $filters, $inputData);
+                    $this->sql = $result->getResult();
+                    break;
                 default:
                     $this->sql = '';
             }

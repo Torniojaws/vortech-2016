@@ -432,4 +432,33 @@ $(document).ready(function () {
         indicator: 'indicator',
         tooltip: 'Click to edit...'
     });
+
+    // Edit release text (admin)
+    $('.edit-release').editable('templates/edits/edit-release.php', {
+        indicator: 'Saving...',
+        tooltip: 'Click to edit...',
+        style: 'display: inline'
+    });
+    $('.edit-release-area').editable('templates/edits/edit-release.php', {
+        type: 'textarea',
+        submit: 'OK',
+        cancel: 'Cancel',
+        indicator: 'indicator',
+        tooltip: 'Click to edit...',
+        style: 'inherit'
+    });
+
+    // Edit song text (admin)
+    $('.edit-song').editable('templates/edits/edit-song.php', {
+        indicator: 'Saving...',
+        tooltip: 'Click to edit...',
+        style: 'display: inline'
+    });
+    $('.edit-song-area').editable('templates/edits/edit-song.php', {
+        type: 'textarea',
+        submit: 'OK',
+        cancel: 'Cancel',
+        indicator: 'indicator',
+        tooltip: 'Click to edit...'
+    });
 });
