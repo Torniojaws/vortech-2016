@@ -30,6 +30,12 @@
                         case 'bioshort':
                             $query['statement'] = 'UPDATE articles SET short = ';
                             break;
+                        case 'landingfull':
+                            $query['statement'] = 'UPDATE articles SET full = ';
+                            break;
+                        case 'landingshort':
+                            $query['statement'] = 'UPDATE articles SET short = ';
+                            break;
                         default:
                             break;
                     }

@@ -1,15 +1,23 @@
 <div class="container-fluid">
     <div class="row">
-        <div class="col-sm-4">
+        <div class="col-sm-12">
             <?php
                 $landing_api = 'api/v1/articles/3';
                 $landing_result = file_get_contents(SERVER_URL.$landing_api);
                 $landing_article = json_decode($landing_result, true);
                 $landing = $landing_article[0];
             ?>
-            <h2><?php echo $landing['short']; ?></h2>
-            <p><?php echo $landing['full']; ?></p>
+            <h2 id="landingshort-3"<?php
+                if ($_SESSION['authorized'] == 1) {
+                    echo ' class="edit-landing"';
+                } ?>><?php echo $landing['short']; ?></h2>
+            <p id="landingfull-3"<?php
+                if ($_SESSION['authorized'] == 1) {
+                    echo ' class="edit-landing"';
+                } ?>><?php echo $landing['full']; ?></p>
         </div>
+    </div>
+    <div class="row">
         <div class="col-sm-8">
             <h2>Visitors</h2>
             <?php

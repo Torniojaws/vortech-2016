@@ -475,4 +475,18 @@ $(document).ready(function () {
         indicator: 'indicator',
         tooltip: 'Click to edit...'
     });
+
+    // Edit landing page article (admin)
+    $('.edit-landing').editable('templates/edits/edit-landing.php', {
+        indicator: 'Saving...',
+        tooltip: 'Click to edit...',
+        style: 'display: inline'
+    });
+    $('.edit-landing-area').editable('templates/edits/edit-landing.php', {
+        type: 'textarea',
+        submit: 'OK',
+        cancel: 'Cancel',
+        indicator: 'indicator',
+        tooltip: 'Click to edit...'
+    });
 });
