@@ -50,6 +50,11 @@
                     $result = new ReleasesUpdateAPI($request, $filters, $inputData);
                     $this->sql = $result->getResult();
                     break;
+                case 'photos':
+                    require_once 'PhotosUpdateAPI.php';
+                    $result = new PhotosUpdateAPI($request, $filters, $inputData);
+                    $this->sql = $result->getResult();
+                    break;
                 default:
                     $this->sql = '';
             }

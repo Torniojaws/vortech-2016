@@ -461,4 +461,18 @@ $(document).ready(function () {
         indicator: 'indicator',
         tooltip: 'Click to edit...'
     });
+
+    // Edit photo caption (admin)
+    $('.edit-photo').editable('templates/edits/edit-photo.php', {
+        indicator: 'Saving...',
+        tooltip: 'Click to edit...',
+        style: 'display: inline'
+    });
+    $('.edit-photo-area').editable('templates/edits/edit-photo.php', {
+        type: 'textarea',
+        submit: 'OK',
+        cancel: 'Cancel',
+        indicator: 'indicator',
+        tooltip: 'Click to edit...'
+    });
 });

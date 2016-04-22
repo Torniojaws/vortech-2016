@@ -9,7 +9,20 @@
         <?php
             echo date('Y-m-d', strtotime($photo['date_taken']));
             echo ' &ndash; ';
-            echo $photo['caption'];
+
+            if (empty($photo['caption'])) {
+                if ($_SESSION['authorized'] == 1) {
+                    echo '<span id="photocaption-'.$photo['id'].'" class="edit-photo">(no description)</span>';
+                } else {
+                    echo '<span class="text-muted">(no description)</span>';
+                }
+            } else {
+                echo '<span id="photocaption-'.$photo['id'];
+                if($_SESSION['authorized'] == 1) {
+                    echo '" class="edit-photo';
+                }
+                echo '">'.$photo['caption'].'</span>';
+            }
             echo '<br />';
             echo 'From: <strong>'.$photo['name'].'</strong>';
         ?>
