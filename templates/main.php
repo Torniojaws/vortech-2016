@@ -1,8 +1,14 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-4">
-            <h2>Main</h2>
-            <p>Page</p>
+            <?php
+                $landing_api = 'api/v1/articles/3';
+                $landing_result = file_get_contents(SERVER_URL.$landing_api);
+                $landing_article = json_decode($landing_result, true);
+                $landing = $landing_article[0];
+            ?>
+            <h2><?php echo $landing['short']; ?></h2>
+            <p><?php echo $landing['full']; ?></p>
         </div>
         <div class="col-sm-8">
             <h2>Visitors</h2>
