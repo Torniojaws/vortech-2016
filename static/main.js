@@ -384,7 +384,8 @@ $(document).ready(function () {
     // Edit shop items (admin)
     $('.edit-shop').editable('templates/edits/edit-shop.php', {
         indicator: 'Saving...',
-        tooltip: 'Click to edit...'
+        tooltip: 'Click to edit...',
+        style: "display: inline"
     });
     $('.edit-shop-area').editable('templates/edits/edit-shop.php', {
         type: 'textarea',
@@ -397,7 +398,8 @@ $(document).ready(function () {
     // Edit videos (admin)
     $('.edit-video').editable('templates/edits/edit-video.php', {
         indicator: 'Saving...',
-        tooltip: 'Click to edit...'
+        tooltip: 'Click to edit...',
+        style: "display: inline"
     });
     $('.edit-video-area').editable('templates/edits/edit-video.php', {
         type: 'textarea',
