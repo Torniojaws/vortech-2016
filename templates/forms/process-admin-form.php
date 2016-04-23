@@ -16,13 +16,18 @@
         $db = new Database();
         $db->connect();
 
-        // TODO: security (long random salt and encryption)
-        // https://crackstation.net/hashing-security.htm#normalhashing
-        $statement = 'SELECT * FROM users WHERE username = :user AND password = :pass LIMIT 1';
-        $params = array('user' => $user, 'pass' => $pass);
+        // We'll get the user's details
+        $statement = 'SELECT * FROM users WHERE username = :user LIMIT 1';
+        $params = array('user' => $user);
         $result = $db->run($statement, $params);
 
-        if ($result != null) {
+        // And then see if the hashed DB password natches to user input:
+        $original_password = $result[0]['password'];
+        require $root.'classes/PasswordStorage.php';
+        $pwd = new PasswordStorage();
+        $password_is_correct = $pwd->verify_password($_POST['adPass'], $original_password);
+
+        if ($password_is_correct) {
             $_SESSION['authorized'] = 1;
             $_SESSION['username'] = $result[0]['name'];
             $response['status'] = 'success';

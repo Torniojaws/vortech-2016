@@ -69,6 +69,15 @@
             </div>
         </nav>
 
+        <!-- When logged in, user details will be below-->
+        <?php
+            echo '<div class="pull-right">';
+            if ($_SESSION['user_logged'] == 1 or $_SESSION['authorized'] == 1) {
+                echo '<p>Logged in as <strong>'.$_SESSION['username'].'</strong></p>';
+            }
+            echo '</div>';
+        ?>
+
         <!-- Main content -->
         <?php
             require_once 'constants.php';
