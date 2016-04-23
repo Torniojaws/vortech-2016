@@ -1,6 +1,6 @@
 <div class="container-fluid">
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-sm-8">
             <?php
                 $landing_api = 'api/v1/articles/3';
                 $landing_result = file_get_contents(SERVER_URL.$landing_api);
@@ -16,10 +16,34 @@
                     echo ' class="edit-landing"';
                 } ?>><?php echo $landing['full']; ?></p>
         </div>
+        <div class="col-sm-4">
+            <section>
+            <h3>Login</h3>
+            <?php
+                if ($_SESSION['user_logged'] == 1) {
+                    echo '<p>Welcome back, '.$_SESSION['username'].'</p>';
+                    ?>
+                        <label for="logout-form">User logout</label>
+                        <form role="form" class="form-inline" id="user-logout-form" name="user-logout-form">
+                            <input type="hidden" name="userLogout" value="logout" />
+                            <button type="submit" class="btn btn-primary" name="Submit" id="user-logout">Logout</button>
+                        </form>
+                        <div id="logout-ok" class="text-info" hidden>Successfully logged out! See you again...</div>
+                        <div id="logout-failed" class="text-info" hidden>Could not log you out! Try again?</div>
+                    <?php
+                } else {
+                    echo '<p><a href="login">Login</a> or <a href="register">Register</a> to access
+                          the full range of features in the website.</p>';
+                    echo '<p>Registered users can add comments to News, Releases, Songs, Shows,
+                          Photos, and Videos. You can also have a custom avatar/image.</p>';
+                }
+            ?>
+            </section>
+        </div>
     </div>
     <div class="row">
-        <div class="col-sm-8">
-            <h2>Visitors</h2>
+        <div class="col-sm-4 well">
+            <h4>Visitors</h4>
             <?php
                 $api = 'api/v1/visitors';
                 $visitor_result = file_get_contents(SERVER_URL.$api);
@@ -44,6 +68,7 @@
                     echo 'Could not update count!';
                 }
             ?>
+            <p>Copyright &copy; <?php echo date('Y'); ?> Vortech</p>
         </div>
     </div>
 </div>

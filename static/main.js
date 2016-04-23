@@ -53,6 +53,54 @@ $(document).ready(function () {
         });
     });
 
+    // User login
+    $('#login-form').submit(function (e) {
+        e.preventDefault();
+        var user_form_data = $(this).serialize();
+        $.ajax({
+            type: 'post',
+            url: 'templates/forms/process-user-form.php',
+            data: user_form_data,
+            success: function (user_data) {
+                if (user_data.status === 'success') {
+                    $('#login-failed').hide();
+                    $('#login-form').each(function () {
+                        this.reset();
+                    });
+                    $('#login-ok').removeAttr('hidden').fadeOut(2000);
+                    location.reload();
+                } else if (user_data.status === 'error') {
+                    $('#login-failed').removeAttr('hidden');
+                }
+            }
+        });
+    });
+
+    // User logout
+    $('#user-logout-form').submit(function (e) {
+        e.preventDefault();
+        var user_logout_data = $(this).serialize();
+        $.ajax({
+            type: 'post',
+            url: 'templates/forms/process-user-form.php',
+            data: user_logout_data,
+            success: function (user_logout_result_data) {
+                if (user_logout_result_data.status === 'success') {
+                    $('#logout-failed').hide();
+                    $('#logout-form').each(function () {
+                        this.reset();
+                    });
+                    $('#logout-ok').removeAttr('hidden').fadeOut(2000);
+                    setTimeout(function () {
+                        location.reload();
+                    }, 2000);
+                } else if (user_logout_result_data.status === 'error') {
+                    $('#logout-failed').removeAttr('hidden');
+                }
+            }
+        });
+    });
+
     // Check if user has marked an entry
     $('.btn-mark').click(function (e) {
         e.preventDefault();
@@ -350,6 +398,31 @@ $(document).ready(function () {
                     $('#add-failed').removeAttr('hidden');
                 } else {
                     console.log("Something strange in the neighbourhood");
+                }
+            }
+        });
+    });
+
+    // User register form
+    $('#register-form').submit(function (e) {
+        e.preventDefault();
+        var register_form_data = new FormData($(this)[0]);
+        $.ajax({
+            type: 'post',
+            url: 'templates/forms/process-user-register-form.php',
+            cache: false,
+            data: register_form_data,
+            async: false,
+            processData: false,
+            contentType: false,
+            success: function (register_data) {
+                if (register_data.status === 'success') {
+                    $('#add-failed').hide();
+                    $('#added-ok').removeAttr('hidden');
+                    $('#register-form').modal('hide');
+                    location.reload();
+                } else if (register_data.status === 'error') {
+                    $('#add-failed').removeAttr('hidden');
                 }
             }
         });
