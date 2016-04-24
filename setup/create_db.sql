@@ -194,6 +194,7 @@ CREATE TABLE show_comments(
 CREATE TABLE song_comments(
     id int AUTO_INCREMENT,
     song_id int,
+    release_code varchar(10),
     comment_subid int,
     author varchar(200),
     author_id int,
@@ -461,13 +462,13 @@ INSERT INTO show_comments VALUES(1, 1, 1, "Regular Joe", 3, "That was a great sh
 INSERT INTO show_comments VALUES(2, 2, 1, "Regular Joe", 3, "Another great show!", "2016-03-30 16:35:00");
 INSERT INTO show_comments VALUES(3, 2, 2, "Visithor", 2, "It was nice to see it live!", "2016-03-29 02:00:00");
 
-INSERT INTO song_comments VALUES(1, 1, 1, "Jepss", 3, "Very nice song this one!", "2016-03-31 15:16:00");
-INSERT INTO song_comments VALUES(2, 1, 2, "Onse", 2, "Tosi nice song one!", "2016-03-31 15:16:00");
-INSERT INTO song_comments VALUES(3, 2, 1, "Kommentmän", 3, "Hyvin nice song this one!", "2016-03-31 15:16:00");
-INSERT INTO song_comments VALUES(4, 2, 2, "Jeah", 3, "Very nice song this one!", "2016-03-31 15:16:00");
-INSERT INTO song_comments VALUES(5, 3, 1, "Nimi", 2, "Kiva nice song this one!", "2016-03-31 15:16:00");
-INSERT INTO song_comments VALUES(6, 3, 2, "On", 2, "Very nice song this one!", "2016-03-31 15:16:00");
-INSERT INTO song_comments VALUES(7, 3, 3, "Enne", 3, "Kova nice song this one!", "2016-03-31 15:16:00");
+INSERT INTO song_comments VALUES(1, 1, "CD001", 1, "Jepss", 3, "Very nice song this one!", "2016-03-31 15:16:00");
+INSERT INTO song_comments VALUES(2, 1, "CD001", 2, "Onse", 2, "Tosi nice song one!", "2016-03-31 15:16:00");
+INSERT INTO song_comments VALUES(3, 2, "CD002", 1, "Kommentmän", 3, "Hyvin nice song this one!", "2016-03-31 15:16:00");
+INSERT INTO song_comments VALUES(4, 2, "CD002", 2, "Jeah", 3, "Very nice song this one!", "2016-03-31 15:16:00");
+INSERT INTO song_comments VALUES(5, 3, "CD003", 1, "Nimi", 2, "Kiva nice song this one!", "2016-03-31 15:16:00");
+INSERT INTO song_comments VALUES(6, 3, "CD003", 2, "On", 2, "Very nice song this one!", "2016-03-31 15:16:00");
+INSERT INTO song_comments VALUES(7, 3, "CD003", 3, "Enne", 3, "Kova nice song this one!", "2016-03-31 15:16:00");
 
 INSERT INTO performer_comments VALUES(1, 1, 1, "Testimies", 3, "Very nice playing!", "2016-04-01 15:04:00");
 INSERT INTO performer_comments VALUES(2, 1, 2, "Comment Man", 3, "Tosi nice playing!", "2016-04-01 15:04:00");
@@ -504,14 +505,14 @@ INSERT INTO news_comments VALUES(4, 2, 2, "Enne", "Looking forward!", "2016-04-0
 INSERT INTO news_comments VALUES(5, 3, 2, "Kommenthor", "Well done", "2016-04-03 18:15:00");
 INSERT INTO news_comments VALUES(6, 4, 2, "Jess", "Jeah", "2016-04-03 18:16:00");
 
-INSERT INTO release_comments VALUES(1, "CD001", 1, "Tekstaaja", "Very nice album!", "2016-04-03 22:55:00");
-INSERT INTO release_comments VALUES(2, "CD002", 1, "Jokuman", "Awesome release!", "2016-04-03 22:55:00");
-INSERT INTO release_comments VALUES(3, "CD003", 1, "Kommentoija", "Kickass", "2016-04-03 22:55:00");
-INSERT INTO release_comments VALUES(4, "CD001", 2, "Enne", "My favourite", "2016-04-03 22:55:00");
-INSERT INTO release_comments VALUES(5, "CD002", 2, "Skitta", "Tight stuff!", "2016-04-03 22:55:00");
-INSERT INTO release_comments VALUES(6, "CD001", 3, "Testimies", "Nice album!", "2016-04-03 22:55:00");
-INSERT INTO release_comments VALUES(7, "CD002", 3, "Kommenthor", "Very good album!", "2016-04-03 22:55:00");
-INSERT INTO release_comments VALUES(8, "CD003", 3, "Kommentman", "Great nice album!", "2016-04-03 22:55:00");
+INSERT INTO release_comments VALUES(1, 1, "CD001", "Tekstaaja", "Very nice album!", "2016-04-03 22:55:00");
+INSERT INTO release_comments VALUES(2, 1, "CD002", "Jokuman", "Awesome release!", "2016-04-03 22:55:00");
+INSERT INTO release_comments VALUES(3, 1, "CD003", "Kommentoija", "Kickass", "2016-04-03 22:55:00");
+INSERT INTO release_comments VALUES(4, 2, "CD001", "Enne", "My favourite", "2016-04-03 22:55:00");
+INSERT INTO release_comments VALUES(5, 2, "CD002", "Skitta", "Tight stuff!", "2016-04-03 22:55:00");
+INSERT INTO release_comments VALUES(6, 3, "CD001", "Testimies", "Nice album!", "2016-04-03 22:55:00");
+INSERT INTO release_comments VALUES(7, 3, "CD002", "Kommenthor", "Very good album!", "2016-04-03 22:55:00");
+INSERT INTO release_comments VALUES(8, 2, "CD003", "Kommentman", "Great nice album!", "2016-04-03 22:55:00");
 
 /* The first four numbers are:
 
