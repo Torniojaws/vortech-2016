@@ -40,3 +40,7 @@
         </div>
     </div>
 </div>
+<button type="button" class="btn btn-info btn-lg" data-toggle="modal"
+        data-target="#news-modal<?php echo $news['id']; ?>">
+    Show all comments (<?php echo count($comments); ?>)
+</button>

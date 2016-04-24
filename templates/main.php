@@ -32,8 +32,9 @@
                         <div id="logout-failed" class="text-info" hidden>Could not log you out! Try again?</div>
                     <?php
                 } else {
-                    echo '<p><a href="login">Login</a> or <a href="register">Register</a> to access
-                          the full range of features in the website.</p>';
+                    echo '<p><a href="#" data-toggle="modal" data-target="#login-modal">
+                          Login</a> or <a href="#" data-toggle="modal" data-target="#register-modal">
+                          Register</a> to add a comment.</p>';
                     echo '<p>Registered users can add comments to News, Releases, Songs, Shows,
                           Photos, and Videos. You can also have a custom avatar/image.</p>';
                 }
@@ -72,3 +73,7 @@
         </div>
     </div>
 </div>
+
+<?php include 'templates/modals/login.php'; ?>
+
+<?php include 'templates/modals/register.php'; ?>
