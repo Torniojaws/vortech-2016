@@ -21,7 +21,7 @@
                 <!-- Password -->
                 <label for="registerPass">Password</label>
                 <p class="text-warning">Please use a password that you don't use elsewhere, just to be
-                    safe. While security is tried to be taken care of, this just a simple login for
+                    safe. While security is taken care of to a good standard, this just a simple login for
                     some extra features. The password will be stored in encrypted form, so it can
                     only be reset, but not retrieved by admin.</p>
                 <input type="password" class="form-control" id="registerPassword"
