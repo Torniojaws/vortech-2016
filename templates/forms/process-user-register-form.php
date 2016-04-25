@@ -31,77 +31,87 @@
         $password_secure = $pwd->create_hash($password1);
     }
 
-    // Process the photos
+    // Process the photo, if one was uploaded
     $thumbnail_errors = 0;
     $image_errors = 0;
-    $path_for_uploads = 'user_photos/';
+    $image_was_uploaded = false;
 
-    require_once $root.'classes/ImageUploader.php';
-    $absolute_upload_path = $root.IMAGE_DIR.$path_for_uploads;
+    if (isset($_FILES['file_upload']) == false or $_FILES['file_upload']['error'] == UPLOAD_ERR_NO_FILE) {
+        $image_was_uploaded = false;
+        $image = null;
+        $photo = null;
+    } else {
+        $image_was_uploaded = true;
+        $path_for_uploads = 'user_photos/';
 
-    $imageUploader = new ImageUploader($root, $absolute_upload_path);
-    $imageUploader->processUploadedImages();
-    // Each array element contains info about one successfully uploaded image
-    $uploads = $imageUploader->getAssocArrayOfUploadedImages();
+        require_once $root.'classes/ImageUploader.php';
+        $absolute_upload_path = $root.IMAGE_DIR.$path_for_uploads;
 
-    // Thumbnail creation
-    require_once $root.'classes/ImageResizer.php';
-    $resizer = new ImageResizer($root);
+        $imageUploader = new ImageUploader($root, $absolute_upload_path);
+        $imageUploader->processUploadedImages();
+        // Each array element contains info about one successfully uploaded image
+        $uploads = $imageUploader->getAssocArrayOfUploadedImages();
 
-    foreach ($uploads as $image) {
-        $resizer->createThumbnail(
-            $image['fullpath'].$image['filename'],
-            $absolute_upload_path.'thumbnails/',
-            $image['filename'],
-            64
-        );
+        // Thumbnail creation
+        require_once $root.'classes/ImageResizer.php';
+        $resizer = new ImageResizer($root);
 
-        $caption = $name;
-    }
-    $date_of_photos = date('Y-m-d H:i:s');
-
-    // Check that everything went OK
-    if ($imageUploader->successfullyUploadedAll() == false) {
-        $image_errors += 1;
-    }
-    if ($resizer->thumbnailStatus() == false) {
-        $thumbnail_errors += 1;
-    }
-
-    $full = $image['filename'];
-    $thumbnail = 'thumbnails/'.$image['filename'];
-
-    if (isset($name) && isset($username) && $image_errors == 0 && $thumbnail_errors == 0) {
-        require_once $root.'/api/classes/Database.php';
-
-        $db = new Database();
-
-        // Add new avatar to album "6" (User-uploaded avatars)
-        foreach ($photos as $photo) {
-            $db->connect();
-            $statement = 'INSERT INTO photos VALUES(
-                0,
-                :album_id,
-                :date_taken,
-                :taken_by,
-                :full,
-                :thumbnail,
-                :caption
-            )';
-            $params = array(
-                'album_id' => 6,
-                'date_taken' => $date_of_photos,
-                'taken_by' => $user,
-                'full' => $photo['full-image'],
-                'thumbnail' => $photo['thumbnail'],
-                'caption' => $caption,
+        foreach ($uploads as $image) {
+            $resizer->createThumbnail(
+                $image['fullpath'].$image['filename'],
+                $absolute_upload_path.'thumbnails/',
+                $image['filename'],
+                64
             );
-            $db->run($statement, $params);
+
+            $caption = $name;
         }
-        if ($db->querySuccessful() == false) {
+        $date_of_photos = date('Y-m-d H:i:s');
+
+        // Check that everything went OK
+        if ($imageUploader->successfullyUploadedAll() == false) {
             $image_errors += 1;
         }
-        $db->close();
+        if ($resizer->thumbnailStatus() == false) {
+            $thumbnail_errors += 1;
+        }
+
+        $full = $image['filename'];
+        $thumbnail = 'thumbnails/'.$image['filename'];
+    }
+
+    if (isset($name) && isset($username) && $image_errors == 0 && $thumbnail_errors == 0) {
+        require_once $root.'api/classes/Database.php';
+        $db = new Database();
+
+        if ($image_was_uploaded == true) {
+            // Add new avatar to album "6" (User-uploaded avatars)
+            foreach ($photos as $photo) {
+                $db->connect();
+                $statement = 'INSERT INTO photos VALUES(
+                    0,
+                    :album_id,
+                    :date_taken,
+                    :taken_by,
+                    :full,
+                    :thumbnail,
+                    :caption
+                )';
+                $params = array(
+                    'album_id' => 6,
+                    'date_taken' => $date_of_photos,
+                    'taken_by' => $user,
+                    'full' => $photo['full-image'],
+                    'thumbnail' => $photo['thumbnail'],
+                    'caption' => $caption,
+                );
+                $db->run($statement, $params);
+            }
+            if ($db->querySuccessful() == false) {
+                $image_errors += 1;
+            }
+            $db->close();
+        }
 
         // And then add the user into "users"
         $db->connect();

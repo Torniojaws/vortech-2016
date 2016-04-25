@@ -46,9 +46,6 @@
             if ($data[0]['quit'] != '9999-12-12 23:59:59') {
                 ++$missing;
             }
-            if (strlen($data[0]['short_bio']) == 0) {
-                ++$missing;
-            }
             if ($data[0]['photo_id'] != 10) {
                 ++$missing;
             }
@@ -275,7 +272,7 @@
             if ($data[0]['thumbnail'] != 'thumbnails/image1.jpg') {
                 ++$missing;
             }
-            if ($data[0]['caption'] != 'Live stuff') {
+            if ($data[0]['caption'] != 'Live stuff 2') {
                 ++$missing;
             }
             if ($data[0]['photo_album_id'] != 4) {
@@ -324,7 +321,7 @@
             if ($data[0]['thumbnail'] != 'thumbnails/image1.jpg') {
                 ++$missing;
             }
-            if ($data[0]['caption'] != 'Live stuff') {
+            if ($data[0]['caption'] != 'Live stuff 2') {
                 ++$missing;
             }
             if ($data[0]['photo_album_id'] != 4) {
@@ -422,7 +419,7 @@
             if ($data[0]['thumbnail'] != 'thumbnails/image1.jpg') {
                 ++$missing;
             }
-            if ($data[0]['caption'] != 'Live stuff') {
+            if ($data[0]['caption'] != 'Live stuff 2') {
                 ++$missing;
             }
             if ($data[0]['photo_album_id'] != 4) {
@@ -969,7 +966,7 @@
             if ($data[0]['other_bands'] != 'Joku|www.testi.fi, Toinen|www.bandi.fi') {
                 ++$missing;
             }
-            if ($data[0]['band_comments'] != 'Nice show') {
+            if ($data[0]['band_comments'] != 'Nice show test 2') {
                 ++$missing;
             }
             if ($data[0]['setlist'] != 'Eka|Toka|Kolmas') {

@@ -19,15 +19,14 @@
             switch ($args) {
                 # /users
                 case isset($args[2]) == false and isset($filters) == false:
-                    $query['statement'] = 'SELECT id, name, photo_id FROM users';
+                    $query['statement'] = 'SELECT id, name FROM users';
                     $query['params'] = array();
                     break;
 
                 # /users/:id
                 case isset($args[2]) and is_numeric($args[2]) and isset($args[3]) == false:
                     $query['statement'] = 'SELECT id,
-                                                  name,
-                                                  photo_id
+                                                  name
                                            FROM users
                                            WHERE id = :id LIMIT 1';
                     $query['params'] = array('id' => (int) $args[2]);
