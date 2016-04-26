@@ -88,6 +88,7 @@ CREATE TABLE users(
     username varchar(200),
     password text,
     access_level_id int,
+    caption varchar(60),
     PRIMARY KEY(id)
 );
 CREATE TABLE user_access_levels(
@@ -344,11 +345,6 @@ INSERT INTO photo_comments VALUES(6, 3, 2, 6, "Finally live!", 3, "2016-03-18 02
 INSERT INTO photo_comments VALUES(7, 4, 1, 1, "Good promo pic", 3, "2016-03-18 00:00:00");
 INSERT INTO photo_comments VALUES(8, 5, 1, 2, "Nice promo!", 3, "2016-03-18 01:00:00");
 INSERT INTO photo_comments VALUES(9, 6, 1, 3, "Awesome promo picture!", 3, "2016-03-18 02:00:00");
-
-INSERT INTO users VALUES(1, "Juha", "test2", "test2", 1);
-INSERT INTO users VALUES(2, "Guest", "guest", "guest", 3);
-INSERT INTO users VALUES(3, "Regular Joe", "name", "pass", 2);
-INSERT INTO users VALUES(4, "Blocked", "nope", "nope", 4);
 
 INSERT INTO user_access_levels VALUES(1, "Administrator");
 INSERT INTO user_access_levels VALUES(2, "Normal User");

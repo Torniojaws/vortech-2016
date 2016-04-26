@@ -13,4 +13,5 @@
     </form>
     <div id="login-ok" class="text-success" hidden>Successfully logged in! Enjoy...</div>
     <div id="login-failed" class="text-danger" hidden>Incorrect login</div>
+    <div id="login-unauthorized" class="text-danger" hidden>Unauthorized</div>
 </div>

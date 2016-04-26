@@ -21,7 +21,16 @@
         $params = array('user' => $user);
         $result = $db->run($statement, $params);
         $db->close();
-        
+
+        // Check that the user has admin rights
+        if ($result[0]['access_level_id'] != 1) {
+            header('HTTP/1.1 401 Unauthorized');
+            $response['status'] = 'error';
+            $response['message'] = 'Unauthorized';
+            echo json_encode($response);
+            return;
+        }
+
         // And then see if the hashed DB password natches to user input:
         $original_password = $result[0]['password'];
         require $root.'classes/PasswordStorage.php';
@@ -31,7 +40,8 @@
 
         if ($password_is_correct) {
             $_SESSION['authorized'] = 1;
-            $_SESSION['username'] = $result[0]['name'];
+            $_SESSION['display_name'] = $result[0]['name'];
+            $_SESSION['username'] = $result[0]['username'];
             $response['status'] = 'success';
             $response['message'] = 'Login OK';
         } else {

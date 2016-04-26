@@ -22,7 +22,16 @@ $(document).ready(function () {
                     $('#login-ok').removeAttr('hidden').fadeOut(2000);
                     location.reload();
                 } else if (data.status === 'error') {
-                    $('#login-failed').removeAttr('hidden');
+                    if (data.message === 'Unauthorized') {
+                        $('#login-unauthorized').removeAttr('hidden');
+                    } else {
+                        $('#login-failed').removeAttr('hidden');
+                    }
+                }
+            },
+            error: function (login_error) {
+                if (login_error.message === 'Unauthorized') {
+                    $('#login-unauthorized').removeAttr('hidden');
                 }
             }
         });

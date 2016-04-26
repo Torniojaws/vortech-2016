@@ -10,6 +10,7 @@
             require_once $root.'constants.php';
 
             $user_api = 'api/v1/users/'.$_SESSION['username'];
+            echo $user_api;
             $user_list = file_get_contents(SERVER_URL.$user_api);
             $user_details = json_decode($user_list, true);
             $user = $user_details[0];
@@ -47,7 +48,7 @@
                     <p><strong>Current avatar:</strong></p>
                     <?php
                         $thumb_path = IMAGE_DIR.'user_photos/'.$user['thumbnail'];
-                        if (file_exists($thumb_path)) {
+                        if (empty($user['thumbnail']) == false) {
                             echo '<img src="'.$thumb_path.'" alt="'.$user['name'].'" /><br/>';
                         } else {
                             echo '<p>(No image uploaded)</p>';
