@@ -55,6 +55,11 @@
                     $result = new PhotosUpdateAPI($request, $filters, $inputData);
                     $this->sql = $result->getResult();
                     break;
+                case 'users':
+                    require_once 'UsersUpdateAPI.php';
+                    $result = new UsersUpdateAPI($request, $filters, $inputData);
+                    $this->sql = $result->getResult();
+                    break;
                 default:
                     $this->sql = '';
             }

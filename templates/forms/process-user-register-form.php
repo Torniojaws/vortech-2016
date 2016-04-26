@@ -1,7 +1,5 @@
 <?php
 
-    session_start();
-
     // Because this runs from a subdir /root/templates/forms
     $root = str_replace('templates/forms', '', dirname(__FILE__));
     require_once $root.'constants.php';
@@ -12,23 +10,62 @@
     $password1 = $_POST['registerPassword'];
     $password2 = $_POST['registerPasswordConfirm'];
 
-    // Create the user account
-    require_once $root.'classes/RegisterUser.php';
-    $userReg = new RegisterUser($root);
-    if ($userReg->register($name, $username, $password1, $password2)) {
-        $reg_status = true;
+    // Validate password
+    if ($password1 === $password2) {
+        require $root.'classes/PasswordStorage.php';
+        $pwd = new PasswordStorage();
+        $password_secure = $pwd->create_hash($_POST['registerPassword']);
+        $password_ok = true;
+    }
+
+    // User avatar and thumbnail
+    if (isset($_FILES['photo']) == true and $_FILES['photo']['error'] !== UPLOAD_ERR_NO_FILE) {
+        $user_uploaded_image = true;
+
+        $path_for_uploads = 'user_photos/';
+        $absolute_upload_path = $root.IMAGE_DIR.$path_for_uploads;
+
+        // Upload original
+        require_once $root.'classes/ImageUploader.php';
+        $imageUploader = new ImageUploader($root, $absolute_upload_path);
+        $imageUploader->processUploadedImages();
+        $uploads = $imageUploader->getAssocArrayOfUploadedImages();
+        if ($uploads == null) {
+            $images_ok = false;
+        } else {
+            $images_ok = true;
+        }
+
+        // Create thumbnail
+        require_once $root.'classes/ImageResizer.php';
+        $resizer = new ImageResizer();
+        foreach ($uploads as $image) {
+            $resizer->createThumbnail(
+                $image['fullpath'].$image['filename'],
+                $absolute_upload_path.'thumbnails/',
+                $image['filename'],
+                64
+            );
+            if ($resizer->thumbnailStatus() == true) {
+                $full_image = $image['filename'];
+                $thumbnail = 'thumbnails/'.$image['filename'];
+            } else {
+                $images_ok = false;
+            }
+        }
     } else {
-        $reg_status = false;
+        $user_uploaded_image = false;
+        $images_ok = true;
     }
 
     // Add the details to DB
-    if ($reg_status == true) {
+    if ($password_ok == true and $images_ok == true) {
         require_once $root.'api/classes/Database.php';
         $db = new Database();
 
-        if ($userReg->imageWasUploaded() == true) {
+        if ($user_uploaded_image == true) {
             // Add new avatar to album "6" (User-uploaded avatars)
-            foreach ($userReg->getUploadedImages() as $photo) {
+            foreach ($uploads as $photo) {
                 $db->connect();
                 $statement = 'INSERT INTO photos VALUES(
                     0,
@@ -41,10 +78,10 @@
                 )';
                 $params = array(
                     'album_id' => 6,
-                    'date_taken' => $userReg->getPhotoDate(),
+                    'date_taken' => date('Y-m-d H:i:s'),
                     'taken_by' => $name,
-                    'full' => $userReg->getFullImageFilename(),
-                    'thumbnail' => $userReg->getThumbnailFilename(),
+                    'full' => $full_image,
+                    'thumbnail' => $thumbnail,
                     'caption' => $name,
                 );
                 if ($params['date_taken'] == null or $params['taken_by'] == null or $params['full'] == null
@@ -72,9 +109,9 @@
         $params = array(
             'name' => $name,
             'username' => $username,
-            'password' => $userReg->getHashedPassword(),
+            'password' => $password_secure,
             'access_level' => 2, // 2 = Normal user
-            'caption' => 'User caption (you can update this through profile)',
+            'caption' => 'User caption (you can edit this through your profile)',
         );
         $db->run($statement, $params);
         $db->close();

@@ -20,12 +20,14 @@
         $statement = 'SELECT * FROM users WHERE username = :user LIMIT 1';
         $params = array('user' => $user);
         $result = $db->run($statement, $params);
-
+        $db->close();
+        
         // And then see if the hashed DB password natches to user input:
         $original_password = $result[0]['password'];
         require $root.'classes/PasswordStorage.php';
         $pwd = new PasswordStorage();
         $password_is_correct = $pwd->verify_password($_POST['adPass'], $original_password);
+
 
         if ($password_is_correct) {
             $_SESSION['authorized'] = 1;

@@ -28,7 +28,7 @@
                 # /users/:id
                 case isset($args[2]) and is_numeric($args[2]) and isset($args[3]) == false:
                     $query['statement'] = 'SELECT id,
-                                                  name,
+                                                  name
                                            FROM users
                                            WHERE id = :id LIMIT 1';
                     $query['params'] = array('id' => (int) $args[2]);

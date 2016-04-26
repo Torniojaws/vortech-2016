@@ -428,6 +428,31 @@ $(document).ready(function () {
         });
     });
 
+    // Edit profile form
+    $('#profile-form').submit(function (e) {
+        e.preventDefault();
+        var profile_form_data = new FormData($(this)[0]);
+        $.ajax({
+            type: 'post',
+            url: 'templates/edits/edit-profile-form.php',
+            cache: false,
+            data: profile_form_data,
+            async: false,
+            processData: false,
+            contentType: false,
+            success: function (profile_data) {
+                if (profile_data.status === 'success') {
+                    $('#add-failed').hide();
+                    $('#added-ok').removeAttr('hidden');
+                    $('#profile-form').modal('hide');
+                    location.reload();
+                } else if (profile_data.status === 'error') {
+                    $('#add-failed').removeAttr('hidden');
+                }
+            }
+        });
+    });
+
     // Edit news (admin)
     $('.edit-news').editable('templates/edits/edit-news.php', {
         indicator: 'Saving...',

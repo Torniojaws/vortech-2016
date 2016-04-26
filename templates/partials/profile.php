@@ -1,7 +1,7 @@
 <div class="container-fluid">
     <div class="row">
         <h3>Edit Your Profile</h3>
-        <p>Feel free to update your information below</p>
+        <p>Feel free to update your information below. Press the "Save Changes" button below, when you are ready.</p>
         <hr />
 
         <?php
@@ -62,6 +62,9 @@
                     <br />
                 </div>
             </div>
+            <button type="submit" class="btn btn-primary" name="Submit" id="update-profile-form">
+                Save Changes
+            </button>
         </form>
         <div id="login-ok" class="text-success" hidden>Successfully logged in! Enjoy...</div>
         <div id="login-failed" class="text-danger" hidden>Incorrect login</div>
