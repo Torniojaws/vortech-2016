@@ -46,7 +46,9 @@
                                            FROM users
                                            LEFT JOIN photos
                                                 ON photos.taken_by = users.name
-                                           WHERE username = :username LIMIT 1';
+                                                AND photos.album_id = 7
+                                           WHERE username = :username
+                                           LIMIT 1';
                     $query['params'] = array('username' => $args[2]);
                     break;
 

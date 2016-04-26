@@ -64,7 +64,6 @@
         $db = new Database();
 
         if ($user_uploaded_image == true) {
-            // Add new avatar to album "6" (User-uploaded avatars)
             foreach ($uploads as $photo) {
                 $db->connect();
                 $statement = 'INSERT INTO photos VALUES(
@@ -77,7 +76,7 @@
                     :caption
                 )';
                 $params = array(
-                    'album_id' => 6,
+                    'album_id' => 7, // 7 = user avatars
                     'date_taken' => date('Y-m-d H:i:s'),
                     'taken_by' => $name,
                     'full' => $full_image,
