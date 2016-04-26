@@ -27,7 +27,7 @@
     if ($results != null) {
         $json = json_encode($results, JSON_NUMERIC_CHECK);
     } else {
-        $json = array();
+        $json = json_encode(array());
     }
 
     echo $json;

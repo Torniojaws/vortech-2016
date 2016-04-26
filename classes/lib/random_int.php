@@ -1,7 +1,7 @@
 <?php
 /**
  * Random_* Compatibility Library 
- * for using the new PHP 7 random_* API in PHP 5 projects
+ * for using the new PHP 7 random_* API in PHP 5 projects.
  * 
  * The MIT License (MIT)
  * 
@@ -27,7 +27,7 @@
  */
 
 /**
- * Fetch a random integer between $min and $max inclusive
+ * Fetch a random integer between $min and $max inclusive.
  * 
  * @param int $min
  * @param int $max
@@ -38,7 +38,7 @@
  */
 function random_int($min, $max)
 {
-    /**
+    /*
      * Type and input logic checks
      * 
      * If you pass it a float in the range (~PHP_INT_MAX, PHP_INT_MAX)
@@ -47,7 +47,7 @@ function random_int($min, $max)
      * lose precision, so the <= and => operators might accidentally let a float
      * through.
      */
-    
+
     try {
         $min = RandomCompat_intval($min);
     } catch (TypeError $ex) {
@@ -63,8 +63,8 @@ function random_int($min, $max)
             'random_int(): $max must be an integer'
         );
     }
-    
-    /**
+
+    /*
      * Now that we've verified our weak typing system has given us an integer,
      * let's validate the logic then we can move forward with generating random
      * integers along a given range.
@@ -79,7 +79,7 @@ function random_int($min, $max)
         return $min;
     }
 
-    /**
+    /*
      * Initialize variables to 0
      * 
      * We want to store:
@@ -96,12 +96,12 @@ function random_int($min, $max)
      */
     $range = $max - $min;
 
-    /**
+    /*
      * Test for integer overflow:
      */
     if (!is_int($range)) {
 
-        /**
+        /*
          * Still safely calculate wider ranges.
          * Provided by @CodesInChaos, @oittaa
          * 
@@ -114,16 +114,15 @@ function random_int($min, $max)
          */
         $bytes = PHP_INT_SIZE;
         $mask = ~0;
-
     } else {
 
         /**
          * $bits is effectively ceil(log($range, 2)) without dealing with 
-         * type juggling
+         * type juggling.
          */
         while ($range > 0) {
             if ($bits % 8 === 0) {
-               ++$bytes;
+                ++$bytes;
             }
             ++$bits;
             $range >>= 1;
@@ -132,12 +131,12 @@ function random_int($min, $max)
         $valueShift = $min;
     }
 
-    /**
+    /*
      * Now that we have our parameters set up, let's begin generating
      * random integers until one falls between $min and $max
      */
     do {
-        /**
+        /*
          * The rejection probability is at most 0.5, so this corresponds
          * to a failure probability of 2^-128 for a working RNG
          */
@@ -147,7 +146,7 @@ function random_int($min, $max)
             );
         }
 
-        /**
+        /*
          * Let's grab the necessary number of random bytes
          */
         $randomByteString = random_bytes($bytes);
@@ -157,7 +156,7 @@ function random_int($min, $max)
             );
         }
 
-        /**
+        /*
          * Let's turn $randomByteString into an integer
          * 
          * This uses bitwise operators (<< and |) to build an integer
@@ -172,14 +171,14 @@ function random_int($min, $max)
             $val |= ord($randomByteString[$i]) << ($i * 8);
         }
 
-        /**
+        /*
          * Apply mask
          */
         $val &= $mask;
         $val += $valueShift;
 
         ++$attempts;
-        /**
+        /*
          * If $val overflows to a floating point number,
          * ... or is larger than $max,
          * ... or smaller than $min,

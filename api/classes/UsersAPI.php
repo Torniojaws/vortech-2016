@@ -1,5 +1,7 @@
 <?php
 
+    session_start();
+
     class UsersAPI
     {
         public $result;
@@ -26,10 +28,26 @@
                 # /users/:id
                 case isset($args[2]) and is_numeric($args[2]) and isset($args[3]) == false:
                     $query['statement'] = 'SELECT id,
-                                                  name
+                                                  name,
                                            FROM users
                                            WHERE id = :id LIMIT 1';
                     $query['params'] = array('id' => (int) $args[2]);
+                    break;
+
+                # /users/:name
+                case isset($args[2]) and is_numeric($args[2]) == false and isset($args[3]) == false:
+                    $query['statement'] = 'SELECT users.id,
+                                                  users.name,
+                                                  users.username,
+                                                  users.caption,
+                                                  photos.date_taken,
+                                                  photos.full,
+                                                  photos.thumbnail
+                                           FROM users
+                                           LEFT JOIN photos
+                                                ON photos.taken_by = users.name
+                                           WHERE username = :username LIMIT 1';
+                    $query['params'] = array('username' => $args[2]);
                     break;
 
                 # /users/:id/photo

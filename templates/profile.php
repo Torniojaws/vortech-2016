@@ -4,11 +4,8 @@
     $user = new User();
 
     if ($user->isLoggedIn()) {
-        echo 'Hello, <strong>'.$user->getName().'</strong>!';
-
-        include 'templates/forms/update-profile.php';
-
         $user->showLogoutButton();
+        include 'templates/partials/profile.php';
     } else {
         $user->showLoginForm();
     }

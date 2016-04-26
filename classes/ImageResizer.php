@@ -4,6 +4,7 @@
     {
         private $thumbnailCreatedSuccessfully;
         private $format;
+        private $rootpath;
 
         public function __construct()
         {
@@ -23,7 +24,7 @@
         public function createThumbnail($original, $target_path, $target_file, $target_width)
         {
             // Setup
-            $this->thumbnail_path = $target_path.$target_file;
+            $this->thumbnail_path = $this->rootpath.$target_path.$target_file;
             $source_image = $this->processOriginalPhoto($original);
 
             // For resizing the thumbnail

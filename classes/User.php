@@ -7,11 +7,14 @@
         private $loggedIn = false;
         private $name;
         private $avatar;
+        private $access_level;
+        private $caption;
 
         public function __construct()
         {
             if (isset($_SESSION['user_logged']) && $_SESSION['user_logged'] == 1) {
                 $this->loggedIn = true;
+                $this->name = $_SESSION['username'];
             }
         }
 

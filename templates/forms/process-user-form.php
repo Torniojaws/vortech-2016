@@ -32,7 +32,8 @@
         }
         if ($password_is_correct) {
             $_SESSION['user_logged'] = 1;
-            $_SESSION['username'] = $result[0]['name'];
+            $_SESSION['username'] = $result[0]['username'];
+            $_SESSION['display_name'] = $result[0]['name'];
             $response['status'] = 'success';
             $response['message'] = 'Login OK';
         } else {

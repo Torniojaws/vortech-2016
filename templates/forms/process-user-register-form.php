@@ -15,16 +15,20 @@
     // Create the user account
     require_once $root.'classes/RegisterUser.php';
     $userReg = new RegisterUser($root);
-    $userReg->register($name, $username, $password1, $password2);
+    if ($userReg->register($name, $username, $password1, $password2)) {
+        $reg_status = true;
+    } else {
+        $reg_status = false;
+    }
 
     // Add the details to DB
-    if ($userReg->successful() == true) {
+    if ($reg_status == true) {
         require_once $root.'api/classes/Database.php';
         $db = new Database();
 
-        if ($userReg->imageWasUploaded == true) {
+        if ($userReg->imageWasUploaded() == true) {
             // Add new avatar to album "6" (User-uploaded avatars)
-            foreach ($userReg->getUploadedImages as $photo) {
+            foreach ($userReg->getUploadedImages() as $photo) {
                 $db->connect();
                 $statement = 'INSERT INTO photos VALUES(
                     0,
@@ -37,12 +41,16 @@
                 )';
                 $params = array(
                     'album_id' => 6,
-                    'date_taken' => $userReg->getPhotoDate,
+                    'date_taken' => $userReg->getPhotoDate(),
                     'taken_by' => $name,
-                    'full' => $photo['full-image'],
-                    'thumbnail' => $photo['thumbnail'],
-                    'caption' => $caption,
+                    'full' => $userReg->getFullImageFilename(),
+                    'thumbnail' => $userReg->getThumbnailFilename(),
+                    'caption' => $name,
                 );
+                if ($params['date_taken'] == null or $params['taken_by'] == null or $params['full'] == null
+                    or $params['thumbnail'] == null or $params['caption'] == null) {
+                    $image_errors += 1;
+                }
                 $db->run($statement, $params);
             }
             if ($db->querySuccessful() == false) {

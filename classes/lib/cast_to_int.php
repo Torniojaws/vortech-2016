@@ -1,7 +1,7 @@
 <?php
 /**
  * Random_* Compatibility Library
- * for using the new PHP 7 random_* API in PHP 5 projects
+ * for using the new PHP 7 random_* API in PHP 5 projects.
  *
  * The MIT License (MIT)
  *
@@ -25,9 +25,8 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-
 if (!function_exists('RandomCompat_intval')) {
-    
+
     /**
      * Cast to an integer if we can, safely.
      * 
@@ -38,7 +37,7 @@ if (!function_exists('RandomCompat_intval')) {
      * through.
      * 
      * @param int|float $number    The number we want to convert to an int
-     * @param boolean   $fail_open Set to true to not throw an exception
+     * @param bool      $fail_open Set to true to not throw an exception
      * 
      * @return int (or float if $fail_open)
      *

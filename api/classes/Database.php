@@ -9,7 +9,7 @@
         private $user;
         private $pass;
         public $last_action_successful;
-        
+
         public function __construct()
         {
             // Depending on Dev location it is "localhost:5656/" or "/vagrant/v"

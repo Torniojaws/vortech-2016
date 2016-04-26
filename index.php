@@ -73,7 +73,7 @@
         <?php
             echo '<div class="pull-right">';
             if ($_SESSION['user_logged'] == 1 or $_SESSION['authorized'] == 1) {
-                echo '<p>Logged in as <strong>'.$_SESSION['username'].'</strong></p>';
+                echo '<p>Logged in as <a href="profile">'.$_SESSION['display_name'].'</a></p>';
             }
             echo '</div>';
         ?>
