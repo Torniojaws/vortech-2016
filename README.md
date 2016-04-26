@@ -59,8 +59,9 @@ Restful Vortech website with jQuery, Bootstrap and PHP API. Will replace the exi
 ## Todo
 * ~~Database access refactoring (OOP)~~  
 * ~~Database query refactoring/simplification~~  
-* Admin panel and add/edit features across the page  
-* User authentication  
-* Account creation  
+* ~~Admin panel and add/edit features across the page~~  
+* ~~User authentication~~  
+* ~~Account creation~~  
+* Admin can ban users
 * Commenting system  
 * UI design
