@@ -12,81 +12,19 @@
     $password1 = $_POST['registerPassword'];
     $password2 = $_POST['registerPasswordConfirm'];
 
-    // Validate password
-    if ($password1 === $password2) {
-        $password_matches = true;
-    } else {
-        $password_matches = false;
-        $response['status'] = 'error';
-        $response['message'] = 'Passwords do not match';
-        header('Content-type: application/json');
-        echo json_encode($response);
-        return;
-    }
+    // Create the user account
+    require_once $root.'classes/RegisterUser.php';
+    $userReg = new RegisterUser($root);
+    $userReg->register($name, $username, $password1, $password2);
 
-    // Then hash it for the DB:
-    if ($password_matches) {
-        require $root.'classes/PasswordStorage.php';
-        $pwd = new PasswordStorage();
-        $password_secure = $pwd->create_hash($password1);
-    }
-
-    // Process the photo, if one was uploaded
-    $thumbnail_errors = 0;
-    $image_errors = 0;
-    $image_was_uploaded = false;
-
-    if (isset($_FILES['file_upload']) == false or $_FILES['file_upload']['error'] == UPLOAD_ERR_NO_FILE) {
-        $image_was_uploaded = false;
-        $image = null;
-        $photo = null;
-    } else {
-        $image_was_uploaded = true;
-        $path_for_uploads = 'user_photos/';
-
-        require_once $root.'classes/ImageUploader.php';
-        $absolute_upload_path = $root.IMAGE_DIR.$path_for_uploads;
-
-        $imageUploader = new ImageUploader($root, $absolute_upload_path);
-        $imageUploader->processUploadedImages();
-        // Each array element contains info about one successfully uploaded image
-        $uploads = $imageUploader->getAssocArrayOfUploadedImages();
-
-        // Thumbnail creation
-        require_once $root.'classes/ImageResizer.php';
-        $resizer = new ImageResizer($root);
-
-        foreach ($uploads as $image) {
-            $resizer->createThumbnail(
-                $image['fullpath'].$image['filename'],
-                $absolute_upload_path.'thumbnails/',
-                $image['filename'],
-                64
-            );
-
-            $caption = $name;
-        }
-        $date_of_photos = date('Y-m-d H:i:s');
-
-        // Check that everything went OK
-        if ($imageUploader->successfullyUploadedAll() == false) {
-            $image_errors += 1;
-        }
-        if ($resizer->thumbnailStatus() == false) {
-            $thumbnail_errors += 1;
-        }
-
-        $full = $image['filename'];
-        $thumbnail = 'thumbnails/'.$image['filename'];
-    }
-
-    if (isset($name) && isset($username) && $image_errors == 0 && $thumbnail_errors == 0) {
+    // Add the details to DB
+    if ($userReg->successful() == true) {
         require_once $root.'api/classes/Database.php';
         $db = new Database();
 
-        if ($image_was_uploaded == true) {
+        if ($userReg->imageWasUploaded == true) {
             // Add new avatar to album "6" (User-uploaded avatars)
-            foreach ($photos as $photo) {
+            foreach ($userReg->getUploadedImages as $photo) {
                 $db->connect();
                 $statement = 'INSERT INTO photos VALUES(
                     0,
@@ -99,8 +37,8 @@
                 )';
                 $params = array(
                     'album_id' => 6,
-                    'date_taken' => $date_of_photos,
-                    'taken_by' => $user,
+                    'date_taken' => $userReg->getPhotoDate,
+                    'taken_by' => $name,
                     'full' => $photo['full-image'],
                     'thumbnail' => $photo['thumbnail'],
                     'caption' => $caption,
@@ -120,13 +58,15 @@
             :name,
             :username,
             :password,
-            :access_level
+            :access_level,
+            :caption
         )';
         $params = array(
             'name' => $name,
             'username' => $username,
-            'password' => $password_secure,
+            'password' => $userReg->getHashedPassword(),
             'access_level' => 2, // 2 = Normal user
+            'caption' => 'User caption (you can update this through profile)',
         );
         $db->run($statement, $params);
         $db->close();
@@ -146,13 +86,7 @@
         }
     } else {
         $response['status'] = 'error';
-        $response['message'] = 'Missing photo details!';
-        if ($image_errors > 0) {
-            $response['message'] .= ' Could not upload image.';
-        }
-        if ($thumbnail_errors > 0) {
-            $response['message'] .= ' Could not create thumbnail image.';
-        }
+        $response['message'] = 'Could not create user account!';
         if (isset($name) == false) {
             $response['message'] .= ' Did not receive display name.';
         }

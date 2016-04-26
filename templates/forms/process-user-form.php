@@ -25,7 +25,11 @@
         $original_password = $result[0]['password'];
         require $root.'classes/PasswordStorage.php';
         $pwd = new PasswordStorage();
-        $password_is_correct = $pwd->verify_password($_POST['loginPass'], $original_password);
+        try {
+            $password_is_correct = $pwd->verify_password($_POST['loginPass'], $original_password);
+        } catch (Exception $ex) {
+            echo $ex;
+        }
         if ($password_is_correct) {
             $_SESSION['user_logged'] = 1;
             $_SESSION['username'] = $result[0]['name'];
