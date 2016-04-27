@@ -26,6 +26,7 @@
                                                SET name = :name,
                                                    username = :username,
                                                    caption = :caption';
+                        var_dump($query);
                         $query['params'] = array(
                             'name' => $display_name,
                             'username' => $username,

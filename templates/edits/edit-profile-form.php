@@ -102,6 +102,7 @@
         );
         $context = stream_context_create($options);
         $result = file_get_contents($api, false, $context);
+        // For UPDATE, to check if anything happened, we must check "rowCount"
         if ($result === false) {
             $response['status'] = 'error';
             $response['message'] = 'Could not update to DB';
