@@ -37,6 +37,8 @@
                 );
                 // For added security with MySQL / MariaDB
                 $this->pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+                // For Extra error details
+                $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             } catch (PDOException $exception) {
                 echo $exception;
             }
@@ -52,6 +54,11 @@
                     $this->last_action_successful = false;
                 }
 
+                // UPDATE queries will not return anything with fetch, so this prevents
+                // showing 2053 General Error
+                if (substr($statement, 0, 6) == 'UPDATE') {
+                    return;
+                }
                 return $this->query->fetchAll(PDO::FETCH_ASSOC);
             } catch (Exception $err) {
                 echo $err;
