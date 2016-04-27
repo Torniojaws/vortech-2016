@@ -7,7 +7,6 @@
     $root = str_replace('templates/edits', '', dirname(__FILE__));
 
     if (isset($_SESSION) && $_SESSION['user_logged'] == 1 && isset($_POST)) {
-
         // Values from the form
         $display_name = $_POST['profileName'];
         $username = $_POST['profileUsername'];
@@ -16,6 +15,18 @@
         $new_password1 = $_POST['profileNewPassword1'];
         $new_password2 = $_POST['profileNewPassword2'];
 
+        // Get details:
+        require_once $root.'api/classes/Database.php';
+        $db = new Database();
+        $db->connect();
+        $statement = 'SELECT * FROM users WHERE username = :username LIMIT 1';
+        $params = array('username' => $username);
+        $result = $db->run($statement, $params);
+        $db->close();
+
+        $password_in_database = $result[0]['password'];
+        $user_id = $result[0]['id'];
+
         // Password update
         require $root.'classes/PasswordStorage.php';
         $pwd = new PasswordStorage();
@@ -23,14 +34,6 @@
         // Check that old password is correct
         $old_password_ok = false;
         if (empty($new_password1) == false and empty($new_password2) == false) {
-            $statement = 'SELECT * FROM users WHERE username = :username LIMIT 1';
-            $params = array('username' => $username);
-            $result = $db->run($statement, $params);
-            $password_in_database = $result[0]['password'];
-            $db->close();
-
-            require $root.'classes/PasswordStorage.php';
-            $pwd = new PasswordStorage();
             $old_password_ok = $pwd->verify_password($old_password, $password_in_database);
         }
 
@@ -76,6 +79,41 @@
                     $images_ok = false;
                 }
             }
+
+            // Rename uploaded file to "user_id.ext", eg. 123.jpg
+            $extension = pathinfo($full_image, PATHINFO_EXTENSION);
+            $new_name = $user_id.'.'.$extension; // 123.jpg
+            $new_thumb = 'thumbnails/'.$new_name;
+
+            if (rename($absolute_upload_path.$full_image,
+                       $absolute_upload_path.$new_name) == false
+            ) {
+                $image_errors += 1;
+            };
+            if (rename($absolute_upload_path.'thumbnails/'.$full_image,
+                       $absolute_upload_path.'thumbnails/'.$new_name) == false
+            ) {
+                $thumbnail_errors += 1;
+            }
+
+            // Since the filetype could be different, eg. user had 1.jpg and now uploaded 1.png,
+            // we need to update the "photos" table too
+            $db = new Database();
+            $db->connect();
+            $statement = 'UPDATE photos
+                          SET full = :full,
+                              thumbnail = :thumbnail
+                          WHERE taken_by = :display_name
+                                AND album_id = :album_id';
+            $params = array(
+                'display_name' => $display_name,
+                'full' => $new_name,
+                'thumbnail' => $new_thumb,
+                'album_id' => (int) 7,
+            );
+            $result = $db->run($statement, $params);
+            $db->close();
+
         } else {
             $user_uploaded_image = false;
             $images_ok = true;
@@ -102,7 +140,6 @@
         );
         $context = stream_context_create($options);
         $result = file_get_contents($api, false, $context);
-        // For UPDATE, to check if anything happened, we must check "rowCount"
         if ($result === false) {
             $response['status'] = 'error';
             $response['message'] = 'Could not update to DB';

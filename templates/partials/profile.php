@@ -10,7 +10,6 @@
             require_once $root.'constants.php';
 
             $user_api = 'api/v1/users/'.$_SESSION['username'];
-            echo $user_api;
             $user_list = file_get_contents(SERVER_URL.$user_api);
             $user_details = json_decode($user_list, true);
             $user = $user_details[0];
