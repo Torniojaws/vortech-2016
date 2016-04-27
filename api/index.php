@@ -27,7 +27,11 @@
     if ($results != null) {
         $json = json_encode($results, JSON_NUMERIC_CHECK);
     } else {
-        $json = json_encode(array());
+        if ($db->querySuccessful) {
+            $results['status'] = 'success';
+            $results['message'] = 'Smooth as butter';
+        }
+        $json = json_encode(array($results));
     }
 
     echo $json;

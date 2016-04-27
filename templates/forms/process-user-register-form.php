@@ -63,39 +63,7 @@
         require_once $root.'api/classes/Database.php';
         $db = new Database();
 
-        if ($user_uploaded_image == true) {
-            foreach ($uploads as $photo) {
-                $db->connect();
-                $statement = 'INSERT INTO photos VALUES(
-                    0,
-                    :album_id,
-                    :date_taken,
-                    :taken_by,
-                    :full,
-                    :thumbnail,
-                    :caption
-                )';
-                $params = array(
-                    'album_id' => 7, // 7 = user avatars
-                    'date_taken' => date('Y-m-d H:i:s'),
-                    'taken_by' => $name,
-                    'full' => $full_image,
-                    'thumbnail' => $thumbnail,
-                    'caption' => $name,
-                );
-                if ($params['date_taken'] == null or $params['taken_by'] == null or $params['full'] == null
-                    or $params['thumbnail'] == null or $params['caption'] == null) {
-                    $image_errors += 1;
-                }
-                $db->run($statement, $params);
-            }
-            if ($db->querySuccessful() == false) {
-                $image_errors += 1;
-            }
-            $db->close();
-        }
-
-        // And then add the user into "users"
+        // Add the user
         $db->connect();
         $statement = 'INSERT INTO users VALUES(
             0,
@@ -115,9 +83,73 @@
         $db->run($statement, $params);
         $db->close();
 
+        if ($user_uploaded_image == true) {
+            // Once the user has been added successfully, we'll rename the uploaded file
+            // to match his ID. This cannot be done until this point.
+
+            // Get ID of new username
+            $users_api = 'api/v1/users/'.$username;
+            $query = file_get_contents(SERVER_URL.$users_api);
+            $data = json_decode($query, true);
+            $user_id = $data[0]['id'];
+
+            $extension = pathinfo($full_image, PATHINFO_EXTENSION);
+            $new_name = $user_id.'.'.$extension; // 123.jpg
+            $new_thumb = 'thumbnails/'.$new_name;
+
+            foreach ($uploads as $photo) {
+                $db->connect();
+                $statement = 'INSERT INTO photos VALUES(
+                    0,
+                    :album_id,
+                    :date_taken,
+                    :taken_by,
+                    :full,
+                    :thumbnail,
+                    :caption
+                )';
+                $params = array(
+                    'album_id' => 7, // 7 = user avatars
+                    'date_taken' => date('Y-m-d H:i:s'),
+                    'taken_by' => $name,
+                    'full' => $new_name,
+                    'thumbnail' => $new_thumb,
+                    'caption' => $name,
+                );
+                if ($params['date_taken'] == null or $params['taken_by'] == null or $params['full'] == null
+                    or $params['thumbnail'] == null or $params['caption'] == null) {
+                    $image_errors += 1;
+                }
+                $db->run($statement, $params);
+            }
+            if ($db->querySuccessful() == false) {
+                $image_errors += 1;
+            }
+            $db->close();
+
+            // Once the images have been added to DB, we will also rename the actual files
+            if (rename($absolute_upload_path.$full_image,
+                       $absolute_upload_path.$new_name) == false
+            ) {
+                $image_errors += 1;
+            };
+            if (rename($absolute_upload_path.'thumbnails/'.$full_image,
+                       $absolute_upload_path.'thumbnails/'.$new_name) == false
+            ) {
+                $thumbnail_errors += 1;
+            }
+        }
+
         if ($db->querySuccessful() and $thumbnail_errors == 0 and $image_errors == 0) {
-            $response['status'] = 'success';
-            $response['message'] = 'Photos added to DB';
+
+
+            if ($rename_errors == 0) {
+                $response['status'] = 'success';
+                $response['message'] = 'Photos added to DB';
+            } else {
+                $response['status'] = 'error';
+                $response['message'] = 'Renaming user avatars failed!';
+            }
         } else {
             $response['status'] = 'error';
             $response['message'] = 'Failed to add photos to DB!';

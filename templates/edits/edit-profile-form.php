@@ -119,8 +119,5 @@
         }
     }
 
-    if ($response['status'] == 'success') {
-        echo $new_value;
-    } else {
-        echo 'Failed to update! '.$response['message'].$_POST['value'];
-    }
+    header('Content-type: application/json');
+    echo json_encode($response);
