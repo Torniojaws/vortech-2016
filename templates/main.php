@@ -15,7 +15,6 @@
                 if ($_SESSION['authorized'] == 1) {
                     echo ' class="edit-landing"';
                 } ?>><?php
-                    // Markdown test
                     require_once './classes/Markdown.php';
                     $markdown = new Markdown();
                     $fulltext = $markdown->convert($landing['full']);

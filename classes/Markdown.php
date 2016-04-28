@@ -19,13 +19,9 @@
 
         public function convert($text)
         {
-            echo $text;
             $result = strtr($text, $this->replacements);
             $result = $this->url_conversion($result);
-            echo '<hr />';
-
             $result = $this->img_conversion($result);
-            echo $result;
             $this->converted_text = $result;
 
             return $this->converted_text;
