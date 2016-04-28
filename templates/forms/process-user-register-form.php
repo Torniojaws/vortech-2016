@@ -141,8 +141,6 @@
         }
 
         if ($db->querySuccessful() and $thumbnail_errors == 0 and $image_errors == 0) {
-
-
             if ($rename_errors == 0) {
                 $response['status'] = 'success';
                 $response['message'] = 'Photos added to DB';

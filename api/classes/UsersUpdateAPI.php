@@ -22,19 +22,20 @@
                     // Expected to create variables "display_name", "username", "caption", "new_password"
                     parse_str($data);
                     if (isset($display_name) && isset($username) && isset($caption)) {
-                        // Note to self - you CANNOT use the same named parameter twice in a query!
-                        $query['statement'] = 'UPDATE users SET name = :name, username = :username, caption = :caption';
+                        $query['statement'] = 'UPDATE users
+                                               SET name = :name,
+                                                   username = :username,
+                                                   caption = :caption';
                         $query['params'] = array(
                             'name' => $display_name,
                             'username' => $username,
                             'caption' => $caption,
-                            'user' => $username,
                         );
                         if (isset($new_password)) {
                             $query['statement'] .= ', password = :password';
                             $query['params']['password'] = $new_password;
                         }
-                        $query['statement'] .= ' WHERE username = :user';
+                        $query['statement'] .= ' WHERE username = :username';
                     }
                     break;
                 default:

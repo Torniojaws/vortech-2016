@@ -113,7 +113,6 @@
             );
             $result = $db->run($statement, $params);
             $db->close();
-
         } else {
             $user_uploaded_image = false;
             $images_ok = true;

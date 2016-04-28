@@ -28,6 +28,7 @@
             $response['status'] = 'error';
             $response['message'] = 'Unauthorized';
             echo json_encode($response);
+
             return;
         }
 
@@ -36,7 +37,6 @@
         require $root.'classes/PasswordStorage.php';
         $pwd = new PasswordStorage();
         $password_is_correct = $pwd->verify_password($_POST['adPass'], $original_password);
-
 
         if ($password_is_correct) {
             $_SESSION['authorized'] = 1;

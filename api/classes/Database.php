@@ -59,6 +59,7 @@
                 if (substr($statement, 0, 6) == 'UPDATE') {
                     return;
                 }
+
                 return $this->query->fetchAll(PDO::FETCH_ASSOC);
             } catch (Exception $err) {
                 echo $err;
