@@ -14,7 +14,13 @@
             <p id="landingfull-3"<?php
                 if ($_SESSION['authorized'] == 1) {
                     echo ' class="edit-landing"';
-                } ?>><?php echo $landing['full']; ?></p>
+                } ?>><?php
+                    // Markdown test
+                    require_once './classes/Markdown.php';
+                    $markdown = new Markdown();
+                    $fulltext = $markdown->convert($landing['full']);
+                    echo $fulltext;
+                ?></p>
         </div>
         <div class="col-sm-4">
             <section>

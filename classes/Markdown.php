@@ -19,8 +19,13 @@
 
         public function convert($text)
         {
+            echo $text;
             $result = strtr($text, $this->replacements);
             $result = $this->url_conversion($result);
+            echo '<hr />';
+
+            $result = $this->img_conversion($result);
+            echo $result;
             $this->converted_text = $result;
 
             return $this->converted_text;
@@ -34,9 +39,7 @@
          */
         private function url_conversion($text)
         {
-            $search = '/[url=(.*?)](.*?)[/url]/';
-            $converted = '<a href="$1">$2</a>';
-            $result = preg_replace($search, $converted, $text);
+            $result = preg_replace('/\[url=(.*?)\](.*?)\[\/url\]/', '<a href="$1">$2</a>', $text);
 
             return $result;
         }
@@ -49,9 +52,7 @@
          */
         private function img_conversion($text)
         {
-            $search = '/[img](.*?)[/img]/';
-            $converted = '<img src="$1" alt="Image" />';
-            $result = preg_replace($search, $converted, $text);
+            $result = preg_replace('/\[img\](.*?)\[\/img\]/', '<img src="$1" alt="Image" />', $text);
 
             return $result;
         }
