@@ -1,6 +1,6 @@
 <?php
     if ($_SESSION['authorized'] == 1) {
-        include './templates/partials/admin/add-member.php';
+        include './apps/bio/admin/add-member.php';
     }
 ?>
 
@@ -49,5 +49,5 @@
                 break;
             }
         }
-        include './templates/partials/bio.php';
+        include './apps/bio/partials/bio.php';
     }

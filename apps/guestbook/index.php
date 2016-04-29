@@ -17,6 +17,6 @@
         $current_userid = $guest['userid'] - 1;
         $user_photo = $photos[$current_userid];
 
-        include './templates/partials/guestbook-post.php';
+        include './apps/guestbook/partials/post.php';
     }
     echo '</div>';

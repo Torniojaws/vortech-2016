@@ -57,16 +57,16 @@
             if ($this->last_URI == 'api') {
                 $target = './api/index.php';
             } elseif ($this->last_URI == 'admin') {
-                $target = './templates/admin.php';
+                $target = './apps/admin/index.php';
             } else {
                 if ($this->second_last_URI == 'photos') {
-                    $target = './templates/photos-'.$this->last_URI.'.php';
+                    $target = './apps/photos-'.$this->last_URI.'/index.php';
                 } else {
-                    $target = './templates/'.$this->last_URI.'.php';
+                    $target = './apps/'.$this->last_URI.'/index.php';
                 }
             }
             if (file_exists($target) == false) {
-                $target = './templates/main.php';
+                $target = './apps/main/main.php';
             }
             $this->template_path = $target;
         }

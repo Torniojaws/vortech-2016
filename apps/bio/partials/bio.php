@@ -28,4 +28,4 @@
 </div>
 <hr />
 
-<?php include 'templates/modals/bio.php'; ?>
+<?php include './apps/bio/modals/bio.php'; ?>

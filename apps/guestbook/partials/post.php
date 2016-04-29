@@ -11,9 +11,9 @@
     <div class="col-sm-3">
         <?php
             if ($guest['admin_comment']) {
-                include 'templates/partials/guestbook-admin-comment.php';
+                include 'apps/guestbook/partials/admin-comment.php';
             } elseif (isset($_SESSION['authorized']) && $_SESSION['authorized'] == 1) {
-                include 'templates/partials/admin/add-guestbook-comment.php';
+                include 'apps/guestbook/admin/add-comment.php';
             }
         ?>
     </div>

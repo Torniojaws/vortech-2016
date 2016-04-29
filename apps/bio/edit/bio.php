@@ -1,7 +1,7 @@
 <?php
 
     session_start();
-    require_once '../../constants.php';
+    require_once '../../../constants.php';
 
     /*
         From biography, we expect to edit the Full text and Short text

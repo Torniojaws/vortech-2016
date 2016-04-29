@@ -68,7 +68,7 @@ $(document).ready(function () {
         var user_form_data = $(this).serialize();
         $.ajax({
             type: 'post',
-            url: 'templates/forms/process-user-form.php',
+            url: 'apps/main/forms/user.php',
             data: user_form_data,
             success: function (user_data) {
                 if (user_data.status === 'success') {
@@ -91,7 +91,7 @@ $(document).ready(function () {
         var user_logout_data = $(this).serialize();
         $.ajax({
             type: 'post',
-            url: 'templates/forms/process-user-form.php',
+            url: 'apps/main/forms/user.php',
             data: user_logout_data,
             success: function (user_logout_result_data) {
                 if (user_logout_result_data.status === 'success') {
@@ -342,7 +342,7 @@ $(document).ready(function () {
         e.preventDefault();
         $.ajax({
             type: 'post',
-            url: 'templates/forms/process-guestbook-comment-form.php',
+            url: 'apps/guestbook/forms/comment-form.php',
             data: $(this).serialize(),
             success: function (gb_data) {
                 if (gb_data.status === 'success') {
@@ -476,11 +476,11 @@ $(document).ready(function () {
     });
 
     // Edit guestbook comment (admin)
-    $('.edit-gb').editable('templates/edits/edit-guestbook.php', {
+    $('.edit-gb').editable('apps/guestbook/edit/guestbook.php', {
         indicator: 'Saving...',
         tooltip: 'Click to edit...'
     });
-    $('.edit-gb-area').editable('templates/edits/edit-guestbook.php', {
+    $('.edit-gb-area').editable('apps/guestbook/edit/guestbook.php', {
         type: 'textarea',
         submit: 'OK',
         cancel: 'Cancel',
@@ -517,11 +517,11 @@ $(document).ready(function () {
     });
 
     // Edit biography text (admin)
-    $('.edit-bio').editable('templates/edits/edit-bio.php', {
+    $('.edit-bio').editable('apps/bio/edit/bio.php', {
         indicator: 'Saving...',
         tooltip: 'Click to edit...'
     });
-    $('.edit-bio-area').editable('templates/edits/edit-bio.php', {
+    $('.edit-bio-area').editable('apps/bio/edit/bio.php', {
         type: 'textarea',
         submit: 'OK',
         cancel: 'Cancel',
@@ -530,11 +530,11 @@ $(document).ready(function () {
     });
 
     // Edit member bio text (admin)
-    $('.edit-memberbio').editable('templates/edits/edit-memberbio.php', {
+    $('.edit-memberbio').editable('apps/bio/edit/member.php', {
         indicator: 'Saving...',
         tooltip: 'Click to edit...'
     });
-    $('.edit-memberbio-area').editable('templates/edits/edit-memberbio.php', {
+    $('.edit-memberbio-area').editable('apps/bio/edit/member.php', {
         type: 'textarea',
         submit: 'OK',
         cancel: 'Cancel',

@@ -79,6 +79,6 @@
     </div>
 </div>
 
-<?php include 'templates/modals/login.php'; ?>
+<?php include 'apps/main/modals/login.php'; ?>
 
-<?php include 'templates/modals/register.php'; ?>
+<?php include 'apps/main/modals/register.php'; ?>

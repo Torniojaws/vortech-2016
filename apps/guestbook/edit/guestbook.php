@@ -1,7 +1,7 @@
 <?php
 
     session_start();
-    require_once '../../constants.php';
+    require_once '../../../constants.php';
 
     /*
         From guestbook comments, we expect to edit just the admin comment

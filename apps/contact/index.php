@@ -1,5 +1,5 @@
 <?php
 
     echo '<div class="container-fluid">';
-    include './templates/partials/contact.php';
+    include './apps/contact/partials/contact.php';
     echo '</div>';
