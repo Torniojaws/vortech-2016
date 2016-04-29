@@ -28,7 +28,7 @@
 
     if ($_SESSION['authorized'] == 1 && isset($artist) && isset($album) && isset($release_date)) {
         // Because this runs from a subdir /root/templates
-        $root = str_replace('templates/forms', '', dirname(__FILE__));
+        $root = str_replace('apps/releases/forms', '', dirname(__FILE__));
         require_once $root.'/api/classes/Database.php';
 
         $db = new Database();

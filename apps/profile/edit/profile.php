@@ -1,10 +1,10 @@
 <?php
 
     session_start();
-    require_once '../../constants.php';
+    require_once '../../../constants.php';
 
     // Because this runs from a subdir
-    $root = str_replace('templates/edits', '', dirname(__FILE__));
+    $root = str_replace('apps/profile/edit', '', dirname(__FILE__));
 
     if (isset($_SESSION) && $_SESSION['user_logged'] == 1 && isset($_POST)) {
         // Values from the form

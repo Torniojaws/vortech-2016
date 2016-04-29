@@ -1,7 +1,7 @@
 <?php
 
     if ($_SESSION['authorized'] == 1) {
-        include './templates/partials/admin/add-show.php';
+        include './apps/shows/admin/add-show.php';
     }
 
     $api = 'api/v1/shows';
@@ -11,6 +11,6 @@
     $shows = json_decode($shows_list_json, true);
     echo '<div class="container-fluid">';
     foreach ($shows as $show) {
-        include './templates/partials/show.php';
+        include './apps/shows/partials/show-details.php';
     }
     echo '</div>';

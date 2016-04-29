@@ -179,7 +179,7 @@ $(document).ready(function () {
         var data = $(this).serialize();
         $.ajax({
             type: 'post',
-            url: 'templates/forms/process-release-form.php',
+            url: 'apps/releases/forms/add-release.php',
             data: data,
             success: function (data) {
                 if (data.status === 'success') {
@@ -318,7 +318,7 @@ $(document).ready(function () {
         var shop_form_data = new FormData($(this)[0]);
         $.ajax({
             type: 'post',
-            url: 'templates/forms/process-shop-form.php',
+            url: 'apps/shop/forms/add-shop-item.php',
             cache: false,
             data: shop_form_data,
             async: false,
@@ -391,7 +391,7 @@ $(document).ready(function () {
         var editshow_form_data = new FormData($(this)[0]);
         $.ajax({
             type: 'post',
-            url: 'templates/edits/edit-show.php',
+            url: 'apps/shows/edit/show.php',
             cache: false,
             data: editshow_form_data,
             async: false,
@@ -405,8 +405,6 @@ $(document).ready(function () {
                     location.reload();
                 } else if (editshow_data.status === 'error') {
                     $('#add-failed').removeAttr('hidden');
-                } else {
-                    console.log("Something strange in the neighbourhood");
                 }
             }
         });

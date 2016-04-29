@@ -1,7 +1,7 @@
 <?php
 
     if ($_SESSION['authorized'] == 1) {
-        include './templates/partials/admin/add-release.php';
+        include './apps/releases/admin/add-release.php';
     }
 
     $api = 'api/v1/releases';
@@ -14,6 +14,6 @@
         $songlist = 'api/v1/releases/'.$release['release_code'].'/songs';
         $songs_list_json = file_get_contents(SERVER_URL.$songlist);
         $songs = json_decode($songs_list_json, true);
-        include './templates/partials/release.php';
+        include './apps/releases/partials/release.php';
     }
     echo '</div>';

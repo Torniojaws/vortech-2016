@@ -1,7 +1,7 @@
 <?php
 
     if ($_SESSION['authorized'] == 1) {
-        include './templates/partials/admin/add-shopitem.php';
+        include './apps/shop/admin/add-shopitem.php';
     }
 
     $api = 'api/v1/shopitems';
@@ -11,6 +11,6 @@
     $shopitems = json_decode($shop_list, true);
     echo '<div class="container-fluid">';
     foreach ($shopitems as $shop) {
-        include './templates/partials/shop.php';
+        include './apps/shop/partials/shop-item.php';
     }
     echo '</div>';

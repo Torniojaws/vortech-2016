@@ -61,4 +61,4 @@
 </div>
 <hr />
 
-<?php include 'templates/modals/release.php'; ?>
+<?php include 'apps/releases/modals/release.php'; ?>
