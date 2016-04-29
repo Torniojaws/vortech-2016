@@ -29,4 +29,4 @@
     </small>
 </div>
 
-<?php include 'templates/modals/photo.php'; ?>
+<?php include 'apps/photos/modals/photo.php'; ?>

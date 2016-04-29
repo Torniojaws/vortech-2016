@@ -11,7 +11,7 @@ $(document).ready(function () {
         var data = $(this).serialize();
         $.ajax({
             type: 'post',
-            url: 'templates/forms/process-admin-form.php',
+            url: 'apps/admin/forms/admin.php',
             data: data,
             success: function (data) {
                 if (data.status === 'success') {
@@ -43,7 +43,7 @@ $(document).ready(function () {
         var data = $(this).serialize();
         $.ajax({
             type: 'post',
-            url: 'templates/forms/process-admin-form.php',
+            url: 'apps/admin/forms/admin.php',
             data: data,
             success: function (data) {
                 if (data.status === 'success') {
@@ -206,7 +206,7 @@ $(document).ready(function () {
         var data = $(this).serialize();
         $.ajax({
             type: 'post',
-            url: 'templates/forms/process-news-form.php',
+            url: 'apps/news/forms/add-news.php',
             data: data,
             success: function (data) {
                 if (data.status === 'success') {
@@ -254,7 +254,7 @@ $(document).ready(function () {
         var photo_form_data = new FormData($(this)[0]);
         $.ajax({
             type: 'post',
-            url: 'templates/forms/process-photos-form.php',
+            url: 'apps/photos/forms/add-photos.php',
             cache: false,
             data: photo_form_data,
             async: false,
@@ -418,7 +418,7 @@ $(document).ready(function () {
         var register_form_data = new FormData($(this)[0]);
         $.ajax({
             type: 'post',
-            url: 'templates/forms/process-user-register-form.php',
+            url: 'apps/main/forms/register-user.php',
             cache: false,
             data: register_form_data,
             async: false,
@@ -443,7 +443,7 @@ $(document).ready(function () {
         var profile_form_data = new FormData($(this)[0]);
         $.ajax({
             type: 'post',
-            url: 'templates/edits/edit-profile-form.php',
+            url: 'apps/profile/edit/profile.php',
             cache: false,
             data: profile_form_data,
             async: false,

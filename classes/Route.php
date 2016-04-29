@@ -60,13 +60,14 @@
                 $target = './apps/admin/index.php';
             } else {
                 if ($this->second_last_URI == 'photos') {
-                    $target = './apps/photos-'.$this->last_URI.'/index.php';
+                    $target = './apps/photos/index.php';
+                    $_GET['page'] = $this->last_URI;
                 } else {
                     $target = './apps/'.$this->last_URI.'/index.php';
                 }
             }
             if (file_exists($target) == false) {
-                $target = './apps/main/main.php';
+                $target = './apps/main/index.php';
             }
             $this->template_path = $target;
         }

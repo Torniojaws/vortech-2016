@@ -7,7 +7,7 @@
     $logout = $_POST['userLogout'];
 
     // Because this runs from a subdir /root/templates/forms
-    $root = str_replace('templates/forms', '', dirname(__FILE__));
+    $root = str_replace('apps/main/forms', '', dirname(__FILE__));
 
     // Only process if the form was actually submitted
     if (isset($user) && isset($pass)) {

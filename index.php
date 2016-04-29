@@ -70,6 +70,7 @@
         </nav>
 
         <!-- When logged in, user details will be below-->
+        <div class="container-fluid">
         <?php
             echo '<div class="pull-right">';
             if ($_SESSION['user_logged'] == 1 or $_SESSION['authorized'] == 1) {
@@ -77,6 +78,7 @@
             }
             echo '</div>';
         ?>
+        </div>
 
         <!-- Main content -->
         <?php

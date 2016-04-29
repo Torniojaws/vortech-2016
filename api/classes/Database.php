@@ -54,9 +54,9 @@
                     $this->last_action_successful = false;
                 }
 
-                // UPDATE queries will not return anything with fetch, so this prevents
+                // UPDATE and INSERT queries will not return anything with fetch, so this prevents
                 // showing 2053 General Error
-                if (substr($statement, 0, 6) == 'UPDATE') {
+                if (substr($statement, 0, 6) == 'UPDATE' or substr($statement, 0, 6) == 'INSERT') {
                     return;
                 }
 

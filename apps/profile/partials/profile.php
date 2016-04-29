@@ -6,7 +6,7 @@
 
         <?php
             // Get user details
-            $root = str_replace('templates/partials', '', dirname(__FILE__));
+            $root = str_replace('apps/profile/partials', '', dirname(__FILE__));
             require_once $root.'constants.php';
 
             $user_api = 'api/v1/users/'.$_SESSION['username'];

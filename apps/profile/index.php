@@ -7,10 +7,10 @@
 
     if ($user->isLoggedIn()) {
         $user->showLogoutButton();
-        include 'templates/partials/profile.php';
+        include 'apps/profile/partials/profile.php';
     } elseif ($admin->isLoggedIn()) {
         $admin->showLogoutButton();
-        include 'templates/partials/profile.php';
+        include 'apps/profile/partials/profile.php';
     } else {
         $user->showLoginForm();
     }

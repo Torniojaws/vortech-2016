@@ -20,12 +20,12 @@
 
         public function showLoginForm()
         {
-            require './templates/partials/admin/login.php';
+            require './apps/admin/partials/login.php';
         }
 
         public function showLogoutButton()
         {
-            require './templates/partials/admin/logout.php';
+            require './apps/admin/partials/logout.php';
         }
 
         public function logout()

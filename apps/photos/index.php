@@ -1,10 +1,30 @@
 <?php
 
     if ($_SESSION['authorized'] == 1) {
-        include './templates/partials/admin/add-photos.php';
+        include './apps/photos/admin/add-photos.php';
     }
 
-    $api = 'api/v1/photos';
+    if (isset($_GET['page'])) {
+        switch ($_GET['page']) {
+            case 'live':
+                $api = 'api/v1/photos/live';
+                break;
+            case 'studio':
+                $api = 'api/v1/photos/studio';
+                break;
+            case 'misc':
+                $api = 'api/v1/photos/misc';
+                break;
+            case 'promo':
+                $api = 'api/v1/photos/promo';
+                break;
+            default:
+                $api = 'api/v1/photos';
+        }
+    } else {
+        $api = 'api/v1/photos';
+    }
+
     $photos_list_json = file_get_contents(SERVER_URL.$api);
 
     // true makes an array
@@ -21,7 +41,7 @@
         if ($counter == 1 || $counter % 3 == 0) {
             echo '<div class="row">';
         }
-        include './templates/partials/photo.php';
+        include './apps/photos/partials/photo.php';
         if ($counter % 3 == 0) {
             echo '</div><hr />';
         }

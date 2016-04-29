@@ -1,7 +1,7 @@
 <?php
 
     if ($_SESSION['authorized'] == 1) {
-        include './templates/partials/admin/add-news.php';
+        include './apps/news/admin/add-news.php';
     }
 
     $api = 'api/v1/news';
@@ -11,6 +11,6 @@
     $newsitems = json_decode($news_list_json, true);
     echo '<div class="container-fluid">';
     foreach ($newsitems as $news) {
-        include './templates/partials/news.php';
+        include './apps/news/partials/news-item.php';
     }
     echo '</div>';

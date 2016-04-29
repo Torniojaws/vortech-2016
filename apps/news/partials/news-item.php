@@ -81,13 +81,13 @@
             </aside>
         </div>
         <div class="col-sm-4">
-            <?php include 'templates/modals/news.php'; ?>
+            <?php include 'apps/news/modals/news-details.php'; ?>
         </div>
     </div>
 </div> <!-- Container -->
 <hr />
 
 <!-- Modals -->
-<?php include 'templates/modals/login.php'; ?>
+<?php include 'apps/main/modals/login.php'; ?>
 
-<?php include 'templates/modals/register.php'; ?>
+<?php include 'apps/main/modals/register.php'; ?>
