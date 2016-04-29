@@ -279,7 +279,7 @@ $(document).ready(function () {
         var video_form_data = new FormData($(this)[0]);
         $.ajax({
             type: 'post',
-            url: 'templates/forms/process-video-form.php',
+            url: 'apps/videos/forms/video.php',
             cache: false,
             data: video_form_data,
             async: false,
@@ -501,12 +501,12 @@ $(document).ready(function () {
     });
 
     // Edit videos (admin)
-    $('.edit-video').editable('templates/edits/edit-video.php', {
+    $('.edit-video').editable('apps/videos/edit/video.php', {
         indicator: 'Saving...',
         tooltip: 'Click to edit...',
         style: "display: inline"
     });
-    $('.edit-video-area').editable('templates/edits/edit-video.php', {
+    $('.edit-video-area').editable('apps/videos/edit/video.php', {
         type: 'textarea',
         submit: 'OK',
         cancel: 'Cancel',

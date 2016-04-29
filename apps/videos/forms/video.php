@@ -3,7 +3,7 @@
     session_start();
 
     // Because this runs from a subdir /root/templates/forms
-    $root = str_replace('templates/forms', '', dirname(__FILE__));
+    $root = str_replace('apps/videos/forms', '', dirname(__FILE__));
     require_once $root.'constants.php';
 
     // Form data

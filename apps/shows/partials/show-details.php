@@ -8,7 +8,7 @@
         <p><?php echo $show['band_comments']; ?></p>
         <?php
             if ($_SESSION['authorized'] == 1) {
-                include './apps/shows/edits/edit-show-form.php';
+                include './apps/shows/forms/edit-show.php';
             }
         ?>
     </div>

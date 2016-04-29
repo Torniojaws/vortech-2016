@@ -1,7 +1,7 @@
 <?php
 
     if ($_SESSION['authorized'] == 1) {
-        include './templates/partials/admin/add-video.php';
+        include './apps/videos//admin/add-video.php';
     }
 
     $api = 'api/v1/videos';
@@ -11,6 +11,6 @@
     $videos = json_decode($videos_list, true);
     echo '<div class="container-fluid">';
     foreach ($videos as $video) {
-        include './templates/partials/video.php';
+        include './apps/videos/partials/video.php';
     }
     echo '</div>';

@@ -1,7 +1,7 @@
 <?php
 
     session_start();
-    require_once '../../constants.php';
+    require_once '../../../constants.php';
 
     /*
         From videos, we expect to edit the Title and Duration.
