@@ -65,3 +65,18 @@ Restful Vortech website with jQuery, Bootstrap and PHP API. Will replace the exi
 * Admin can ban users
 * Commenting system  
 * UI design
+
+## Lessons learned:
+* You cannot parametrize the DB column in PDO prepared statement. Use a switch or if..else instead:
+    ```
+    switch ($column) {
+         case 'id':
+            $sql_example = 'UPDATE table SET id = :id';
+            break;
+        case 'username':
+            $sql_example = 'UPDATE table SET username = :username';
+    }
+    ```
+* You cannot use the same parameter name twice in a PDO prepared statement. Just rename them in the array:
+    `$query['params'] = array('same_data1' => $same_var, 'same_data2' => $same_var)`
+* You cannot use GET parameters when checking file_exists(). Send them separately instead: `$_GET['yourVar'] = 'Value';`
