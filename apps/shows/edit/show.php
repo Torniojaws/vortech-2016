@@ -1,7 +1,7 @@
 <?php
 
     session_start();
-    require_once '../../constants.php';
+    require_once '../../../constants.php';
 
     /*
         From show details, we expect to edit any value

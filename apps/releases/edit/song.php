@@ -1,7 +1,7 @@
 <?php
 
     session_start();
-    require_once '../../constants.php';
+    require_once '../../../constants.php';
 
     /*
         From songs, we expect to edit the Title, Release Code, Release Song ID, Duration.
