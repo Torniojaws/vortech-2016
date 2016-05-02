@@ -70,6 +70,7 @@ CREATE TABLE photos(
     full varchar(200),
     thumbnail varchar(500),
     caption varchar(1000),
+    user_id int,
     PRIMARY KEY(id)
 );
 CREATE TABLE photo_comments(
@@ -310,23 +311,23 @@ INSERT INTO photo_albums VALUES(4, 3, "Live shows from summer", "Pics throughout
 INSERT INTO photo_albums VALUES(5, 4, "Random stuff 15-16", "Interesting pics from 2015 and 2016", TRUE);
 
 INSERT INTO photos VALUES(
-    1, 4, "2015-06-04 00:00:00", "Juha", "image1.jpg", "thumbnails/image1.jpg", "Live stuff");
+    1, 4, "2015-06-04 00:00:00", "Juha", "image1.jpg", "thumbnails/image1.jpg", "Live stuff", NULL);
 INSERT INTO photos VALUES(
-    2, 4, "2015-06-07 00:00:00", "Juha", "image2.jpg", "thumbnails/image2.jpg", "More live");
+    2, 4, "2015-06-07 00:00:00", "Juha", "image2.jpg", "thumbnails/image2.jpg", "More live", NULL);
 INSERT INTO photos VALUES(
-    3, 4, "2015-07-04 00:00:00", "Juha", "image3.jpg", "thumbnails/image3.jpg", "Seen performing");
+    3, 4, "2015-07-04 00:00:00", "Juha", "image3.jpg", "thumbnails/image3.jpg", "Seen performing", NULL);
 INSERT INTO photos VALUES(
-    4, 1, "2016-04-12 00:00:00", "Juha", "image4.jpg", "thumbnails/image4.jpg", "New promo pic!");
+    4, 1, "2016-04-12 00:00:00", "Juha", "image4.jpg", "thumbnails/image4.jpg", "New promo pic!", NULL);
 INSERT INTO photos VALUES(
-    5, 2, "2013-04-01 00:00:00", "Juha", "image5.jpg", "thumbnails/image5.jpg", "Previous promo");
+    5, 2, "2013-04-01 00:00:00", "Juha", "image5.jpg", "thumbnails/image5.jpg", "Previous promo", NULL);
 INSERT INTO photos VALUES(
-    6, 3, "2016-03-22 00:00:00", "Juha", "image6.jpg", "thumbnails/image6.jpg", "Latest work in the studio!");
+    6, 3, "2016-03-22 00:00:00", "Juha", "image6.jpg", "thumbnails/image6.jpg", "Latest work in the studio!", NULL);
 INSERT INTO photos VALUES(
-    7, 3, "2016-09-30 00:00:00", "Juha", "image7.jpg", "thumbnails/image7.jpg", "Recording new stuff!");
+    7, 3, "2016-09-30 00:00:00", "Juha", "image7.jpg", "thumbnails/image7.jpg", "Recording new stuff!", NULL);
 INSERT INTO photos VALUES(
-    8, 5, "2014-01-12 00:00:00", "Juha", "image8.jpg", "thumbnails/image8.jpg", "Strange pic");
+    8, 5, "2014-01-12 00:00:00", "Juha", "image8.jpg", "thumbnails/image8.jpg", "Strange pic", NULL);
 INSERT INTO photos VALUES(
-    9, 5, "2012-10-03 00:00:00", "Juha", "image9.jpg", "thumbnails/image9.jpg", "Random session with electronics");
+    9, 5, "2012-10-03 00:00:00", "Juha", "image9.jpg", "thumbnails/image9.jpg", "Random session with electronics", NULL);
 
 /* The first four numbers are:
 
@@ -371,21 +372,21 @@ INSERT INTO performers VALUES(
 INSERT INTO photo_categories VALUES(5, "Band members", "band_members");
 INSERT INTO photo_albums VALUES(6, 5, "Band member pictures", "All the members of the band", FALSE);
 INSERT INTO photos VALUES(
-    10, 6, "2014-10-03 00:00:00", "Juha", "juha.jpg", "thumbnails/juha.jpg", "Juha 2014");
+    10, 6, "2014-10-03 00:00:00", "Juha", "juha.jpg", "thumbnails/juha.jpg", "Juha 2014", NULL);
 INSERT INTO photos VALUES(
-    11, 6, "2014-10-03 00:00:00", "Tero", "tero.jpg", "thumbnails/tero.jpg", "Tero 2008");
+    11, 6, "2014-10-03 00:00:00", "Tero", "tero.jpg", "thumbnails/tero.jpg", "Tero 2008", NULL);
 INSERT INTO photos VALUES(
-    12, 6, "2014-10-03 00:00:00", "Matti", "matti.jpg", "thumbnails/matti.jpg", "Matti 2010");
+    12, 6, "2014-10-03 00:00:00", "Matti", "matti.jpg", "thumbnails/matti.jpg", "Matti 2010", NULL);
 INSERT INTO photos VALUES(
-    13, 6, "2014-10-03 00:00:00", "Ville", "ville.jpg", "thumbnails/ville.jpg", "Ville 2012");
+    13, 6, "2014-10-03 00:00:00", "Ville", "ville.jpg", "thumbnails/ville.jpg", "Ville 2012", NULL);
 INSERT INTO photos VALUES(
-    14, 6, "2014-10-03 00:00:00", "Mikko", "mikko.jpg", "thumbnails/mikko.jpg", "Mikko 2014");
+    14, 6, "2014-10-03 00:00:00", "Mikko", "mikko.jpg", "thumbnails/mikko.jpg", "Mikko 2014", NULL);
 INSERT INTO photos VALUES(
-    15, 6, "2014-10-03 00:00:00", "Samuli", "samuli.jpg", "thumbnails/samuli.jpg", "Samuli 2001");
+    15, 6, "2014-10-03 00:00:00", "Samuli", "samuli.jpg", "thumbnails/samuli.jpg", "Samuli 2001", NULL);
 INSERT INTO photos VALUES(
-    16, 6, "2014-10-03 00:00:00", "Rami", "rami.jpg", "thumbnails/rami.jpg", "Rami 2008");
+    16, 6, "2014-10-03 00:00:00", "Rami", "rami.jpg", "thumbnails/rami.jpg", "Rami 2008", NULL);
 INSERT INTO photos VALUES(
-    17, 6, "2014-10-03 00:00:00", "Lukas", "lukas.jpg", "thumbnails/lukas.jpg", "Lukas 2007");
+    17, 6, "2014-10-03 00:00:00", "Lukas", "lukas.jpg", "thumbnails/lukas.jpg", "Lukas 2007", NULL);
 
 INSERT INTO video_categories VALUES(1, "Live", "Videos from our live performances");
 INSERT INTO video_categories VALUES(2, "Studio", "Studio videos from various recording sessions");
@@ -447,12 +448,12 @@ INSERT INTO guestbook_comments VALUES(3, 4, 1, "Shame on maple leaf", "2016-03-2
 
 INSERT INTO photo_categories VALUES(6, "User avatars", "user_photos");
 INSERT INTO photo_albums VALUES(7, 6, "User-uploaded avatars", "All the user avatars uploaded by users", "FALSE");
-INSERT INTO photos VALUES(18, 7, "2016-03-29 10:47:00", "Admin", "admin.jpg", "thumbnails/admin.jpg", "Administrator");
-INSERT INTO photos VALUES(19, 7, "2016-03-29 10:55:00", "Guest", "guest.jpg", "thumbnails/guest.jpg", "Guest");
+INSERT INTO photos VALUES(18, 7, "2016-03-29 10:47:00", "Admin", "admin.jpg", "thumbnails/admin.jpg", "Administrator", 1);
+INSERT INTO photos VALUES(19, 7, "2016-03-29 10:55:00", "Guest", "guest.jpg", "thumbnails/guest.jpg", "Guest", 2);
 INSERT INTO photos VALUES(20, 7, "2016-03-29 10:55:00", "Regular Joe", "regular-joe.jpg", "thumbnails/regular-joe.jpg",
-    "Regular Joe");
+    "Regular Joe", 3);
 INSERT INTO photos VALUES(21, 7, "2016-03-29 10:55:00", "Blocked User", "blocked-user.jpg",
-    "thumbnails/blocked-user.jpg", "Blocked User");
+    "thumbnails/blocked-user.jpg", "Blocked User", 4);
 
 INSERT INTO show_comments VALUES(1, 1, 1, "Regular Joe", 3, "That was a great show!", "2016-03-30 16:34:00");
 INSERT INTO show_comments VALUES(2, 2, 1, "Regular Joe", 3, "Another great show!", "2016-03-30 16:35:00");

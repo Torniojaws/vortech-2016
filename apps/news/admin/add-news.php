@@ -1,41 +1,67 @@
-<div class="container-fluid">
-    <div class="row text-center">
-        <label for="news-btn">Admin - Add news</label><br />
-        <button type="button" class="btn btn-primary" id="news-btn" data-toggle="modal" data-target="#news-form">Open Form</button>
-    </div>
+<?php
 
-    <!-- Modal for news details -->
-    <div class="modal fade" id="news-form" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Add news</h4>
-                </div>
-                <div class="modal-body">
-                    <!-- Add news -->
-                    <form role="form" class="form" id="ad-news-form" name="add-news-form">
+    session_start();
 
-                        <div class="form-group">
-                            <label for="title">News title</label>
-                            <input type="text" class="form-control" id="title" name="title" placeholder="News headline" />
-                            <label for="text">News text</label>
-                            <textarea class="form-control" rows="5" id="text" name="text" placeholder="Write your news here"></textarea>
-                            <label for="tags">Tags for the news <small class="text-muted">(separate with comma)</small></label>
-                            <input type="text" class="form-control" id="tags" name="tags" placeholder="Tag 1, Tag 2, Tag 3, ..." />
-                        </div>
+    // Mandatory fields
+    $title = $_POST['title'];
+    $text = $_POST['text'];
+    $tags = $_POST['tags']; // Comma separated
 
-                        <button type="submit" class="btn btn-primary" name="Submit" id="send-news-form">Add the news</button>
-                    </form>
-                    <div id="added-ok" class="text-success" hidden><h3>Successfully added news! Boom...</h3></div>
-                    <div id="add-failed" class="text-danger" hidden><h3>Failed to add news!</h3></div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    date_default_timezone_set('Europe/Helsinki');
+    $posted = date('Y-m-d H:i:s');
 
-</div>
-<hr />
+    // Tags are a comma separated list, which will be formatted in a standard way
+    // eg. "tag, another tag, third tag"
+    if (isset($tags)) {
+        // Remove empty items and extraneous white spaces
+        $tags = array_filter(explode(',', $tags), 'strlen');
+        $tags = array_map('trim', $tags);
+        $processed_tags = implode(', ', $tags);
+    }
+
+    // Because this runs from a subdir /root/templates/forms
+    $root = str_replace('apps/news/admin', '', dirname(__FILE__));
+
+    if ($_SESSION['authorized'] == 1 && isset($title) && isset($text)) {
+        require_once $root.'/api/classes/Database.php';
+
+        $db = new Database();
+        $db->connect();
+
+        $statement = 'INSERT INTO news VALUES(
+            0,
+            :title,
+            :newstext,
+            :posted,
+            :author,
+            :tags
+        )';
+        $params = array(
+            'title' => $title,
+            'newstext' => $text,
+            'posted' => $posted,
+            'author' => $_SESSION['username'],
+            'tags' => $processed_tags,
+        );
+        $db->run($statement, $params);
+        $db->close();
+
+        if ($db->querySuccessful()) {
+            $response['status'] = 'success';
+            $response['message'] = 'News added to DB';
+        } else {
+            $response['status'] = 'error';
+            $response['message'] = 'Failed to add news to DB!';
+        }
+    } else {
+        if (isset($_SESSION['authorized']) == false) {
+            header('HTTP/1.1 401 Unauthorized');
+            exit;
+        } else {
+            $response['status'] = 'error';
+            $response['message'] = 'Missing news title or news text';
+        }
+    }
+
+    header('Content-type: application/json');
+    echo json_encode($response);

@@ -1,133 +1,155 @@
-<div class="container-fluid">
-    <div class="row text-center">
-        <label for="shop-btn">Admin - Add shop item</label><br />
-        <button type="button" class="btn btn-primary" id="shop-btn" data-toggle="modal" data-target="#shop-form">
-            Open Form
-        </button>
-    </div>
+<?php
 
-    <!-- Modal for shop details -->
-    <div class="modal fade" id="shop-form" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Add shop item</h4>
-                </div>
-                <div class="modal-body">
-                    <!-- Add shop item -->
-                    <form role="form" class="form" id="ad-shopitem-form" name="add-shopitem-form"
-                          enctype="multipart/form-data">
+    session_start();
 
-                        <div class="form-group">
-                            <!-- Select category -->
-                            <label for="category">Select Category</label>
-                            <select class="form-control" id="shop-category" name="shop-category">
-                            <?php
-                                require_once 'constants.php';
-                                $category_api = 'api/v1/shopitems/categories';
-                                $category_list = file_get_contents(SERVER_URL.$category_api);
-                                $categories = json_decode($category_list, true);
+    // Because this runs from a subdir
+    $root = str_replace('apps/shop/admin', '', dirname(__FILE__));
+    require_once $root.'constants.php';
 
-                                foreach ($categories as $category) {
-                                    echo '<option value="'.$category['id'].'">';
-                                    echo $category['title'].'</option>'.PHP_EOL;
-                                }
-                            ?>
-                            </select>
+    // Mandatory fields
+    $shop_category = (int) $_POST['shop-category'];
+    $product_name = $_POST['name'];
+    $description = $_POST['description'];
+    $price = (float) $_POST['price'];
 
-                            <!-- Product name -->
-                            <label for="name">Product name/title</label>
-                            <input type="text" class="form-control" id="name"
-                                   name="name" placeholder="Eg. CD - Album Title" />
+    // Optional fields
+    $paypal_button = $_POST['pp-button'];
+    $paypal = $_POST['paypal'];
+    $bandcamp = $_POST['bandcamp'];
+    $amazon = $_POST['amazon'];
+    $spotify = $_POST['spotify'];
+    $deezer = $_POST['deezer'];
+    $itunes = $_POST['itunes'];
 
-                            <!-- Only if shop item is an album (= cd / digital) -->
-                            <div id="release" class="toHide" style="display:none;">
-                                <label for="text">Select existing release
-                                    <small class="text-muted">
-                                        (The expectation is that a new release is first added to releases)
-                                    </small>
-                                </label>
-                                <select class="form-control" id="selected-album" name="selected-album">
-                                <?php
-                                    $albums_api = 'api/v1/releases';
-                                    $albums_list = file_get_contents(SERVER_URL.$albums_api);
-                                    $albums = json_decode($albums_list, true);
+    if ($shop_category == 1) {
+        $is_album = false;
+    } else {
+        $is_album = true;
+    }
 
-                                    foreach ($albums as $album) {
-                                        echo '<option value="'.$album['release_code'].'" ';
-                                        echo 'data-tag="'.$album['release_id'].'">';
-                                        echo $album['title'].'</option>'.PHP_EOL;
-                                    }
-                                ?>
-                                </select>
-                            </div>
+    $thumbnail_errors = 0;
+    $image_errors = 0;
 
-                            <!-- Description -->
-                            <label for="description">Item description</label>
-                            <input type="text" class="form-control" id="description"
-                                   name="description" placeholder="Eg. New t-shirt for 2016" />
+    // If the item is a CD or Digital Album
+    if ($is_album) {
+        // It will NOT contain an uploaded thumbnail - We'll use the release photo instead
+        $release_code = $_POST['selected-album'];
 
-                            <!-- Price -->
-                            <label for="price">Item price</label>
-                            <input type="text" class="form-control" id="price"
-                                   name="price" placeholder="Can be just 15 or eg. 14.99 (no comma)" />
+        // We'll link to the photo of the release
+        $release_api = 'api/v1/releases/'.$release_code;
+        $release_details = file_get_contents(SERVER_URL.$release_api);
+        $release = json_decode($release_details, true);
+        $thumbnail = $release[0]['thumbnail'];
+        $full = $release[0]['full'];
+        $release_id = (int) $release['id'];
+    } else {
+        // Other types of shop items can/should have a photo uploaded
+        require_once $root.'classes/ImageUploader.php';
+        $absolute_upload_path = $root.IMAGE_DIR.'merch/';
 
-                            <!-- Upload image (if album, not needed) -->
-                            <div id="shop-photo" class="toHide">
-                                <label for="photo">Photo</label><br />
-                                <span class="btn btn-default btn-file">
-                                    Browse <input type="file" id="photo" name="photo" />
-                                </span><br />
-                            </div>
+        $imageUploader = new ImageUploader($root, $absolute_upload_path);
+        $imageUploader->processUploadedImages();
+        // Each array element contains info about one successfully uploaded image
+        $uploads = $imageUploader->getAssocArrayOfUploadedImages();
 
-                            <hr />
-                            <h3 class="text-info">External links <small>(Optional)</small></h3>
+        // Thumbnail creation
+        require_once $root.'classes/ImageResizer.php';
+        $resizer = new ImageResizer($root);
 
-                            <!-- Paypal Button -->
-                            <label for="price">PayPal Button</label>
-                            <input type="text" class="form-control" id="pp-button"
-                                   name="pp-button" placeholder="PayPal Button embedded code" />
+        foreach ($uploads as $image) {
+            $resizer->createThumbnail(
+                $image['fullpath'].$image['filename'],
+                $absolute_upload_path.'thumbnails/',
+                $image['filename'],
+                200
+            );
+        }
 
-                            <!-- Links to external shops like BandCamp -->
-                            <label for="price">PayPal link</label>
-                            <input type="text" class="form-control" id="paypal"
-                                   name="paypal" placeholder="PayPal link" />
+        // Check that everything went OK
+        if ($imageUploader->successfullyUploadedAll() == false) {
+            $image_errors += 1;
+        }
+        if ($resizer->thumbnailStatus() == false) {
+            $thumbnail_errors += 1;
+        }
 
-                            <label for="price">BandCamp link</label>
-                            <input type="text" class="form-control" id="bandcamp"
-                            name="bandcamp" placeholder="BandCamp link" />
+        $full = $image['filename'];
+        $thumbnail = 'thumbnails/'.$image['filename'];
+        $release_id = (int) '0'; // Not used for non-CD/Digital items
+    }
 
-                            <label for="price">Amazon link</label>
-                            <input type="text" class="form-control" id="amazon"
-                            name="amazon" placeholder="Amazon link" />
+    if ($_SESSION['authorized'] == 1 && isset($product_name) && isset($price) && $price > 0
+        && strlen($description) > 0  && isset($full) && isset($thumbnail) && $image_errors == 0
+        && $thumbnail_errors == 0) {
+        require_once $root.'/api/classes/Database.php';
 
-                            <label for="price">Amazon link</label>
-                            <input type="text" class="form-control" id="spotify"
-                            name="spotify" placeholder="Spotify link" />
+        $db = new Database();
 
-                            <label for="price">Amazon link</label>
-                            <input type="text" class="form-control" id="deezer"
-                            name="deezer" placeholder="Deezer link" />
+        $db->connect();
+        $statement = 'INSERT INTO shop_items VALUES(
+            0,
+            :category_id,
+            :product_name,
+            :conditional_album_id,
+            :description,
+            :price,
+            :full,
+            :thumbnail,
+            :paypal_button,
+            :paypal_link,
+            :bandcamp_link,
+            :amazon_link,
+            :spotify_link,
+            :deezer_link,
+            :itunes_link
+        )';
+        $params = array(
+            'category_id' => $shop_category,
+            'product_name' => $product_name,
+            'conditional_album_id' => $release_id,
+            'description' => $description,
+            'price' => $price,
+            'full' => $full,
+            'thumbnail' => $thumbnail,
+            'paypal_button' => $paypal_button,
+            'paypal_link' => $paypal,
+            'bandcamp_link' => $bandcamp,
+            'amazon_link' => $amazon,
+            'spotify_link' => $spotify,
+            'deezer_link' => $deezer,
+            'itunes_link' => $itunes,
+        );
+        $db->run($statement, $params);
+        $db->close();
 
-                            <label for="price">Amazon link</label>
-                            <input type="text" class="form-control" id="itunes"
-                            name="itunes" placeholder="iTunes link" />
+        if ($db->querySuccessful() && $image_errors == 0 && $thumbnail_errors == 0) {
+            $response['status'] = 'success';
+            $response['message'] = 'Shop item added to DB';
+        } else {
+            $response['status'] = 'error';
+            $response['message'] = 'Failed to add shop item to DB!';
+            if ($image_errors > 0) {
+                $response['message'] .= ' Image upload failed.';
+            }
+            if ($thumbnail_errors > 0) {
+                $response['message'] .= ' Thumbnail creation failed.';
+            }
+        }
+    } else {
+        if (isset($_SESSION['authorized']) == false) {
+            header('HTTP/1.1 401 Unauthorized');
+            exit;
+        } elseif ($image_errors > 0 or $thumbnail_errors > 0) {
+            $response['status'] = 'error';
+            $response['message'] = 'Failed to add to DB!';
+            if ($image_errors > 0) {
+                $response['message'] .= ' Image upload failed.';
+            }
+            if ($thumbnail_errors > 0) {
+                $response['message'] .= ' Thumbnail creation failed.';
+            }
+        }
+    }
 
-                        </div>
-                        <button type="submit" class="btn btn-primary" name="Submit" id="send-shopitem-form">
-                            Add the shop item
-                        </button>
-                    </form>
-                    <div id="added-ok" class="text-success" hidden><h3>Successfully added shop item! Boom...</h3></div>
-                    <div id="add-failed" class="text-danger" hidden><h3>Failed to add shop item!</h3></div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-</div>
-<hr />
+    header('Content-type: application/json');
+    echo json_encode($response);

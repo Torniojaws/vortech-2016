@@ -1,7 +1,8 @@
 <?php
 
-    require_once 'classes/User.php';
-    require_once 'classes/Admin.php';
+    $root = str_replace('/apps/profile', '', __DIR__);
+    require_once $root.'/classes/User.php';
+    require_once $root.'/classes/Admin.php';
     $user = new User();
     $admin = new Admin();
 

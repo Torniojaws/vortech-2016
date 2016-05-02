@@ -31,7 +31,8 @@
                                                :taken_by,
                                                :full,
                                                :thumbnail,
-                                               :caption
+                                               :caption,
+                                               NULL
                                            )';
                     $query['params'] = array(
                         'album_id' => $album_id,

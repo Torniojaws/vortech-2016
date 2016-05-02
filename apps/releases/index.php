@@ -1,7 +1,7 @@
 <?php
 
     if ($_SESSION['authorized'] == 1) {
-        include './apps/releases/admin/add-release.php';
+        include './apps/releases/admin/add-release-modal.php';
     }
 
     $api = 'api/v1/releases';

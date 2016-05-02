@@ -1,62 +1,161 @@
-<div class="container-fluid">
-    <div class="row text-center">
-        <label for="news-btn">Admin - Add member</label><br />
-        <button type="button" class="btn btn-primary" id="member-btn" data-toggle="modal" data-target="#member-form">
-            Open Form
-        </button>
-    </div>
+<?php
 
-    <!-- Modal for member details -->
-    <div class="modal fade" id="member-form" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Add member</h4>
-                </div>
-                <div class="modal-body">
-                    <!-- Add member -->
-                    <form role="form" class="form" id="ad-member-form" name="add-member-form"
-                          enctype="multipart/form-data">
+    session_start();
 
-                        <div class="form-group">
-                            <label for="name">Name</label>
-                            <input type="text" class="form-control" id="name"
-                                   name="name" placeholder="Member name" />
-                            <label for="category">Select Type</label>
-                            <select class="form-control" id="type" name="member-type">
-                                <option value="Full member">Full member</option>
-                                <option value="Rehearsal member">Rehearsal member</option>
-                                <option value="Guest artist">Guest artist</option>
-                            </select>
-                            <label for="instrument">Instrument(s) <small>(comma-separated)</small></label>
-                            <input type="text" class="form-control" id="instrument"
-                                   name="instrument" placeholder="Instrument names" />
-                            <label for="started">Start date</label>
-                            <input type="text" class="form-control" id="started"
-                                   name="started" placeholder="yyyy-mm-dd H:m:s" />
-                            <label for="quit">Quit date (leave empty for active)</label>
-                            <input type="text" class="form-control" id="quit"
-                                   name="quit" placeholder="yyyy-mm-dd H:m:s" />
-                            <label for="photo">Photo</label><br />
-                            <span class="btn btn-default btn-file">
-                                Browse <input type="file" id="photo" name="photo" />
-                            </span><br />
-                        </div>
+    // Because this runs from a subdir /root/templates/forms
+    $root = str_replace('apps/bio/admin', '', dirname(__FILE__));
+    require_once $root.'constants.php';
 
-                        <button type="submit" class="btn btn-primary" name="Submit" id="send-member-form">
-                            Add the member
-                        </button>
-                    </form>
-                    <div id="added-ok" class="text-success" hidden><h3>Successfully added member! Boom...</h3></div>
-                    <div id="add-failed" class="text-danger" hidden><h3>Failed to add member!</h3></div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    // Mandatory fields
+    $name = $_POST['name'];
+    $type = $_POST['member-type'];
+    $instrument = $_POST['instrument'];
+    $started = $_POST['started'];
+    $quit = $_POST['quit'];
 
-</div>
-<hr />
+    // When quit is empty, the member is an active member which
+    // is indicated with a quit date of 9999-12-31 in the DB
+    if (isset($quit) == false or empty($quit)) {
+        $quit = '9999-12-31 23:59:59';
+    }
+
+    $thumbnail_errors = 0;
+    $image_errors = 0;
+
+    // A photo can be uploaded
+    require_once $root.'classes/ImageUploader.php';
+    $absolute_upload_path = $root.IMAGE_DIR.'band_members/';
+
+    $imageUploader = new ImageUploader($root, $absolute_upload_path);
+    $imageUploader->processUploadedImages();
+    // Each array element contains info about one successfully uploaded image
+    $uploads = $imageUploader->getAssocArrayOfUploadedImages();
+
+    // Thumbnail creation
+    require_once $root.'classes/ImageResizer.php';
+    $resizer = new ImageResizer($root);
+
+    foreach ($uploads as $image) {
+        $resizer->createThumbnail(
+            $image['fullpath'].$image['filename'],
+            $absolute_upload_path.'thumbnails/',
+            $image['filename'],
+            200
+        );
+    }
+
+    // Check that everything went OK
+    if ($imageUploader->successfullyUploadedAll() == false) {
+        $image_errors += 1;
+    }
+    if ($resizer->thumbnailStatus() == false) {
+        $thumbnail_errors += 1;
+    }
+
+    $full = $image['filename'];
+    $thumbnail = 'thumbnails/'.$image['filename'];
+
+    // The uploaded photo details must be POSTed to the "photos" table also
+    if ($image_errors == 0 and $thumbnail_errors == 0) {
+        $album = 6; // 6 = Band memmbers
+        $date = date('Y-m-d H:i:s');
+        $taken_by = 'Juha';
+
+        $photo_api = 'api/v1/photos/add';
+        $photo_request_api = SERVER_URL.$photo_api;
+
+        // Generate the POST request
+        $data = array(
+            'album_id' => $album,
+            'date' => $date,
+            'taken_by' => $taken_by,
+            'full' => $full,
+            'thumbnail' => $thumbnail,
+            'caption' => $name,
+        );
+        $options = array(
+            'http' => array(
+                'header' => "Content-type: application/x-www-form-urlencoded\r\n",
+                'method' => 'POST',
+                'content' => http_build_query($data),
+            ),
+        );
+        $context = stream_context_create($options);
+        $result = file_get_contents($photo_request_api, false, $context);
+        if ($result === false) {
+            $photo_response['status'] = 'error';
+            $photo_response['message'] = 'Could not update photo details to DB';
+        } else {
+            $photo_response['status'] = 'success';
+            $photo_response['message'] = 'Updated photo details to DB successfully';
+        }
+    }
+
+    // For adding a member picture, we need the ID of the newly uploaded picture
+    $newphoto_api = 'api/v1/photos/band-members/newest';
+    $newphoto_list = file_get_contents(SERVER_URL.$newphoto_api);
+    $newphoto_details = json_decode($newphoto_list, true);
+    $photo_id = $newphoto_details[0]['id'];
+
+    // Add to Members
+    if ($_SESSION['authorized'] == 1 && isset($name) && isset($instrument) && isset($started) && isset($photo_id)
+        && isset($type) && $image_errors == 0 && $thumbnail_errors == 0) {
+        require_once $root.'/api/classes/Database.php';
+
+        $db = new Database();
+
+        $db->connect();
+        $statement = 'INSERT INTO performers VALUES(
+            0,
+            :name,
+            :type,
+            :instrument,
+            :started,
+            :quit,
+            :photo_id
+        )';
+        $params = array(
+            'name' => $name,
+            'type' => $type,
+            'instrument' => $instrument,
+            'started' => $started,
+            'quit' => $quit,
+            'photo_id' => $photo_id,
+        );
+        $db->run($statement, $params);
+        $db->close();
+
+        if ($db->querySuccessful() && $image_errors == 0 && $thumbnail_errors == 0) {
+            $response['status'] = 'success';
+            $response['message'] = 'Member added to DB';
+        } else {
+            $response['status'] = 'error';
+            $response['message'] = 'Failed to add member to DB!';
+            if ($image_errors > 0) {
+                $response['message'] .= ' Image upload failed.';
+            }
+            if ($thumbnail_errors > 0) {
+                $response['message'] .= ' Thumbnail creation failed.';
+            }
+        }
+    } else {
+        if (isset($_SESSION['authorized']) == false) {
+            header('HTTP/1.1 401 Unauthorized');
+            exit;
+        } elseif ($image_errors > 0 or $thumbnail_errors > 0) {
+            $response['status'] = 'error';
+            $response['message'] = 'Failed to add to DB!';
+            if ($image_errors > 0) {
+                $response['message'] .= ' Image upload failed.';
+            }
+            if ($thumbnail_errors > 0) {
+                $response['message'] .= ' Thumbnail creation failed.';
+            }
+        } else {
+            $response['status'] = 'error';
+            $response['message'] = 'Could not add member details';
+        }
+    }
+
+    header('Content-type: application/json');
+    echo json_encode($response);

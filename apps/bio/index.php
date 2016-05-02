@@ -1,6 +1,6 @@
 <?php
     if ($_SESSION['authorized'] == 1) {
-        include './apps/bio/admin/add-member.php';
+        include './apps/bio/admin/add-member-modal.php';
     }
 ?>
 

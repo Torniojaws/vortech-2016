@@ -25,17 +25,17 @@
 
         public function showLoginForm()
         {
-            require './templates/partials/login.php';
+            require './apps/main/partials/login.php';
         }
 
         public function showLogoutButton()
         {
-            require './templates/partials/logout.php';
+            require './apps/main/partials/logout.php';
         }
 
         public function showRegistrationForm()
         {
-            require './templates/partials/register.php';
+            require './apps/main/partials/register.php';
         }
 
         public function logout()

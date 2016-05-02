@@ -1,126 +1,165 @@
-<div class="container-fluid">
-    <div class="row text-center">
-        <label for="news-btn">Admin - Add photos</label><br />
-        <button type="button" class="btn btn-primary" id="photo-btn" data-toggle="modal" data-target="#photo-form">
-            Open Form
-        </button>
-    </div>
+<?php
 
-    <!-- Modal for photo details -->
-    <div class="modal fade" id="photo-form" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Add photos</h4>
-                </div>
-                <div class="modal-body">
-                    <!-- Add photos -->
-                    <form role="form" class="form" id="ad-photos-form" name="add-photos-form"
-                          enctype="multipart/form-data">
+    session_start();
 
-                        <div class="form-group">
-                            <label for="category">Select Category</label>
-                            <select class="form-control" id="category" name="album-category">
-                            <?php
-                                require_once 'constants.php';
-                                $category_api = 'api/v1/photos/categories';
-                                $category_list = file_get_contents(SERVER_URL.$category_api);
-                                $categories = json_decode($category_list, true);
+    // Because this runs from a subdir /root/templates/forms
+    $root = str_replace('apps/photos/admin', '', dirname(__FILE__));
+    require_once $root.'constants.php';
 
-                                foreach ($categories as $category) {
-                                    echo '<option value="'.$category['name_id'].'">';
-                                    echo $category['name'].'</option>'.PHP_EOL;
-                                }
-                            ?>
-                            </select>
-                            <!-- Radio button to switch between selecting existing album or creating new -->
-                            <label for="code">Use existing photo album?</label>
-                            <div class="radio">
-                                <label>
-                                    <input type="radio" name="use-existing" value="1" />
-                                    Yes
-                                </label>
-                            </div>
-                            <div class="radio">
-                                <label>
-                                    <input type="radio" name="use-existing" value="2" />
-                                    No
-                                </label>
-                            </div>
-                            <!-- Only if radio button for existing is yes -->
-                            <div id="show1" class="toHide" style="display:none;">
-                                <label for="text">Select Existing Album</label>
-                                <select class="form-control" id="selected-album" name="selected-album">
-                                <?php
-                                    $albums_api = 'api/v1/photos/albums';
-                                    $albums_list = file_get_contents(SERVER_URL.$albums_api);
-                                    $albums = json_decode($albums_list, true);
+    // If this is not 1, a new photo album will be created
+    if ($_POST['use-existing'] == 1) {
+        $use_existing_album = true;
+        $album_id = (int) $_POST['selected-album'];
+    } else {
+        $use_existing_album = false;
+        $new_album_name = $_POST['name'];
+        $new_album_description = $_POST['description'];
+        if ($_POST['gallery-newalbum'] == 'yes') {
+            $new_album_show_in_gallery = 1;
+        } else {
+            $new_album_show_in_gallery = 0;
+        }
+        $new_album_category_id = (int) $_POST['category-newalbum'];
+    }
 
-                                    foreach ($albums as $album) {
-                                        echo '<option value="'.$album['id'].'" ';
-                                        echo 'data-tag="'.$album['name_id'].'">';
-                                        echo $album['name'].'</option>'.PHP_EOL;
-                                    }
-                                ?>
-                                </select>
-                            </div>
-                            <!-- Only shown if radio button for existing is no -->
-                            <div id="show2" class="toHide" style="display:none;">
-                                <h2>Create New Album</h2>
-                                <div class="form-group" id="new-album">
-                                    <!-- The below is hidden for compatibility reasons -->
-                                    <select class="form-control" id="category-newalbum" name="category-newalbum" hidden>
-                                    <?php
-                                        foreach ($categories as $category) {
-                                            echo '<option value="'.$category['id'].'" ';
-                                            echo 'data-tag="'.$category['name_id'].'">';
-                                            echo $category['name'].'</option>'.PHP_EOL;
-                                        }
-                                    ?>
-                                    </select>
-                                    <label for="name-newalbum">Name for new album</label>
-                                    <input type="text" class="form-control" id="name-newalbum"
-                                           name="name" placeholder="Album name" />
-                                    <label for="description-newalbum">Description for the new album</label>
-                                    <textarea class="form-control" rows="5" id="description-newalbum"
-                                              name="description" placeholder="Write the description here"></textarea>
-                                    <label for="code">Show in album gallery?</label>
-                                    <div class="radio">
-                                        <label><input type="radio" name="gallery-newalbum" value="yes" />Yes</label>
-                                    </div>
-                                    <div class="radio">
-                                        <label><input type="radio" name="gallery-newalbum" value="no" />No</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <hr />
-                            <label for="date-photos">Date for the photos</label>
-                            <input type="text" class="form-control" id="date-newalbum"
-                                   name="date" placeholder="yyyy-mm-dd hh:mm:ss" />
-                            <label for="taken-by">Pictures taken by</label>
-                            <input type="text" class="form-control" id="takenby-newalbum"
-                                   name="taken-by" placeholder="Name" />
-                            <label for="photos">Photos</label><br />
-                            <span class="btn btn-default btn-file">
-                                Browse <input type="file" id="photo" name="photo" />
-                            </span><br />
-                            <small>Captions can be added after upload</small>
-                        </div>
+    $path_for_uploads = $_POST['album-category'].'/';
+    $date_of_photos = $_POST['date'];
+    $photographer = $_POST['taken-by'];
 
-                        <button type="submit" class="btn btn-primary" name="Submit" id="send-photos-form">
-                            Add the photos
-                        </button>
-                    </form>
-                    <div id="added-ok" class="text-success" hidden><h3>Successfully added photos! Boom...</h3></div>
-                    <div id="add-failed" class="text-danger" hidden><h3>Failed to add photos!</h3></div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    // Process the photos
+    $thumbnail_errors = 0;
+    $image_errors = 0;
 
-</div>
-<hr />
+    require_once $root.'classes/ImageUploader.php';
+    $absolute_upload_path = $root.IMAGE_DIR.$path_for_uploads;
+
+    $imageUploader = new ImageUploader($root, $absolute_upload_path);
+    $imageUploader->processUploadedImages();
+    // Each array element contains info about one successfully uploaded image
+    $uploads = $imageUploader->getAssocArrayOfUploadedImages();
+
+    // Thumbnail creation
+    require_once $root.'classes/ImageResizer.php';
+    $resizer = new ImageResizer($root);
+
+    foreach ($uploads as $image) {
+        $resizer->createThumbnail(
+            $image['fullpath'].$image['filename'],
+            $absolute_upload_path.'thumbnails/',
+            $image['filename'],
+            200
+        );
+
+        // Captions are added after upload
+        $caption = null;
+        $photos[] = array(
+            'full-image' => $image['filename'],
+            'thumbnail' => 'thumbnails/'.$image['filename'],
+            'caption' => $caption,
+        );
+    }
+
+    // Check that everything went OK
+    if ($imageUploader->successfullyUploadedAll() == false) {
+        $image_errors += 1;
+    }
+    if ($resizer->thumbnailStatus() == false) {
+        $thumbnail_errors += 1;
+    }
+
+    $full = $image['filename'];
+    $thumbnail = 'thumbnails/'.$image['filename'];
+
+    if ($_SESSION['authorized'] == 1 && isset($date_of_photos) && strlen($date_of_photos) > 0
+        && $image_errors == 0 && $thumbnail_errors == 0) {
+        require_once $root.'/api/classes/Database.php';
+
+        $db = new Database();
+
+        // Create new photo album
+        if ($use_existing_album == false) {
+            $db->connect();
+
+            $statement = 'INSERT INTO photo_albums VALUES(
+                0,
+                :category_id,
+                :album_name,
+                :description,
+                :show_in_gallery
+            )';
+
+            $params = array(
+                'category_id' => $new_album_category_id,
+                'album_name' => $new_album_name,
+                'description' => $new_album_description,
+                'show_in_gallery' => $new_album_show_in_gallery,
+            );
+            $db->run($statement, $params);
+            $db->close();
+        }
+
+        // Get the ID of the new album
+        if ($use_existing_album == false) {
+            $db->connect();
+
+            $statement = 'SELECT id
+                          FROM photo_albums
+                          WHERE name = :new_album_name';
+            $params = array(
+                'new_album_name' => $new_album_name,
+            );
+            $result = $db->run($statement, $params);
+            $album_id = (int) $result[0]['id'];
+            $db->close();
+        }
+
+        // Add new photos
+        foreach ($photos as $photo) {
+            $db->connect();
+            $statement = 'INSERT INTO photos VALUES(
+                0,
+                :album_id,
+                :date_taken,
+                :taken_by,
+                :full,
+                :thumbnail,
+                :caption,
+                NULL
+            )';
+            $params = array(
+                'album_id' => $album_id,
+                'date_taken' => $date_of_photos,
+                'taken_by' => $photographer,
+                'full' => $photo['full-image'],
+                'thumbnail' => $photo['thumbnail'],
+                'caption' => $photo['caption'],
+            );
+            $db->run($statement, $params);
+        }
+        $db->close();
+
+        if ($db->querySuccessful() and $thumbnail_errors == 0 and $image_errors == 0) {
+            $response['status'] = 'success';
+            $response['message'] = 'Photos added to DB';
+        } else {
+            $response['status'] = 'error';
+            $response['message'] = 'Failed to add photos to DB!';
+            if ($thumbnail_errors > 0) {
+                $response['message'] .= ' Could not create thumbnails';
+            }
+            if ($image_errors > 0) {
+                $response['message'] .= ' Could not upload images';
+            }
+        }
+    } else {
+        if (isset($_SESSION['authorized']) == false) {
+            header('HTTP/1.1 401 Unauthorized');
+            exit;
+        } else {
+            $response['status'] = 'error';
+            $response['message'] = 'Missing photo details';
+        }
+    }
+
+    header('Content-type: application/json');
+    echo json_encode($response);

@@ -1,59 +1,92 @@
-<div class="container-fluid">
-    <div class="row text-center">
-        <label for="release-btn">Admin - Add new video</label><br />
-        <button type="button" class="btn btn-primary" id="video-btn" data-toggle="modal" data-target="#video-form">Open Form</button>
-    </div>
+<?php
 
-    <!-- Modal for video details -->
-    <div class="modal fade" id="video-form" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Add new video</h4>
-                </div>
-                <div class="modal-body">
-                    <!-- Add new video -->
-                    <label for="ad-video-form">New video details</label>
-                    <form role="form" class="form" id="ad-video-form" name="add-video-form"
-                          enctype="multipart/form-data">
-                        <!-- Mandatory details -->
-                        <div class="form-group">
-                            <label for="artist">Video title</label>
-                            <input type="text" class="form-control" id="title" name="title" placeholder="Title for video" />
-                            <label for="artist">Video URL</label>
-                            <input type="text" class="form-control" id="url" name="url" placeholder="http://www.videosite.com/video/123" />
-                            <label for="album">Duration</label>
-                            <input type="text" class="form-control" id="duration" name="duration" placeholder="00:25:00" />
-                            <label for="category">Video category</label>
-                            <select class="form-control" id="category" name="category">
-                            <?php
-                                $video_api = 'api/v1/videos/categories';
-                                $cat_list = file_get_contents(SERVER_URL.$video_api);
-                                $categories = json_decode($cat_list, true);
-                                foreach ($categories as $category) {
-                                    echo '<option value="'.$category['id'].'" ';
-                                    echo 'data-tag="'.$category['id'].'">';
-                                    echo $category['name'].'</option>'.PHP_EOL;
-                                }
-                            ?>
-                            </select>
-                            <label for="album">Thumbnail</label><br />
-                            <span class="btn btn-default btn-file">
-                                Browse <input type="file" id="thumbnail" name="thumbnail" />
-                            </span>
-                        </div>
-                        <button type="submit" class="btn btn-primary" name="Submit" id="send-video-form">Add the video</button>
-                    </form>
-                    <div id="added-ok" class="text-success" hidden><h3>Successfully added video! Boom...</h3></div>
-                    <div id="add-failed" class="text-danger" hidden><h3>Failed to add video!</h3></div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    session_start();
 
-</div>
-<hr />
+    // Because this runs from a subdir
+    $root = str_replace('apps/videos/admin', '', dirname(__FILE__));
+    require_once $root.'constants.php';
+
+    // Form data
+    $title = $_POST['title'];
+    $url = $_POST['url'];
+    $host = get_host($url);
+    $duration = $_POST['duration'];
+    $category_id = (int) $_POST['category'];
+
+    // Thumbnail
+    $thumbnail_path = 'videos/thumbnails/';
+    $thumbnail_upload_path = $root.'/static/img/'.$thumbnail_path;
+    foreach ($_FILES as $file => $details) {
+        $tmp = $details['tmp_name'];
+        $target = $details['name'];
+        try {
+            move_uploaded_file($tmp, $thumbnail_upload_path.$target);
+        } catch (Exception $ex) {
+            die($ex);
+        }
+    }
+    $thumbnail = $thumbnail_path.$target;
+
+    if ($_SESSION['authorized'] == 1 && isset($title) && isset($url)) {
+        require_once $root.'/api/classes/Database.php';
+
+        $db = new Database();
+
+        // Add new video
+        $db->connect();
+        $statement = 'INSERT INTO videos VALUES(
+            0,
+            :title,
+            :url,
+            :host,
+            :duration,
+            :thumbnail,
+            :category_id
+        )';
+        $params = array(
+            'title' => $title,
+            'url' => $url,
+            'host' => $host,
+            'duration' => $duration,
+            'thumbnail' => $thumbnail,
+            'category_id' => $category_id,
+        );
+        $db->run($statement, $params);
+        $db->close();
+
+        if ($db->querySuccessful()) {
+            $response['status'] = 'success';
+            $response['message'] = 'Video added to DB';
+        } else {
+            $response['status'] = 'error';
+            $response['message'] = 'Failed to add video to DB!';
+        }
+    } else {
+        if (isset($_SESSION['authorized']) == false) {
+            header('HTTP/1.1 401 Unauthorized');
+            exit;
+        } else {
+            $response['status'] = 'error';
+            $response['message'] = 'Missing video details';
+        }
+    }
+
+    /**
+     * Get the host of a video from the url.
+     *
+     * @param $url The address of the video
+     *
+     * @return $host The host of the video
+     */
+    function get_host($url)
+    {
+        $parsed = parse_url($url);
+        $host = str_replace('.com', '', $parsed['host']);
+        $host = str_replace('www.', '', $host);
+        $host = ucfirst($host);
+
+        return $host;
+    }
+
+    header('Content-type: application/json');
+    echo json_encode($response);
