@@ -1,7 +1,7 @@
 <?php
 
     if ($_SESSION['authorized'] == 1) {
-        include './apps/photos/admin/add-photos.php';
+        include './apps/photos/admin/add-photos-modal.php';
     }
 
     if (isset($_GET['page'])) {

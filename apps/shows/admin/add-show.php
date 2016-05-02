@@ -50,7 +50,7 @@
     if ($_SESSION['authorized'] == 1 && isset($date) && isset($continent) && isset($country)
         && isset($city) && isset($venue)) {
         // Because this runs from a subdir /root/templates/forms
-        $root = str_replace('templates/forms', '', dirname(__FILE__));
+        $root = str_replace('apps/shows/admin', '', dirname(__FILE__));
         require_once $root.'/api/classes/Database.php';
 
         $db = new Database();

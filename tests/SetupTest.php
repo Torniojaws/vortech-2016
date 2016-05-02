@@ -9,8 +9,8 @@
          {
              $errors = 0;
              $files_that_need_special_permits = array(
-                '/vagrant/v/templates/forms/process-photos-form.php',
-                './templates/forms/process-shop-form.php',
+                './apps/photos/admin/add-photos.php',
+                './apps/shop/admin/add-shopitem.php',
                 './classes/ImageUploader.php',
                 './classes/ImageResizer.php',
              );

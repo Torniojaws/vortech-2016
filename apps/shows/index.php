@@ -1,7 +1,7 @@
 <?php
 
     if ($_SESSION['authorized'] == 1) {
-        include './apps/shows/admin/add-show.php';
+        include './apps/shows/admin/add-show-modal.php';
     }
 
     $api = 'api/v1/shows';

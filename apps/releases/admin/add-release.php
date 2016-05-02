@@ -1,69 +1,105 @@
-<div class="container-fluid">
-    <div class="row text-center">
-        <label for="release-btn">Admin - Add new release</label><br />
-        <button type="button" class="btn btn-primary" id="release-btn" data-toggle="modal" data-target="#release-form">Open Form</button>
-    </div>
+<?php
 
-    <!-- Modal for release details -->
-    <div class="modal fade" id="release-form" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Add new release</h4>
-                </div>
-                <div class="modal-body">
-                    <!-- Add new release -->
-                    <label for="ad-form">New release details</label>
-                    <form role="form" class="form" id="ad-release-form" name="add-release-form">
-                        <!-- Mandatory details -->
-                        <div class="form-group">
-                            <label for="artist">Artist</label>
-                            <input type="text" class="form-control" id="artist" name="artist" placeholder="Vortech" />
-                            <label for="album">Album title</label>
-                            <input type="text" class="form-control" id="album" name="album" placeholder="Album title" />
-                            <label for="date">Release date</label>
-                            <input type="text" class="form-control" id="date" name="date" placeholder="yyyy-mm-dd hh:mm:ss" />
-                        </div>
-                        <!-- Additional details -->
-                        <div class="form-group">
-                            <label for="songs">Songs <small class="text-muted">One song per row in format: [# title (01:23)]</small></label>
-                            <textarea class="form-control" rows="5" id="songs" name="songlist" placeholder="# title (01:23)"></textarea>
-                            <label for="code">
-                                Release Code
-                                <small class="text-muted">
-                                    (most recent code was:
-                                    <?php
-                                        require_once 'constants.php';
-                                        $album_api = 'api/v1/releases/latest';
-                                        $query = file_get_contents(SERVER_URL.$album_api);
-                                        $data = json_decode($query, true);
-                                        echo $data[0]['release_code'];
-                                    ?>)
-                                </small>
-                            </label>
-                            <input type="text" class="form-control" id="code" name="code" placeholder="Eg. VOR009" />
-                            <label for="code">Released as CD</label>
-                            <div class="radio">
-                                <label><input type="radio" name="has-cd" value="yes" />Yes</label>
-                            </div>
-                            <div class="radio">
-                                <label><input type="radio" name="has-cd" value="no" />No</label>
-                            </div>
-                            <label for="date">When to publish this album on website (date in the past = immediately)</label>
-                            <input type="text" class="form-control" id="web-publish-date" name="web-publish-date" placeholder="yyyy-mm-dd hh:mm:ss" />
-                        </div>
-                        <button type="submit" class="btn btn-primary" name="Submit" id="send-release-form">Add the album</button>
-                    </form>
-                    <div id="added-ok" class="text-success" hidden><h3>Successfully added release! Boom...</h3></div>
-                    <div id="add-failed" class="text-danger" hidden><h3>Failed to add release!</h3></div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    session_start();
 
-</div>
-<hr />
+    // Mandatory fields
+    $artist = $_POST['artist'];
+    $album = $_POST['album'];
+    $release_date = $_POST['date']; # yyyy-mm-dd hh:mm:ss
+    // Optional fields
+    $songs = $_POST['songlist'];
+    $release_code = null;
+    if (isset($_POST['code'])) {
+        $release_code = $_POST['code'];
+    }
+    $has_cd = null;
+    if (isset($_POST['has-cd'])) {
+        $has_cd = $_POST['has-cd']; # yes | no
+    }
+    $publish_date = null;
+    if (isset($_POST['web-publish-date'])) {
+        $publish_date = $_POST['web-publish-date']; # yyyy-mm-dd hh:mm:ss
+    }
+
+    // Songs are a list of strings starting with #
+    if (isset($songs)) {
+        $songlist = array_filter(explode('#', $songs), 'strlen');
+    }
+
+    if ($_SESSION['authorized'] == 1 && isset($artist) && isset($album) && isset($release_date)) {
+        // Because this runs from a subdir
+        $root = str_replace('apps/releases/admin', '', dirname(__FILE__));
+        require_once $root.'/api/classes/Database.php';
+
+        $db = new Database();
+        $db->connect();
+
+        $statement = 'INSERT INTO releases VALUES(
+            0,
+            :album,
+            :release_code,
+            :release_date,
+            :artist,
+            :has_cd,
+            :publish_date
+        )';
+        $params = array(
+            'artist' => $artist,
+            'album' => $album,
+            'release_date' => $release_date,
+            'release_code' => $release_code,
+            'has_cd' => $has_cd,
+            'publish_date' => $publish_date,
+        );
+        $db->run($statement, $params);
+        $db->close();
+
+        // Add songs
+        if (isset($songlist)) {
+            $counter = 0;
+            foreach ($songlist as $song) {
+                ++$counter;
+
+                $dbSong = new Database();
+                $dbSong->connect();
+
+                // Clean-up
+                $song = trim($song);
+
+                // eg. "Söng Title (Possibly Ünicodë) (01:23)"
+                $title = trim(mb_substr($song, 0, -7));
+                $duration = substr($song, -7);
+                $parenthesis = array('(', ')');
+                $duration = str_replace($parenthesis, '', $duration);
+                $duration = '00:'.$duration; // 00: is for "time" format in SQL, eg. 00:01:23
+
+                // Probably not that efficient, but this is done very rarely
+                $statement = 'INSERT INTO songs VALUES(
+                    0,
+                    :release_code,
+                    :song_number_on_release,
+                    :title,
+                    :duration
+                )';
+                $params = array(
+                    'release_code' => $release_code,
+                    'song_number_on_release' => $counter,
+                    'title' => $title,
+                    'duration' => $duration,
+                );
+                $dbSong->run($statement, $params);
+                $dbSong->close();
+            }
+        }
+
+        if ($db->querySuccessful()) {
+            $response['status'] = 'success';
+            $response['message'] = 'Album added to DB';
+        } else {
+            $response['status'] = 'error';
+            $response['message'] = 'Failed to add album to DB!';
+        }
+    }
+
+    header('Content-type: application/json');
+    echo json_encode($response);

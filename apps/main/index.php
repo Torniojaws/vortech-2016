@@ -25,7 +25,10 @@
             <section>
             <h3>Login</h3>
             <?php
-                if ($_SESSION['user_logged'] == 1) {
+                if ($_SESSION['authorized'] == 1) {
+                    echo '<p>Nice to see you, '.$_SESSION['username'].'!</p>';
+                    include 'apps/admin/partials/logout.php';
+                } elseif ($_SESSION['user_logged'] == 1) {
                     echo '<p>Welcome back, '.$_SESSION['username'].'</p>';
                     ?>
                         <label for="logout-form">User logout</label>

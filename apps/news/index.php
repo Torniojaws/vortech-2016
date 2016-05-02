@@ -1,7 +1,7 @@
 <?php
 
     if ($_SESSION['authorized'] == 1) {
-        include './apps/news/admin/add-news.php';
+        include './apps/news/admin/add-news-modal.php';
     }
 
     $api = 'api/v1/news';

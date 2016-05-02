@@ -45,7 +45,7 @@
                                                   photos.thumbnail
                                            FROM users
                                            LEFT JOIN photos
-                                                ON photos.taken_by = users.name
+                                                ON photos.user_id = users.id
                                                 AND photos.album_id = 7
                                            WHERE username = :username
                                            LIMIT 1';

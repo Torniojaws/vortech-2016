@@ -13,7 +13,7 @@
             if ($guest['admin_comment']) {
                 include 'apps/guestbook/partials/admin-comment.php';
             } elseif (isset($_SESSION['authorized']) && $_SESSION['authorized'] == 1) {
-                include 'apps/guestbook/admin/add-comment.php';
+                include 'apps/guestbook/admin/add-comment-modal.php';
             }
         ?>
     </div>

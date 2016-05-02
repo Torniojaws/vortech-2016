@@ -68,7 +68,7 @@ $(document).ready(function () {
         var user_form_data = $(this).serialize();
         $.ajax({
             type: 'post',
-            url: 'apps/main/forms/user.php',
+            url: 'apps/main/forms/user-login.php',
             data: user_form_data,
             success: function (user_data) {
                 if (user_data.status === 'success') {
@@ -91,7 +91,7 @@ $(document).ready(function () {
         var user_logout_data = $(this).serialize();
         $.ajax({
             type: 'post',
-            url: 'apps/main/forms/user.php',
+            url: 'apps/main/forms/user-login.php',
             data: user_logout_data,
             success: function (user_logout_result_data) {
                 if (user_logout_result_data.status === 'success') {
@@ -105,27 +105,6 @@ $(document).ready(function () {
                     }, 2000);
                 } else if (user_logout_result_data.status === 'error') {
                     $('#logout-failed').removeAttr('hidden');
-                }
-            }
-        });
-    });
-
-    // Check if user has marked an entry
-    $('.btn-mark').click(function (e) {
-        e.preventDefault();
-        console.log("User has marked item:");
-        console.log(this.id);
-        var current_id = this.id;
-        $.ajax({
-            type: 'post',
-            url: 'functions/mark-item.php',
-            data: {"id": current_id},
-            success: function () {
-                var item = $('#' + current_id);
-                if (item.text() === 'Mark') {
-                    item.fadeIn(500).text("Unmark");
-                } else {
-                    item.fadeIn(500).text("Mark");
                 }
             }
         });
@@ -179,7 +158,7 @@ $(document).ready(function () {
         var data = $(this).serialize();
         $.ajax({
             type: 'post',
-            url: 'apps/releases/forms/add-release.php',
+            url: 'apps/releases/admin/add-release.php',
             data: data,
             success: function (data) {
                 if (data.status === 'success') {
@@ -206,7 +185,7 @@ $(document).ready(function () {
         var data = $(this).serialize();
         $.ajax({
             type: 'post',
-            url: 'apps/news/forms/add-news.php',
+            url: 'apps/news/admin/add-news.php',
             data: data,
             success: function (data) {
                 if (data.status === 'success') {
@@ -230,7 +209,7 @@ $(document).ready(function () {
         var data = $(this).serialize();
         $.ajax({
             type: 'post',
-            url: 'templates/forms/process-show-form.php',
+            url: 'apps/shows/admin/add-show.php',
             data: data,
             success: function (data) {
                 if (data.status === 'success') {
@@ -254,7 +233,7 @@ $(document).ready(function () {
         var photo_form_data = new FormData($(this)[0]);
         $.ajax({
             type: 'post',
-            url: 'apps/photos/forms/add-photos.php',
+            url: 'apps/photos/admin/add-photos.php',
             cache: false,
             data: photo_form_data,
             async: false,
@@ -279,7 +258,7 @@ $(document).ready(function () {
         var video_form_data = new FormData($(this)[0]);
         $.ajax({
             type: 'post',
-            url: 'apps/videos/forms/video.php',
+            url: 'apps/videos/admin/add-video.php',
             cache: false,
             data: video_form_data,
             async: false,
@@ -318,7 +297,7 @@ $(document).ready(function () {
         var shop_form_data = new FormData($(this)[0]);
         $.ajax({
             type: 'post',
-            url: 'apps/shop/forms/add-shop-item.php',
+            url: 'apps/shop/admin/add-shopitem.php',
             cache: false,
             data: shop_form_data,
             async: false,
@@ -342,7 +321,7 @@ $(document).ready(function () {
         e.preventDefault();
         $.ajax({
             type: 'post',
-            url: 'apps/guestbook/forms/comment-form.php',
+            url: 'apps/guestbook/admin/add-comment.php',
             data: $(this).serialize(),
             success: function (gb_data) {
                 if (gb_data.status === 'success') {
@@ -366,7 +345,7 @@ $(document).ready(function () {
         var member_form_data = new FormData($(this)[0]);
         $.ajax({
             type: 'post',
-            url: 'templates/forms/process-member-form.php',
+            url: 'apps/bio/admin/add-member.php',
             cache: false,
             data: member_form_data,
             async: false,
@@ -461,11 +440,11 @@ $(document).ready(function () {
     });
 
     // Edit news (admin)
-    $('.edit-news').editable('templates/edits/edit-news.php', {
+    $('.edit-news').editable('apps/news/edit/news.php', {
         indicator: 'Saving...',
         tooltip: 'Click to edit...'
     });
-    $('.edit-news-area').editable('templates/edits/edit-news.php', {
+    $('.edit-news-area').editable('apps/news/edit/news.php', {
         type: 'textarea',
         submit: 'OK',
         cancel: 'Cancel',
@@ -487,12 +466,12 @@ $(document).ready(function () {
     });
 
     // Edit shop items (admin)
-    $('.edit-shop').editable('templates/edits/edit-shop.php', {
+    $('.edit-shop').editable('apps/shop/edit/shop.php', {
         indicator: 'Saving...',
         tooltip: 'Click to edit...',
         style: "display: inline"
     });
-    $('.edit-shop-area').editable('templates/edits/edit-shop.php', {
+    $('.edit-shop-area').editable('apps/shop/edit/shop.php', {
         type: 'textarea',
         submit: 'OK',
         cancel: 'Cancel',
@@ -541,12 +520,12 @@ $(document).ready(function () {
     });
 
     // Edit release text (admin)
-    $('.edit-release').editable('templates/edits/edit-release.php', {
+    $('.edit-release').editable('apps/releases/edit/release.php', {
         indicator: 'Saving...',
         tooltip: 'Click to edit...',
         style: 'display: inline'
     });
-    $('.edit-release-area').editable('templates/edits/edit-release.php', {
+    $('.edit-release-area').editable('apps/releases/edit/release.php', {
         type: 'textarea',
         submit: 'OK',
         cancel: 'Cancel',
@@ -556,12 +535,12 @@ $(document).ready(function () {
     });
 
     // Edit song text (admin)
-    $('.edit-song').editable('templates/edits/edit-song.php', {
+    $('.edit-song').editable('apps/releases/edit/song.php', {
         indicator: 'Saving...',
         tooltip: 'Click to edit...',
         style: 'display: inline'
     });
-    $('.edit-song-area').editable('templates/edits/edit-song.php', {
+    $('.edit-song-area').editable('apps/releases/edit/song.php', {
         type: 'textarea',
         submit: 'OK',
         cancel: 'Cancel',
@@ -570,12 +549,12 @@ $(document).ready(function () {
     });
 
     // Edit photo caption (admin)
-    $('.edit-photo').editable('templates/edits/edit-photo.php', {
+    $('.edit-photo').editable('apps/photos/edit/photo.php', {
         indicator: 'Saving...',
         tooltip: 'Click to edit...',
         style: 'display: inline'
     });
-    $('.edit-photo-area').editable('templates/edits/edit-photo.php', {
+    $('.edit-photo-area').editable('apps/photos/edit/photo.php', {
         type: 'textarea',
         submit: 'OK',
         cancel: 'Cancel',
@@ -584,12 +563,12 @@ $(document).ready(function () {
     });
 
     // Edit landing page article (admin)
-    $('.edit-landing').editable('templates/edits/edit-landing.php', {
+    $('.edit-landing').editable('apps/main/edit/landing.php', {
         indicator: 'Saving...',
         tooltip: 'Click to edit...',
         style: 'display: inline'
     });
-    $('.edit-landing-area').editable('templates/edits/edit-landing.php', {
+    $('.edit-landing-area').editable('apps/main/edit/landing.php', {
         type: 'textarea',
         submit: 'OK',
         cancel: 'Cancel',

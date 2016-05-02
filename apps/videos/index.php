@@ -1,7 +1,7 @@
 <?php
 
     if ($_SESSION['authorized'] == 1) {
-        include './apps/videos//admin/add-video.php';
+        include './apps/videos/admin/add-video-modal.php';
     }
 
     $api = 'api/v1/videos';

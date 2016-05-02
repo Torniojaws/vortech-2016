@@ -1,44 +1,55 @@
-<div class="row text-right">
-    <label for="news-btn">Admin - Add comment</label><br />
-    <button type="button" class="btn btn-primary" id="guestbook-comment-btn" data-toggle="modal"
-            data-target="#guestbook-comment-form<?php echo $guest['id']; ?>">Open Form</button>
-</div>
+<?php
 
-<!-- Modal for guestbook comment details -->
-<div class="modal fade" id="guestbook-comment-form<?php echo $guest['id']; ?>" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Add comment</h4>
-            </div>
-            <div class="modal-body">
-                <!-- Original message -->
-                <blockquote>
-                    <p><?php echo $guest['post']; ?></p>
-                    <small><?php echo $guest['name']; ?></small>
-                </blockquote>
+    session_start();
 
-                <!-- Add guestbook comment -->
-                <form role="form" class="form" id="ad-guestbook-comment-form<?php echo $guest['id']; ?>"
-                      name="add-guestbook-comment-form">
+    // Mandatory fields
+    // Only ONE comment is allowed per guestbook post ID - but an admin can edit his comment
+    $post_id = $_POST['original_id'];
+    $admin_comment = $_POST['text'];
 
-                    <div class="form-group">
-                        <label for="text">Your comment</label>
-                        <textarea class="form-control" rows="5" id="text<?php echo $guest['id']; ?>"
-                                  name="text" placeholder="Write your comment here"></textarea>
-                        <input type="text" id="original_id" name="original_id" value="<?php echo $guest['id']; ?>" hidden />
-                    </div>
+    date_default_timezone_set('Europe/Helsinki');
+    $posted = date('Y-m-d H:i:s');
 
-                    <button type="submit" class="btn btn-primary" name="Submit"
-                            id="send-guestbook-comment-form<?php echo $guest['id']; ?>">Add the comment</button>
-                </form>
-                <div id="added-ok" class="text-success" hidden><h3>Successfully added comment! Boom...</h3></div>
-                <div id="add-failed" class="text-danger" hidden><h3>Failed to add comment!</h3></div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
+    // Because this runs from a subdir "apps/guestbook/forms/"
+    $root = str_replace('apps/guestbook/admin', '', dirname(__FILE__));
+
+    if ($_SESSION['authorized'] == 1 && isset($post_id) && isset($admin_comment)) {
+        require_once $root.'/api/classes/Database.php';
+
+        $db = new Database();
+        $db->connect();
+
+        $statement = 'INSERT INTO guestbook_comments VALUES(
+            0,
+            :post_id,
+            1,
+            :comment,
+            :posted
+        )';
+        $params = array(
+            'post_id' => $post_id,
+            'comment' => $admin_comment,
+            'posted' => $posted,
+        );
+        $db->run($statement, $params);
+        $db->close();
+
+        if ($db->querySuccessful()) {
+            $response['status'] = 'success';
+            $response['message'] = 'Comment added to DB';
+        } else {
+            $response['status'] = 'error';
+            $response['message'] = 'Failed to add comment to DB! Trying twice?';
+        }
+    } else {
+        if (isset($_SESSION['authorized']) == false) {
+            header('HTTP/1.1 401 Unauthorized');
+            exit;
+        } else {
+            $response['status'] = 'error';
+            $response['message'] = 'Missing required data';
+        }
+    }
+
+    header('Content-type: application/json');
+    echo json_encode($response);

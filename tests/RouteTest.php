@@ -40,7 +40,7 @@
 
         public function testAdminTemplateExistsAndIsAccessible()
         {
-            $target = './templates/admin.php';
+            $target = './apps/admin/index.php';
 
             if (file_exists($target)) {
                 $result = true;
@@ -53,7 +53,7 @@
 
         public function testNormalPageTemplateExistsAndIsAccessible()
         {
-            $target = './templates/news.php';
+            $target = './apps/news/index.php';
 
             if (file_exists($target)) {
                 $result = true;
@@ -66,7 +66,7 @@
 
         public function testNormalSubPageTemplateExistsAndIsAccessible()
         {
-            $target = './templates/photos-live.php';
+            $target = './apps/photos/index.php';
 
             if (file_exists($target)) {
                 $result = true;
@@ -79,10 +79,10 @@
 
         public function testTemplateDoesNotExistAndTheCorrectAlternativeIsGiven()
         {
-            $target = './templates/does-not-exist';
+            $target = './apps/does-not-exist';
 
             if (file_exists($target) == false) {
-                $alternative = './templates/main.php';
+                $alternative = './apps/main/index.php';
             } else {
                 $alternative = 'wrong';
             }

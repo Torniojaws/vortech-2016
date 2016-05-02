@@ -1,7 +1,7 @@
 <?php
 
     if ($_SESSION['authorized'] == 1) {
-        include './apps/shop/admin/add-shopitem.php';
+        include './apps/shop/admin/add-shopitem-modal.php';
     }
 
     $api = 'api/v1/shopitems';
