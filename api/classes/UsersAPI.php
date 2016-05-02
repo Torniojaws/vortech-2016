@@ -55,7 +55,7 @@
                 # /users/:id/photo
                 case isset($args[2]) and is_numeric($args[2]) and isset($args[3])
                      and $args[3] == 'photo':
-                    $query['statement'] = 'SELECT photo_id
+                    $query['statement'] = 'SELECT * FROM article_comments WHERE author_id = :id
                                            FROM users
                                            WHERE id = :id LIMIT 1';
                     $query['params'] = array('id' => (int) $args[2]);
@@ -64,10 +64,39 @@
                 # /users/:id/activities
                 case isset($args[2]) and is_numeric($args[2]) and isset($args[3])
                      and $args[3] == 'activities':
-                    $query['statement'] = 'SELECT photo_id
-                                           FROM users
-                                           WHERE id = :id LIMIT 1';
-                    $query['params'] = array('id' => (int) $args[2]);
+                    $query['statement'] = '(SELECT id, comment, author_id, date_commented FROM article_comments WHERE author_id = :id1)
+                                           UNION
+                                           (SELECT id, post, poster_id, posted FROM guestbook WHERE poster_id = :id2)
+                                           UNION
+                                           (SELECT id, comment, author, posted FROM news_comments WHERE author = :id3)
+                                           UNION
+                                           (SELECT id, comment, author_id, posted FROM performer_comments WHERE author_id = :id4)
+                                           UNION
+                                           (SELECT id, comment, author_id, date_commented FROM photo_comments WHERE author_id = :id5)
+                                           UNION
+                                           (SELECT id, comment, author, posted FROM release_comments WHERE author = :id6)
+                                           UNION
+                                           (SELECT id, comment, author_id, date_commented FROM shopitem_comments WHERE author_id = :id7)
+                                           UNION
+                                           (SELECT id, comment, author_id, posted FROM show_comments WHERE author_id = :id8)
+                                           UNION
+                                           (SELECT id, comment, author_id, posted FROM song_comments WHERE author_id = :id9)
+                                           UNION
+                                           (SELECT id, comment, author_id, date_commented FROM video_comments WHERE author_id = :id10)
+                                           ';
+                    // PDO does not allow reuse of the same parameter name...
+                    $query['params'] = array(
+                        'id1' => (int) $args[2],
+                        'id2' => (int) $args[2],
+                        'id3' => (int) $args[2],
+                        'id4' => (int) $args[2],
+                        'id5' => (int) $args[2],
+                        'id6' => (int) $args[2],
+                        'id7' => (int) $args[2],
+                        'id8' => (int) $args[2],
+                        'id9' => (int) $args[2],
+                        'id10' => (int) $args[2],
+                    );
                     break;
 
                 # Show all - same as /users
