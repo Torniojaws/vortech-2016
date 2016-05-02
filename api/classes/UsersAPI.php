@@ -64,25 +64,25 @@
                 # /users/:id/activities
                 case isset($args[2]) and is_numeric($args[2]) and isset($args[3])
                      and $args[3] == 'activities':
-                    $query['statement'] = '(SELECT id, comment, author_id, date_commented FROM article_comments WHERE author_id = :id1)
+                    $query['statement'] = '(SELECT id, "Articles" as Target, comment, author_id, date_commented FROM article_comments WHERE author_id = :id1)
                                            UNION
-                                           (SELECT id, post, poster_id, posted FROM guestbook WHERE poster_id = :id2)
+                                           (SELECT id, "Guestbook" as Target, post, poster_id, posted FROM guestbook WHERE poster_id = :id2)
                                            UNION
-                                           (SELECT id, comment, author, posted FROM news_comments WHERE author = :id3)
+                                           (SELECT id, "News" as Target, comment, author, posted FROM news_comments WHERE author = :id3)
                                            UNION
-                                           (SELECT id, comment, author_id, posted FROM performer_comments WHERE author_id = :id4)
+                                           (SELECT id, "Performers" as Target, comment, author_id, posted FROM performer_comments WHERE author_id = :id4)
                                            UNION
-                                           (SELECT id, comment, author_id, date_commented FROM photo_comments WHERE author_id = :id5)
+                                           (SELECT id, "Photos" as Target, comment, author_id, date_commented FROM photo_comments WHERE author_id = :id5)
                                            UNION
-                                           (SELECT id, comment, author, posted FROM release_comments WHERE author = :id6)
+                                           (SELECT id, "Releases" as Target, comment, author, posted FROM release_comments WHERE author = :id6)
                                            UNION
-                                           (SELECT id, comment, author_id, date_commented FROM shopitem_comments WHERE author_id = :id7)
+                                           (SELECT id, "Shopitems" as Target, comment, author_id, date_commented FROM shopitem_comments WHERE author_id = :id7)
                                            UNION
-                                           (SELECT id, comment, author_id, posted FROM show_comments WHERE author_id = :id8)
+                                           (SELECT id, "Shows" as Target, comment, author_id, posted FROM show_comments WHERE author_id = :id8)
                                            UNION
-                                           (SELECT id, comment, author_id, posted FROM song_comments WHERE author_id = :id9)
+                                           (SELECT id, "Songs" as Target, comment, author_id, posted FROM song_comments WHERE author_id = :id9)
                                            UNION
-                                           (SELECT id, comment, author_id, date_commented FROM video_comments WHERE author_id = :id10)
+                                           (SELECT id, "Videos" as Target, comment, author_id, date_commented FROM video_comments WHERE author_id = :id10)
                                            ';
                     // PDO does not allow reuse of the same parameter name...
                     $query['params'] = array(
