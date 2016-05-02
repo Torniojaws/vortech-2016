@@ -71,7 +71,7 @@ Restful Vortech website with jQuery, Bootstrap and PHP API. Will replace the exi
 
   ```
   // This is not allowed  
-  UPDATE table SET :column = :value  
+  $sql = 'UPDATE table SET :column = :value';  
   $params = array('column' => $column, 'value' => $value);  
   ```
 
@@ -93,7 +93,7 @@ Restful Vortech website with jQuery, Bootstrap and PHP API. Will replace the exi
 
   ```
   // This is not allowed  
-  UPDATE table SET username = :username WHERE username = :username
+  $sql = 'UPDATE table SET username = :username WHERE username = :username';  
   $query['params'] = array('username' => $username);  
   ```
 
