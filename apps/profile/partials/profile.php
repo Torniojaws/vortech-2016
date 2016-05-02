@@ -1,14 +1,27 @@
 <div class="container-fluid">
     <div class="row">
+        <h3>Recent activity <small>Only visible to you</small></h3>
+        <?php
+            $root = str_replace('apps/profile/partials', '', dirname(__FILE__));
+            require_once $root.'constants.php';
+
+            // Recent activity (eg. comments and votes)
+            $activity_api = 'api/v1/users/'.$_SESSION['username'].'/activities';
+            $activity_list = file_get_contents(SERVER_URL.$activity_api);
+            $activity_details = json_decode($activity_list, true);
+            $activities = $activity_details[0];
+
+            foreach ($activities as $activity) {
+                include 'apps/profile/partials/activity.php';
+            } ?>
+    </div>
+    <div class="row">
         <h3>Edit Your Profile</h3>
         <p>Feel free to update your information below. Press the "Save Changes" button below, when you are ready.</p>
         <hr />
 
         <?php
             // Get user details
-            $root = str_replace('apps/profile/partials', '', dirname(__FILE__));
-            require_once $root.'constants.php';
-
             $user_api = 'api/v1/users/'.$_SESSION['username'];
             $user_list = file_get_contents(SERVER_URL.$user_api);
             $user_details = json_decode($user_list, true);

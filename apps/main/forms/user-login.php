@@ -10,7 +10,7 @@
     $root = str_replace('apps/main/forms', '', dirname(__FILE__));
 
     // Only process if the form was actually submitted
-    if (isset($user) && isset($pass)) {
+    if (strlen($user) > 0 && strlen($pass) > 0) {
         require_once $root.'/api/classes/Database.php';
 
         $db = new Database();
@@ -28,7 +28,7 @@
         try {
             $password_is_correct = $pwd->verify_password($_POST['loginPass'], $original_password);
         } catch (Exception $ex) {
-            echo $ex;
+            // echo $ex;
         }
         if ($password_is_correct) {
             $_SESSION['user_logged'] = 1;
@@ -42,6 +42,11 @@
             $response['status'] = 'error';
             $response['message'] = 'Login failed';
         }
+    } else {
+        // true deletes the old session
+        session_regenerate_id(true);
+        $response['status'] = 'error';
+        $response['message'] = 'Incorrect login';
     }
 
     // User wants to logout

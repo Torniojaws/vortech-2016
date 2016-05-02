@@ -61,6 +61,15 @@
                     $query['params'] = array('id' => (int) $args[2]);
                     break;
 
+                # /users/:id/activities
+                case isset($args[2]) and is_numeric($args[2]) and isset($args[3])
+                     and $args[3] == 'activities':
+                    $query['statement'] = 'SELECT photo_id
+                                           FROM users
+                                           WHERE id = :id LIMIT 1';
+                    $query['params'] = array('id' => (int) $args[2]);
+                    break;
+
                 # Show all - same as /users
                 default:
                     $query['statement'] = 'SELECT id, name, photo_id FROM users';
