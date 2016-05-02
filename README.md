@@ -67,13 +67,16 @@ Restful Vortech website with jQuery, Bootstrap and PHP API. Will replace the exi
 * UI design
 
 ## Lessons learned:
-* You cannot parametrize the DB column in PDO prepared statement.
+* You cannot parametrize the DB column in PDO prepared statement.  
+
   ```
     // This is not allowed  
     UPDATE table SET :column = :value  
     $params = array('column' => $column, 'value' => $value);  
   ```
-  Use a switch or if..else instead:
+
+  Use a switch or if..else instead:  
+
   ```
     switch ($column) {  
          case 'id':  
@@ -84,20 +87,26 @@ Restful Vortech website with jQuery, Bootstrap and PHP API. Will replace the exi
     }  
     $query['params'] = array('value' => $value);
   ```
+
 * You cannot use the same parameter name twice in a PDO prepared statement.
+
   ```
     // This is not allowed  
     UPDATE table SET username = :username WHERE username = :username
     $query['params'] = array('username' => $username);  
   ```
+
   Just rename them in the array:
     `$query['params'] = array('username' => $username, 'user' => $username)`
 * You cannot use GET parameters when checking file_exists().
+
   ```
     file_exists('path/to/file.php'); // true
     file_exists('path/to/file.php?page=2'); // false
   ```
+
   Send them separately instead:  
+
   ```
      if(file_exists('path/to/file.php')) {
          $_GET['page'] = 2;
