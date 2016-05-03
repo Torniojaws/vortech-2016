@@ -64,25 +64,58 @@
                 # /users/:id/activities
                 case isset($args[2]) and is_numeric($args[2]) and isset($args[3])
                      and $args[3] == 'activities':
-                    $query['statement'] = '(SELECT id, "Articles" as Target, comment, author_id, date_commented FROM article_comments WHERE author_id = :id1)
+                    // The unioned items will appear with the same column name as the first item, regardless of original name
+                    $query['statement'] = '(SELECT id, "article_comments" AS target, comment, author_id, date_commented
+                                            FROM article_comments
+                                            WHERE author_id = :id1
+                                            LIMIT 5)
                                            UNION
-                                           (SELECT id, "Guestbook" as Target, post, poster_id, posted FROM guestbook WHERE poster_id = :id2)
+                                           (SELECT id, "guestbook" AS target, post, poster_id, posted
+                                            FROM guestbook
+                                            WHERE poster_id = :id2
+                                            LIMIT 5)
                                            UNION
-                                           (SELECT id, "News" as Target, comment, author, posted FROM news_comments WHERE author = :id3)
+                                           (SELECT id, "news_comments" AS target, comment, author_id, posted
+                                            FROM news_comments
+                                            WHERE author_id = :id3
+                                            LIMIT 5)
                                            UNION
-                                           (SELECT id, "Performers" as Target, comment, author_id, posted FROM performer_comments WHERE author_id = :id4)
+                                           (SELECT id, "performer_comments" AS target, comment, author_id, posted
+                                            FROM performer_comments
+                                            WHERE author_id = :id4
+                                            LIMIT 5)
                                            UNION
-                                           (SELECT id, "Photos" as Target, comment, author_id, date_commented FROM photo_comments WHERE author_id = :id5)
+                                           (SELECT id, "photo_comments" AS target, comment, author_id, date_commented
+                                            FROM photo_comments
+                                            WHERE author_id = :id5
+                                            LIMIT 5)
                                            UNION
-                                           (SELECT id, "Releases" as Target, comment, author, posted FROM release_comments WHERE author = :id6)
+                                           (SELECT id, "release_comments" AS target, comment, author_id, posted
+                                            FROM release_comments
+                                            WHERE author_id = :id6
+                                            LIMIT 5)
                                            UNION
-                                           (SELECT id, "Shopitems" as Target, comment, author_id, date_commented FROM shopitem_comments WHERE author_id = :id7)
+                                           (SELECT id, "shopitem_comments" AS target, comment, author_id, date_commented
+                                            FROM shopitem_comments
+                                            WHERE author_id = :id7
+                                            LIMIT 5)
                                            UNION
-                                           (SELECT id, "Shows" as Target, comment, author_id, posted FROM show_comments WHERE author_id = :id8)
+                                           (SELECT id, "show_comments" AS target, comment, author_id, posted
+                                            FROM show_comments
+                                            WHERE author_id = :id8
+                                            LIMIT 5)
                                            UNION
-                                           (SELECT id, "Songs" as Target, comment, author_id, posted FROM song_comments WHERE author_id = :id9)
+                                           (SELECT id, "song_comments" AS target, comment, author_id, posted
+                                            FROM song_comments
+                                            WHERE author_id = :id9
+                                            LIMIT 5)
                                            UNION
-                                           (SELECT id, "Videos" as Target, comment, author_id, date_commented FROM video_comments WHERE author_id = :id10)
+                                           (SELECT id, "video_comments" AS target, comment, author_id, date_commented
+                                            FROM video_comments
+                                            WHERE author_id = :id10
+                                            LIMIT 5)
+                                           ORDER BY date_commented DESC
+                                           LIMIT 5
                                            ';
                     // PDO does not allow reuse of the same parameter name...
                     $query['params'] = array(

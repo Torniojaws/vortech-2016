@@ -166,6 +166,7 @@ CREATE TABLE news_comments(
     comment_subid int,
     news_id int,
     author varchar(200),
+    author_id int,
     comment text,
     posted datetime,
     PRIMARY KEY(id));
@@ -174,6 +175,7 @@ CREATE TABLE release_comments(
     comment_subid int,
     release_code varchar(10),
     author varchar(200),
+    author_id int,
     comment text,
     posted datetime,
     PRIMARY KEY(id));
