@@ -118,13 +118,13 @@ Otherwise it won't find the row because the value has (obviously) changed.
 
   ```
   // This does not work  
-  $sql = 'UPDATE table SET new_username = :username WHERE username = :username';  
+  $sql = 'UPDATE table SET username = :new_username WHERE username = :username';  
   $query['params'] = array('new_username' => $username, 'username' => $username);  
   ```
 
   instead, use a separate value:
 
     ```
-    $sql = 'UPDATE table SET new_username = :new_username WHERE username = :old_username';  
+    $sql = 'UPDATE table SET username = :new_username WHERE username = :old_username';  
     $query['params'] = array('new_username' => $new_username, 'old_username' => $old_username);  
     ```
