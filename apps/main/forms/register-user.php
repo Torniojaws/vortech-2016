@@ -106,7 +106,8 @@
                     :taken_by,
                     :full,
                     :thumbnail,
-                    :caption
+                    :caption,
+                    :user_id
                 )';
                 $params = array(
                     'album_id' => 7, // 7 = user avatars
@@ -115,6 +116,7 @@
                     'full' => $new_name,
                     'thumbnail' => $new_thumb,
                     'caption' => $name,
+                    'user_id' => $user_id,
                 );
                 if ($params['date_taken'] == null or $params['taken_by'] == null or $params['full'] == null
                     or $params['thumbnail'] == null or $params['caption'] == null) {

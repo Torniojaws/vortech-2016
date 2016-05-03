@@ -31,13 +31,16 @@
                             'name' => $display_name,
                             'username' => $username,
                             'caption' => $caption,
-                            'user' => $username,
+                            'old_username' => $old_username,
                         );
+                        var_dump($query);
                         if (isset($new_password)) {
                             $query['statement'] .= ', password = :password';
                             $query['params']['password'] = $new_password;
                         }
-                        $query['statement'] .= ' WHERE username = :user';
+                        // If user changes current username, we need this. Otherwise it is equal to
+                        // current username anyway.
+                        $query['statement'] .= ' WHERE username = :old_username';
                     }
                     break;
                 default:

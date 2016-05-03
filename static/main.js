@@ -432,6 +432,18 @@ $(document).ready(function () {
                     $('#added-ok').removeAttr('hidden');
                     $('#profile-form').modal('hide');
                     location.reload();
+                } else if (profile_data.status === 'logout') {
+                    // A logout is forced when username or password is changed
+                    $.ajax({
+                        type: 'post',
+                        url: 'apps/main/forms/user-login.php',
+                        data: {
+                            'userLogout': true,
+                        },
+                        success: function () {
+                            location.reload();
+                        }
+                    });
                 } else if (profile_data.status === 'error') {
                     $('#add-failed').removeAttr('hidden');
                 }

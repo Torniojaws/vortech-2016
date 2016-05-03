@@ -17,8 +17,13 @@
             $activity_list = file_get_contents(SERVER_URL.$activity_api);
             $activities = json_decode($activity_list, true);
 
-            foreach ($activities as $activity) {
-                include 'apps/profile/partials/activity.php';
+            // The JSON is an array of arrays, so this check makes sure no strange data is shown
+            if (empty($activities[0]) == false) {
+                foreach ($activities as $activity) {
+                    include 'apps/profile/partials/activity.php';
+                }
+            } else {
+                echo '<small>(No activities yet)</small>';
             }
         ?>
     </div>
@@ -36,8 +41,13 @@
 
                     <!-- Edit login name -->
                     <label for="profileUsername">Edit login/username</label>
+                    <p class="text-danger"><strong>Note:</strong> If you change your username, you
+                        will be automatically logged out and you will need to login again</p>
                     <input type="text" class="form-control" id="profileUsername" name="profileUsername"
                            placeholder="Update login/username" value="<?php echo $user['username']; ?>">
+                    <!-- When changing username, we need the old username to update the DB -->
+                    <input type="hidden" class="form-control" id="profileOldUsername" name="profileOldUsername"
+                           value="<?php echo $user['username']; ?>">
                     <!-- Add personal text/caption -->
                     <label for="profileCaption">Short personal text (max 60 characters)</label>
                     <input type="text" class="form-control" id="profileCaption" name="profileCaption"
@@ -48,7 +58,8 @@
                 <div class="col-sm-6">
                     <!-- Change password -->
                     <label for="profilePassword">Change password</label>
-                    <small>Current password is needed when changing</small>
+                    <p class="text-danger"><strong>Note:</strong> If you change your password, you
+                        will be automatically logged out and you will need to login again</p>
                     <input type="password" class="form-control" id="profileOldPassword" name="profileOldPassword" placeholder="Current password">
                     <input type="password" class="form-control" id="profileNewPassword1" name="profileNewPassword1" placeholder="New password">
                     <input type="password" class="form-control" id="profileNewPassword2" name="profileNewPassword2" placeholder="New password again">

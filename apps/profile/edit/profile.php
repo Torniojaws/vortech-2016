@@ -10,6 +10,7 @@
         // Values from the form
         $display_name = $_POST['profileName'];
         $username = $_POST['profileUsername'];
+        $old_username = $_POST['profileOldUsername'];
         $caption = $_POST['profileCaption'];
         $old_password = $_POST['profileOldPassword'];
         $new_password1 = $_POST['profileNewPassword1'];
@@ -126,6 +127,7 @@
             'display_name' => $display_name,
             'username' => $username,
             'caption' => $caption,
+            'old_username' => $old_username,
         );
         if ($password_updated == true && empty($valid_new_password) == false) {
             $data['new_password'] = $valid_new_password;
@@ -142,6 +144,14 @@
         if ($result === false) {
             $response['status'] = 'error';
             $response['message'] = 'Could not update to DB';
+        // User changed username, force a logout
+        } elseif ($old_username != $username) {
+            $response['status'] = 'logout';
+            $response['message'] = 'Username was changed successfully - logging out...';
+        // User changed password, force a logout
+        } elseif ($password_updated == true) {
+            $response['status'] = 'logout';
+            $response['message'] = 'Password was changed successfully - logging out...';
         } else {
             $response['status'] = 'success';
             $response['message'] = 'Updated DB successfully';
