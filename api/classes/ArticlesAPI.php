@@ -33,16 +33,9 @@
                         $query['params'] = array('category' => $category);
                     }
                     // All for specific category and specific ID
-                    if (isset($category) and isset($subid)) {
-                        $query['statement'] = 'SELECT *
-                                               FROM articles
-                                               WHERE category = :category
-                                                    AND subid = :subid
-                                               LIMIT 1';
-                        $query['params'] = array(
-                            'category' => $category,
-                            'subid' => $subid,
-                        );
+                    if (isset($subid)) {
+                        $query['statement'] .= ' AND subid = :subid LIMIT 1';
+                        $query['params']['subid'] = $subid;
                     }
                     break;
 

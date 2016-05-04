@@ -1,4 +1,8 @@
-<?php session_start(); ?>
+<?php
+    // Session garbage collection must be set before session_start()
+    require_once 'constants.php';
+    session_start();
+?>
 <!doctype html>
 <html lang="fi">
 <head>
@@ -83,7 +87,6 @@
 
         <!-- Main content -->
         <?php
-            require_once 'constants.php';
             require_once 'classes/route.php';
             $route = new Route();
             $route->getTemplate();

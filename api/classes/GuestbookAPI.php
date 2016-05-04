@@ -16,62 +16,49 @@
 
         private function getQuery($args, $filters)
         {
+            // All guestbook SQLs run the same base query, so we'll define it for all:
+            $base_sql = 'SELECT guestbook.*,
+                                users.id AS userid,
+                                users.name AS username,
+                                guestbook_comments.author_id AS admin_id,
+                                guestbook_comments.comment AS admin_comment,
+                                guestbook_comments.posted AS admin_comment_date
+                        FROM guestbook
+                        LEFT JOIN users
+                             ON users.id = guestbook.poster_id
+                        LEFT JOIN guestbook_comments
+                             ON guestbook_comments.comment_subid = guestbook.id';
+
             switch ($args) {
                 # /guestbook
-                case isset($args[2]) == false and isset($filters) == false:
-                    $query['statement'] = 'SELECT guestbook.*,
-                                                  users.id AS userid,
-                                                  users.name AS username,
-                                                  guestbook_comments.author_id AS admin_id,
-                                                  guestbook_comments.comment AS admin_comment,
-                                                  guestbook_comments.posted AS admin_comment_date
-                                           FROM guestbook
-                                           LEFT JOIN users
-                                                ON users.id = guestbook.poster_id
-                                           LEFT JOIN guestbook_comments
-                                                ON guestbook_comments.comment_subid = guestbook.id
-                                           ORDER BY guestbook.posted DESC';
+                case isset($args[2]) == false:
+                    $query['statement'] = $base_sql;
                     $query['params'] = array();
-                    break;
 
-                # /guestbook?year=2015
-                case isset($args[2]) == false and isset($filters):
-                    // Expected parse_str variables are "year" and optionally "month"
-                    parse_str($filters);
-                    $query['statement'] = 'SELECT guestbook.*,
-                                                  users.id AS userid,
-                                                  users.name AS username,
-                                                  guestbook_comments.author_id AS admin_id,
-                                                  guestbook_comments.comment AS admin_comment,
-                                                  guestbook_comments.posted AS admin_comment_date
-                                           FROM guestbook
-                                           LEFT JOIN users
-                                                ON users.id = guestbook.poster_id
-                                           LEFT JOIN guestbook_comments
-                                                ON guestbook_comments.comment_subid = guestbook.id
-                                           WHERE YEAR(guestbook.posted) = :year';
-                    $query['params'] = array('year' => (int) $year);
+                    // Check for filters. Expecting optional "year" and "month"
+                    if (isset($filters) == true) {
+                        parse_str($filters);
+                    }
+
+                    # /guestbook?year=2015
+                    if (isset($year)) {
+                        $query['statement'] .= ' WHERE YEAR(guestbook.posted) = :year';
+                        $query['params']['year'] = (int) $year;
+                    }
+
+                    # /guestbook?year=2015&month=3
                     if (isset($month)) {
-                        $query['statement'] .= ' AND MONTH(posted) = :month';
+                        $query['statement'] .= ' AND MONTH(guestbook.posted) = :month';
                         $query['params']['month'] = (int) $month;
                     }
+
                     $query['statement'] .= ' ORDER BY guestbook.posted DESC';
                     break;
 
                 # /guestbook/:id
                 case isset($args[2]) and isset($args[3]) == false:
-                    $query['statement'] = 'SELECT guestbook.*,
-                                                  users.id AS userid,
-                                                  users.name AS username,
-                                                  guestbook_comments.author_id AS admin_id,
-                                                  guestbook_comments.comment AS admin_comment,
-                                                  guestbook_comments.posted AS admin_comment_date
-                                           FROM guestbook
-                                           LEFT JOIN users
-                                                ON users.id = guestbook.poster_id
-                                           LEFT JOIN guestbook_comments
-                                                ON guestbook_comments.comment_subid = guestbook.id
-                                           WHERE guestbook.id = :id
+                    $query['statement'] = $base_sql;
+                    $query['statement'] .= ' WHERE guestbook.id = :id
                                            LIMIT 1';
                     $query['params'] = array('id' => (int) $args[2]);
                     break;
