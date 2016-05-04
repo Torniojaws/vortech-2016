@@ -42,7 +42,7 @@
                     break;
 
                 # /shows/:id/comments
-                case isset($args[2]) and isset($args[3]) and isset($args[4]) == false:
+                case isset($args[2]) and isset($args[3]):
                     $query['statement'] = 'SELECT show_comments.*,
                                                   users.id AS userid,
                                                   users.photo_id,
@@ -52,24 +52,12 @@
                                                 ON users.id = show_comments.author_id
                                            WHERE show_id = :id';
                     $query['params'] = array('id' => (int) $args[2]);
-                    break;
 
-                # /shows/:id/comments/:id
-                case isset($args[2]) and isset($args[3]) and isset($args[4]):
-                    $query['statement'] = 'SELECT show_comments.*,
-                                                  users.id AS userid,
-                                                  users.photo_id,
-                                                  users.name AS username
-                                           FROM show_comments
-                                           LEFT JOIN users
-                                                ON users.id = show_comments.author_id
-                                           WHERE comment_subid = :id
-                                                AND show_id = :show_id
-                                           LIMIT 1';
-                    $query['params'] = array(
-                        'id' => (int) $args[4],
-                        'show_id' => (int) $args[2],
-                    );
+                    # /shows/:id/comments/:id
+                    if (isset($args[4])) {
+                        $query['statement'] .= ' AND comment_subid = :sub_id LIMIT 1';
+                        $query['params']['sub_id'] = (int) $args[4];
+                    }
                     break;
 
                 # Show all - same as /shows

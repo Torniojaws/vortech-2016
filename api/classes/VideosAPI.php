@@ -16,16 +16,17 @@
 
         private function getQuery($args, $filters = null)
         {
+            $base_sql = 'SELECT videos.*,
+                                video_categories.name,
+                                video_categories.description
+                         FROM videos
+                         JOIN video_categories
+                              ON video_categories.id = videos.category_id';
+
             switch ($args) {
                 # /videos
                 case isset($args[2]) == false and isset($filters) == false:
-                    $query['statement'] = 'SELECT videos.*,
-                                                  video_categories.name,
-                                                  video_categories.description
-                                           FROM videos
-                                           JOIN video_categories
-                                                ON video_categories.id = videos.category_id
-                                           ORDER BY id';
+                    $query['statement'] = $base_sql.' ORDER BY id';
                     $query['params'] = array();
                     break;
 
@@ -51,14 +52,7 @@
                             $type_id = 1;
                             break;
                     }
-                    $query['statement'] = 'SELECT videos.*,
-                                                  video_categories.name,
-                                                  video_categories.description
-                                           FROM videos
-                                           JOIN video_categories
-                                                ON video_categories.id = videos.category_id
-                                           WHERE video_categories.id = :type_id
-                                           ORDER BY id';
+                    $query['statement'] = $base_sql.' WHERE video_categories.id = :type_id ORDER BY id';
                     $query['params'] = array('type_id' => (int) $type_id);
                     break;
 
@@ -80,13 +74,7 @@
 
                 # /videos/:id
                 case isset($args[2]) and is_numeric($args[2]) and isset($args[3]) == false:
-                    $query['statement'] = 'SELECT videos.*,
-                                                  video_categories.name,
-                                                  video_categories.description
-                                           FROM videos
-                                           JOIN video_categories
-                                                ON video_categories.id = videos.category_id
-                                           WHERE videos.id = :id';
+                    $query['statement'] = $base_sql.' WHERE videos.id = :id';
                     $query['params'] = array('id' => (int) $args[2]);
                     break;
 
