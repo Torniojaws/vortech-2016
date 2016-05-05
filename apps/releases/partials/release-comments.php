@@ -36,6 +36,7 @@
                         <input type="hidden" name="release_code" value="<?php echo $release['release_code']; ?>" />
                         <input type="hidden" name="display_name" value="<?php echo $_SESSION['display_name']; ?>" />
                         <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id']; ?>" />
+                        <input type="hidden" name="release_id" value="<?php echo $release['id']; ?>" />
                     </div>
                 </div>
                 <button type="submit" class="btn btn-default">Submit</button>

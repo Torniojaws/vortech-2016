@@ -119,5 +119,10 @@
     <!-- Custom jquery -->
     <script src="static/main.js"></script>
 
+    <!-- Special features that cannot be done otherwise-->
+    <?php
+        include 'apps/main/partials/show-release-modal.php';
+    ?>
+
 </body>
 </html>

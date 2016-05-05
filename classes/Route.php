@@ -15,6 +15,7 @@
         private $last_URI;
         private $second_last_URI;
         private $template_path;
+        private $parameters;
 
         public function __construct()
         {
@@ -26,12 +27,18 @@
 
         public function getTemplate()
         {
+            $parameters = $this->parameters;
             require $this->template_path;
         }
 
         private function getFullRoute()
         {
             $uri = $_SERVER['REQUEST_URI'];
+            // GET parameters, eg. www.example.com/page?param=1
+            list($uri, $params) = explode('?', $uri);
+            if (empty($params) == false) {
+                $this->parameters = $params;
+            }
             $routelist = explode('/', $uri);
             foreach ($routelist as $route) {
                 if (trim($route) != '') {
@@ -69,6 +76,7 @@
             if (file_exists($target) == false) {
                 $target = './apps/main/index.php';
             }
+
             $this->template_path = $target;
         }
     }

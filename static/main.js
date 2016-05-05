@@ -629,7 +629,10 @@ $('[id^=user-release-comment]').submit(function (e) {
             if (rc_data.status === 'success') {
                 $('#add-failed-' + rc_data.release_code).hide();
                 $('#added-ok-' + rc_data.release_code).removeAttr('hidden');
-                location.reload();
+                //location.reload();
+                // Reload contents of modal after successful add.
+                window.location = window.location.href + "?showModal=" + rc_data.release_id;
+                // $('#release-modal' + rc_data.release_id).modal("show");
             } else if (rc_data.status === 'error') {
                 $('#add-failed-' + rc_data.release_code).removeAttr('hidden');
             }

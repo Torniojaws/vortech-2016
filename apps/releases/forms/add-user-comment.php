@@ -6,10 +6,12 @@
         // Mandatory information
         $comment_subid = $_POST['comment_subid'];
         $release_code = $_POST['release_code'];
+        $release_id = $_POST['release_id'];
         $author = $_POST['display_name'];
         $author_id = $_POST['user_id'];
         $comment = $_POST['comment'];
         $posted = date('Y-m-d H:i:s');
+        $release_id = $_POST['release_id'];
 
         // Check for all data
         if (isset($comment_subid) and isset($release_code) and isset($author) and isset($author_id)
@@ -45,16 +47,19 @@
             if ($db->querySuccessful() == true) {
                 $response['status'] = 'success';
                 $response['message'] = 'Comment added successfully';
-                $response['news_id'] = $release_code; // Used to show correct status div
+                $response['release_code'] = $release_code; // Used to show correct status div
+                $response['release_id'] = $release_id; // Used to reload the Modal
             } else {
                 $response['status'] = 'error';
                 $response['message'] = 'Could not update DB';
-                $response['news_id'] = $release_code; // Used to show correct status div
+                $response['release_code'] = $release_code; // Used to show correct status div
+                $response['release_id'] = $release_id; // Used to reload the Modal
             }
         } else {
             $response['status'] = 'error';
             $response['message'] = 'Missing required data';
-            $response['news_id'] = $release_code; // Used to show correct status div
+            $response['release_code'] = $release_code; // Used to show correct status div
+            $response['release_id'] = $release_id; // Used to reload the Modal
         }
     } else {
         header('HTTP/1.1 401 Unauthorized');
