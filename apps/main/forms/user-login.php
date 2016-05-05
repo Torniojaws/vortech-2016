@@ -34,6 +34,7 @@
             $_SESSION['user_logged'] = 1;
             $_SESSION['username'] = $result[0]['username'];
             $_SESSION['display_name'] = $result[0]['name'];
+            $_SESSION['user_id'] = $result[0]['id'];
             $response['status'] = 'success';
             $response['message'] = 'Login OK';
         } else {

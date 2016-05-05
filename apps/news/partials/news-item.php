@@ -60,16 +60,25 @@
                 <?php
                     if ($_SESSION['user_logged'] == 1) { ?>
                         <hr />
-                        <form class="form-inline" role="form">
+
+                        <form class="form-inline" role="form" id="user-news-comment-<?php echo $_SESSION['user_id']; ?>">
                             <div class="form-group">
                                 <div class="input-group">
                                     <span class="input-group-addon" id="basic-addon3">
-                                        <?php echo $_SESSION['username']; ?></span>
-                                    <input type="text" class="form-control" id="comment"
+                                        <?php echo $_SESSION['display_name']; ?></span>
+                                    <input type="text" class="form-control" id="comment" name="comment"
                                         aria-describedby="basic-addon3" placeholder="Your comment" />
+                                    <!-- We'll get the next sub-id by adding 2 (from 0-index conversion + next new)
+                                         to get the correct new sub-id -->
+                                    <input type="hidden" name="comment_subid" value="<?php echo $last+2; ?>" />
+                                    <input type="hidden" name="news_id" value="<?php echo $news['id']; ?>" />
+                                    <input type="hidden" name="display_name" value="<?php echo $_SESSION['display_name']; ?>" />
+                                    <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id']; ?>" />
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-default">Submit</button>
+                            <div id="added-ok-<?php echo $news['id']; ?>" class="text-success" hidden><h3>Successfully added news! Boom...</h3></div>
+                            <div id="add-failed-<?php echo $news['id']; ?>" class="text-danger" hidden><h3>Failed to add news!</h3></div>
                         </form>
                         <br />
                     <?php } else {

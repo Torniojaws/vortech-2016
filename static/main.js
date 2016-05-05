@@ -588,3 +588,27 @@ $(document).ready(function () {
         tooltip: 'Click to edit...'
     });
 });
+
+// User comment in News section
+$('[id^=user-news-comment]').submit(function (e) {
+    e.preventDefault();
+    var news_comment_data = new FormData($(this)[0]);
+    $.ajax({
+        type: 'post',
+        url: 'apps/news/forms/add-user-comment.php',
+        cache: false,
+        data: news_comment_data,
+        async: false,
+        processData: false,
+        contentType: false,
+        success: function (nc_data) {
+            if (nc_data.status === 'success') {
+                $('#add-failed-' + news_comment_data.news_id).hide();
+                $('#added-ok-' + news_comment_data.news_id).removeAttr('hidden');
+                location.reload();
+            } else if (nc_data.status === 'error') {
+                $('#add-failed-' + news_comment_data.news_id).removeAttr('hidden');
+            }
+        }
+    });
+});
