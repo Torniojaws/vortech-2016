@@ -12,6 +12,10 @@ body.modal-open {
     background-color: #919191 !important;
 }
 
+.alternate-comment-row {
+    background-color: #c4d7df !important;
+}
+
 /* Photos upload */
 .btn-file {
     position: relative;

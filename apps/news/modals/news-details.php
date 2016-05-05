@@ -14,24 +14,33 @@
                         <h3>Comments</h3>
                     </div>
                     <?php
+                        $counter = 0;
                         // We'll show all comments here - data loaded near row 10
                         foreach ($comments as $comment) {
-                            ?><div class="row">
+                            ++$counter;
+                            if ($counter % 2 == 0) {
+                                echo '<div class="row alternate-comment-row">';
+                            } else {
+                                echo '<div class="row">';
+                            } ?>
                         <div class="col-sm-2">
                             <?php echo '<small>'.date('Y-m-d', strtotime($comment['posted'])).'</small>'.PHP_EOL;
                             ?>
                         </div>
-                        <div class="col-sm-2">
+                        <div class="col-sm-5">
                             <?php echo '<strong>'.$comment['author'].'</strong>'.PHP_EOL;
                             ?>
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-5">
                             <?php echo $comment['comment'].PHP_EOL;
                             ?>
                         </div>
                     </div>
                     <?php
-                        } ?>
+                } ?>
+                    <div class="row">
+                        <?php include 'apps/news/partials/news-comments.php'; ?>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">

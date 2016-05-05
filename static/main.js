@@ -603,11 +603,35 @@ $('[id^=user-news-comment]').submit(function (e) {
         contentType: false,
         success: function (nc_data) {
             if (nc_data.status === 'success') {
-                $('#add-failed-' + news_comment_data.news_id).hide();
-                $('#added-ok-' + news_comment_data.news_id).removeAttr('hidden');
+                $('#add-failed-' + nc_data.news_id).hide();
+                $('#added-ok-' + nc_data.news_id).removeAttr('hidden');
                 location.reload();
             } else if (nc_data.status === 'error') {
-                $('#add-failed-' + news_comment_data.news_id).removeAttr('hidden');
+                $('#add-failed-' + nc_data.news_id).removeAttr('hidden');
+            }
+        }
+    });
+});
+
+// User comment in Releases section
+$('[id^=user-release-comment]').submit(function (e) {
+    e.preventDefault();
+    var release_comment_data = new FormData($(this)[0]);
+    $.ajax({
+        type: 'post',
+        url: 'apps/releases/forms/add-user-comment.php',
+        cache: false,
+        data: release_comment_data,
+        async: false,
+        processData: false,
+        contentType: false,
+        success: function (rc_data) {
+            if (rc_data.status === 'success') {
+                $('#add-failed-' + rc_data.release_code).hide();
+                $('#added-ok-' + rc_data.release_code).removeAttr('hidden');
+                location.reload();
+            } else if (rc_data.status === 'error') {
+                $('#add-failed-' + rc_data.release_code).removeAttr('hidden');
             }
         }
     });

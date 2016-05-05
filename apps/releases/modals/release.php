@@ -31,6 +31,10 @@
                         </section>
                     </div>
                 </div>
+                <!-- Comments -->
+                <div class="row">
+                    <?php include 'apps/releases/partials/release-comments.php'; ?>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
