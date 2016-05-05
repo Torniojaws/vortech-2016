@@ -27,6 +27,11 @@
 
         $password_in_database = $result[0]['password'];
         $user_id = $result[0]['id'];
+        if (empty($result[0]['thumbnail'])) {
+            $has_avatar = false;
+        } else {
+            $has_avatar = true;
+        }
 
         // Password update
         require $root.'classes/PasswordStorage.php';
@@ -101,17 +106,42 @@
             // we need to update the "photos" table too
             $db = new Database();
             $db->connect();
-            $statement = 'UPDATE photos
-                          SET full = :full,
-                              thumbnail = :thumbnail
-                          WHERE taken_by = :display_name
-                                AND album_id = :album_id';
-            $params = array(
-                'display_name' => $display_name,
-                'full' => $new_name,
-                'thumbnail' => $new_thumb,
-                'album_id' => (int) 7,
-            );
+
+            if ($has_avatar == false) {
+                // User did not upload an avatar when registering. Will add new one now
+                $statement = 'INSERT INTO photos VALUES(
+                    0,
+                    :album_id,
+                    :photo_date,
+                    :taken_by,
+                    :full,
+                    :thumbnail,
+                    :caption,
+                    :user_id
+                )';
+                $params = array(
+                    'album_id' => 7,
+                    'photo_date' => date('Y-m-d H:i:s'),
+                    'taken_by' => $display_name,
+                    'full' => $new_name,
+                    'thumbnail' => $new_thumb,
+                    'caption' => $display_name,
+                    'user_id' => $user_id
+                );
+            } else {
+                // User replaces an existing avatar, we will update it
+                $statement = 'UPDATE photos
+                              SET full = :full,
+                                  thumbnail = :thumbnail
+                              WHERE taken_by = :display_name
+                                    AND album_id = :album_id';
+                $params = array(
+                    'display_name' => $display_name,
+                    'full' => $new_name,
+                    'thumbnail' => $new_thumb,
+                    'album_id' => (int) 7,
+                );
+            }
             $result = $db->run($statement, $params);
             $db->close();
         } else {

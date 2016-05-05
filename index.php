@@ -119,7 +119,8 @@
     <!-- Custom jquery -->
     <script src="static/main.js"></script>
 
-    <!-- Special features that cannot be done otherwise-->
+    <!-- Special feature for reopening modal after updating data. It seems it cannot
+         be done otherwise -->
     <?php
         include 'apps/main/partials/reopen-modal.php';
     ?>
