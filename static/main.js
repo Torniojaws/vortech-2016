@@ -605,7 +605,15 @@ $('[id^=user-news-comment]').submit(function (e) {
             if (nc_data.status === 'success') {
                 $('#add-failed-' + nc_data.news_id).hide();
                 $('#added-ok-' + nc_data.news_id).removeAttr('hidden');
-                location.reload();
+                // Reload contents of modal after successful add
+                var target = "showModal=" + nc_data.news_id;
+                // If user adds multiple comments, this prevents duplicating the GET parameter in
+                // the url, eg www.url.com/page?showModal=2?showModal=2?showModal=2
+                if ((window.location.href).indexOf(target) > -1) {
+                    window.location = window.location.href;
+                } else {
+                    window.location = window.location.href + "?" + target;
+                }
             } else if (nc_data.status === 'error') {
                 $('#add-failed-' + nc_data.news_id).removeAttr('hidden');
             }
@@ -629,10 +637,15 @@ $('[id^=user-release-comment]').submit(function (e) {
             if (rc_data.status === 'success') {
                 $('#add-failed-' + rc_data.release_code).hide();
                 $('#added-ok-' + rc_data.release_code).removeAttr('hidden');
-                //location.reload();
-                // Reload contents of modal after successful add.
-                window.location = window.location.href + "?showModal=" + rc_data.release_id;
-                // $('#release-modal' + rc_data.release_id).modal("show");
+                // Reload contents of modal after successful add
+                var target = "showModal=" + rc_data.release_id;
+                // If user adds multiple comments, this prevents duplicating the GET parameter in
+                // the url, eg www.url.com/page?showModal=2?showModal=2?showModal=2
+                if ((window.location.href).indexOf(target) > -1) {
+                    window.location = window.location.href;
+                } else {
+                    window.location = window.location.href + "?" + target;
+                }
             } else if (rc_data.status === 'error') {
                 $('#add-failed-' + rc_data.release_code).removeAttr('hidden');
             }

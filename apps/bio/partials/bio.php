@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-sm-3">
-        <!-- The photo will open in a modal window -->
-        <a href="#photo-modal<?php echo $photo['id']; ?>" data-toggle="modal" data-target="#photo-modal<?php echo $photo['id']; ?>">
+        <!-- The bio will open in a modal window -->
+        <a href="#bio-modal<?php echo $photo['id']; ?>" data-toggle="modal" data-target="#bio-modal<?php echo $photo['id']; ?>">
             <img src="static/img/<?php echo strtolower($photo['name_id']).'/';
             echo $photo['thumbnail']; ?>" alt="<?php echo $photo['caption']; ?>" />
         </a>

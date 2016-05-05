@@ -121,7 +121,7 @@
 
     <!-- Special features that cannot be done otherwise-->
     <?php
-        include 'apps/main/partials/show-release-modal.php';
+        include 'apps/main/partials/reopen-modal.php';
     ?>
 
 </body>
