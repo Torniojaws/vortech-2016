@@ -652,3 +652,35 @@ $('[id^=user-release-comment]').submit(function (e) {
         }
     });
 });
+
+// User comment in Photos section
+$('[id^=user-photo-comment]').submit(function (e) {
+    e.preventDefault();
+    var photo_comment_data = new FormData($(this)[0]);
+    $.ajax({
+        type: 'post',
+        url: 'apps/photos/forms/add-user-comment.php',
+        cache: false,
+        data: photo_comment_data,
+        async: false,
+        processData: false,
+        contentType: false,
+        success: function (pc_data) {
+            if (pc_data.status === 'success') {
+                $('#add-failed-' + pc_data.photo_id).hide();
+                $('#added-ok-' + pc_data.photo_id).removeAttr('hidden');
+                // Reload contents of modal after successful add
+                var target = "showModal=" + pc_data.photo_id;
+                // If user adds multiple comments, this prevents duplicating the GET parameter in
+                // the url, eg www.url.com/page?showModal=2?showModal=2?showModal=2
+                if ((window.location.href).indexOf(target) > -1) {
+                    window.location = window.location.href;
+                } else {
+                    window.location = window.location.href + "?" + target;
+                }
+            } else if (pc_data.status === 'error') {
+                $('#add-failed-' + pc_data.photo_id).removeAttr('hidden');
+            }
+        }
+    });
+});

@@ -11,6 +11,9 @@
                 echo $photo['full']; ?>" alt="<?php echo $photo['caption']; ?>" />
                 <p><?php echo $photo['caption']; ?></p>
             </div>
+            <div class="row">
+                <?php include 'apps/photos/partials/photo-comments.php'; ?>
+            </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
