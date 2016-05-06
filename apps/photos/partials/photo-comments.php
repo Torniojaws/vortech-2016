@@ -1,3 +1,4 @@
+<div class="container-fluid">
 <aside class="well">
     <?php
         // We'll get all comments here for showing in the modal and latest 2 for preview
@@ -10,10 +11,18 @@
         $last = count($comments) - 1;
         if ($count >= 2) {
             $second_last = $last - 1;
-            echo '<strong>'.$comments[$second_last]['author'].'</strong>: '.$comments[$second_last]['comment'].'<br />';
-            echo '<strong>'.$comments[$last]['author'].'</strong>: '.$comments[$last]['comment'].'<br />';
+            // TODO: make this more sensible - include author name in photos API?
+            $second_last_user = 'api/v1/users/'.$comments[$second_last]['author_id'];
+            $second_last_author_name = json_decode(file_get_contents(SERVER_URL.$second_last_user), true);
+            $last_user = 'api/v1/users/'.$comments[$last]['author_id'];
+            $last_author_name = json_decode(file_get_contents(SERVER_URL.$last_user), true);
+
+            echo '<strong>'.$second_last_author_name[0]['name'].'</strong>: '.$comments[$second_last]['comment'].'<br />';
+            echo '<strong>'.$last_author_name[0]['name'].'</strong>: '.$comments[$last]['comment'].'<br />';
         } elseif ($count == 1 and isset($comments[$last]['comment'])) {
-            echo '<strong>'.$comments[$last]['author'].'</strong>: '.$comments[$last]['comment'].'<br />';
+            $last_user = 'api/v1/users/'.$comments[$last]['author_id'];
+            $last_author_name = json_decode(file_get_contents(SERVER_URL.$last_user), true);
+            echo '<strong>'.$last_author_name[0]['name'].'</strong>: '.$comments[$last]['comment'].'<br />';
         } else {
             echo 'No comments yet - add yours?<br />';
         }
@@ -33,17 +42,15 @@
                         <!-- We'll get the next sub-id by adding 2 (from 0-index conversion + next new)
                              to get the correct new sub-id -->
                         <input type="hidden" name="comment_subid" value="<?php echo $last+2; ?>" />
-                        <input type="hidden" name="photo_id" value="<?php echo $news['id']; ?>" />
+                        <input type="hidden" name="photo_id" value="<?php echo $photo['id']; ?>" />
                         <input type="hidden" name="category_comment_subid" value="<?php echo $category_comment_subid; ?>" />
                         <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id']; ?>" />
-
-                        $category_comment_subid = $_POST['category_comment_subid'];
 
                     </div>
                 </div>
                 <button type="submit" class="btn btn-default">Submit</button>
-                <div id="added-ok-<?php echo $news['id']; ?>" class="text-success" hidden><h3>Successfully added comment! Boom...</h3></div>
-                <div id="add-failed-<?php echo $news['id']; ?>" class="text-danger" hidden><h3>Failed to add comment!</h3></div>
+                <div id="added-ok-<?php echo $photo['id']; ?>" class="text-success" hidden><h3>Successfully added comment! Boom...</h3></div>
+                <div id="add-failed-<?php echo $photo['id']; ?>" class="text-danger" hidden><h3>Failed to add comment!</h3></div>
             </form>
             <br />
         <?php } else {
@@ -53,3 +60,4 @@
         }
     ?>
 </aside>
+</div>
