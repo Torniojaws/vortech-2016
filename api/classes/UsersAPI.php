@@ -68,51 +68,61 @@
                     $query['statement'] = '(SELECT id, "article_comments" AS target, comment, author_id, date_commented
                                             FROM article_comments
                                             WHERE author_id = :id1
+                                            ORDER BY date_commented DESC
                                             LIMIT 5)
                                            UNION
                                            (SELECT id, "guestbook" AS target, post, poster_id, posted
                                             FROM guestbook
                                             WHERE poster_id = :id2
+                                            ORDER BY posted DESC
                                             LIMIT 5)
                                            UNION
                                            (SELECT id, "news_comments" AS target, comment, author_id, posted
                                             FROM news_comments
                                             WHERE author_id = :id3
+                                            ORDER BY posted DESC
                                             LIMIT 5)
                                            UNION
                                            (SELECT id, "performer_comments" AS target, comment, author_id, posted
                                             FROM performer_comments
                                             WHERE author_id = :id4
+                                            ORDER BY posted DESC
                                             LIMIT 5)
                                            UNION
                                            (SELECT id, "photo_comments" AS target, comment, author_id, date_commented
                                             FROM photo_comments
                                             WHERE author_id = :id5
+                                            ORDER BY date_commented DESC
                                             LIMIT 5)
                                            UNION
                                            (SELECT id, "release_comments" AS target, comment, author_id, posted
                                             FROM release_comments
                                             WHERE author_id = :id6
+                                            ORDER BY posted DESC
                                             LIMIT 5)
                                            UNION
                                            (SELECT id, "shopitem_comments" AS target, comment, author_id, date_commented
                                             FROM shopitem_comments
                                             WHERE author_id = :id7
+                                            ORDER BY date_commented DESC
                                             LIMIT 5)
                                            UNION
                                            (SELECT id, "show_comments" AS target, comment, author_id, posted
                                             FROM show_comments
                                             WHERE author_id = :id8
+                                            ORDER BY posted DESC
                                             LIMIT 5)
                                            UNION
                                            (SELECT id, "song_comments" AS target, comment, author_id, posted
                                             FROM song_comments
                                             WHERE author_id = :id9
+                                            ORDER BY posted DESC
                                             LIMIT 5)
                                            UNION
                                            (SELECT id, "video_comments" AS target, comment, author_id, date_commented
                                             FROM video_comments
                                             WHERE author_id = :id10
+                                            ORDER BY date_commented DESC
                                             LIMIT 5)
                                            ORDER BY date_commented DESC
                                            LIMIT 5
