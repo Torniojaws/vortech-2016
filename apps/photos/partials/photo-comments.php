@@ -9,6 +9,10 @@
         // Get the latest comments
         $count = count($comments);
         $last = count($comments) - 1;
+
+        // For storing the next value in "photo_comments" table
+        $next_category_comment_subid = $comments[$last]['category_comment_subid'] + 1;
+
         if ($count >= 2) {
             $second_last = $last - 1;
             // TODO: make this more sensible - include author name in photos API?
@@ -43,7 +47,7 @@
                              to get the correct new sub-id -->
                         <input type="hidden" name="comment_subid" value="<?php echo $last+2; ?>" />
                         <input type="hidden" name="photo_id" value="<?php echo $photo['id']; ?>" />
-                        <input type="hidden" name="category_comment_subid" value="<?php echo $category_comment_subid; ?>" />
+                        <input type="hidden" name="category_comment_subid" value="<?php echo $next_category_comment_subid; ?>" />
                         <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id']; ?>" />
 
                     </div>
