@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-sm-3">
-        <a href="static/img/<?php echo strtolower($shop['name_id']).'/'; echo $shop['full']; ?>">
+        <a href="#shop-modal<?php echo $shop['id']; ?>" data-toggle="modal" data-target="#shop-modal<?php echo $shop['id']; ?>">
             <img src="static/img/<?php
                     $image = strtolower($shop['name_id']).'/'.$shop['thumbnail'];
                     if (file_exists('static/img/'.$image)) {

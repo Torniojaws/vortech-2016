@@ -716,3 +716,35 @@ $('[id^=user-bio-comment]').submit(function (e) {
         }
     });
 });
+
+// User comment in Shop section
+$('[id^=user-shop-comment]').submit(function (e) {
+    e.preventDefault();
+    var shop_comment_data = new FormData($(this)[0]);
+    $.ajax({
+        type: 'post',
+        url: 'apps/shop/forms/add-user-comment.php',
+        cache: false,
+        data: shop_comment_data,
+        async: false,
+        processData: false,
+        contentType: false,
+        success: function (sc_data) {
+            if (sc_data.status === 'success') {
+                $('#add-failed-' + sc_data.modal_id).hide();
+                $('#added-ok-' + sc_data.modal_id).removeAttr('hidden');
+                // Reload contents of modal after successful add
+                var target = "showModal=" + sc_data.modal_id;
+                // If user adds multiple comments, this prevents duplicating the GET parameter in
+                // the url, eg www.url.com/page?showModal=2?showModal=2?showModal=2
+                if ((window.location.href).indexOf(target) > -1) {
+                    window.location = window.location.href;
+                } else {
+                    window.location = window.location.href + "?" + target;
+                }
+            } else if (bc_data.status === 'error') {
+                $('#add-failed-' + sc_data.modal_id).removeAttr('hidden');
+            }
+        }
+    });
+});
