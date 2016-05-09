@@ -684,3 +684,35 @@ $('[id^=user-photo-comment]').submit(function (e) {
         }
     });
 });
+
+// User comment in Bio section
+$('[id^=user-bio-comment]').submit(function (e) {
+    e.preventDefault();
+    var bio_comment_data = new FormData($(this)[0]);
+    $.ajax({
+        type: 'post',
+        url: 'apps/bio/forms/add-user-comment.php',
+        cache: false,
+        data: bio_comment_data,
+        async: false,
+        processData: false,
+        contentType: false,
+        success: function (bc_data) {
+            if (bc_data.status === 'success') {
+                $('#add-failed-' + bc_data.modal_id).hide();
+                $('#added-ok-' + bc_data.modal_id).removeAttr('hidden');
+                // Reload contents of modal after successful add
+                var target = "showModal=" + bc_data.modal_id;
+                // If user adds multiple comments, this prevents duplicating the GET parameter in
+                // the url, eg www.url.com/page?showModal=2?showModal=2?showModal=2
+                if ((window.location.href).indexOf(target) > -1) {
+                    window.location = window.location.href;
+                } else {
+                    window.location = window.location.href + "?" + target;
+                }
+            } else if (bc_data.status === 'error') {
+                $('#add-failed-' + bc_data.modal_id).removeAttr('hidden');
+            }
+        }
+    });
+});
