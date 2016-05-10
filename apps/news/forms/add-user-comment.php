@@ -14,7 +14,6 @@
         // Check for all data
         if (isset($comment_subid) and isset($news_id) and isset($author) and isset($author_id)
             and isset($comment)) {
-
             $root = str_replace('apps/news/forms', '', __DIR__);
             require_once $root.'api/classes/Database.php';
             $db = new Database();

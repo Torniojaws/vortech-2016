@@ -126,7 +126,7 @@
                     'full' => $new_name,
                     'thumbnail' => $new_thumb,
                     'caption' => $display_name,
-                    'user_id' => $user_id
+                    'user_id' => $user_id,
                 );
             } else {
                 // User replaces an existing avatar, we will update it

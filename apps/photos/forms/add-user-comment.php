@@ -14,7 +14,6 @@
         // Check for all data
         if (isset($comment_subid) and isset($photo_id) and isset($comment_subid) and isset($author_id)
             and isset($category_comment_subid)) {
-
             $root = str_replace('apps/photos/forms', '', __DIR__);
             require_once $root.'api/classes/Database.php';
             $db = new Database();

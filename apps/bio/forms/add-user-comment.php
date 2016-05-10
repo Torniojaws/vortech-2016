@@ -15,7 +15,6 @@
         // Check for all data
         if (isset($member_id) and isset($comment_subid) and isset($comment)
             and isset($author_id) and isset($author_Name)) {
-
             $root = str_replace('apps/bio/forms', '', __DIR__);
             require_once $root.'api/classes/Database.php';
             $db = new Database();

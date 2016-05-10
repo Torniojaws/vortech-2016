@@ -16,7 +16,6 @@
         // Check for all data
         if (isset($comment_subid) and isset($release_code) and isset($author) and isset($author_id)
             and isset($comment)) {
-
             $root = str_replace('apps/releases/forms', '', __DIR__);
             require_once $root.'api/classes/Database.php';
             $db = new Database();

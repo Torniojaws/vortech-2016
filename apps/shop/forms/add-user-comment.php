@@ -14,7 +14,6 @@
         // Check for all data
         if (isset($shopitem_id) and isset($comment_subid) and isset($category_comment_subid)
             and isset($user_id) and isset($comment)) {
-
             $root = str_replace('apps/shop/forms', '', __DIR__);
             require_once $root.'api/classes/Database.php';
             $db = new Database();

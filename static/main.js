@@ -748,3 +748,28 @@ $('[id^=user-shop-comment]').submit(function (e) {
         }
     });
 });
+
+// Guestbook comment
+$('#user-guestbook-form').submit(function (e) {
+    e.preventDefault();
+    var guestbook_comment_data = new FormData($(this)[0]);
+    $.ajax({
+        type: 'post',
+        url: 'apps/guestbook/forms/add-guestbook-post.php',
+        cache: false,
+        data: guestbook_comment_data,
+        async: false,
+        processData: false,
+        contentType: false,
+        success: function (gb_data) {
+            if (gb_data.status === 'success') {
+                $('#add-failed').hide();
+                $('#added-ok').removeAttr('hidden');
+                // Reload contents of modal after successful add
+                location.reload();
+            } else if (gb_data.status === 'error') {
+                $('#add-failed').removeAttr('hidden');
+            }
+        }
+    });
+});

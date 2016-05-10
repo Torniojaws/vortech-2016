@@ -8,6 +8,8 @@
     $photos_list = file_get_contents(SERVER_URL.$photo_api);
     $photos = json_decode($photos_list, true);
 
+    include './apps/guestbook/partials/user-comment.php';
+
     // true makes an array
     $guestbook_items = json_decode($guestbook_list_json, true);
     echo '<div class="container-fluid">';
