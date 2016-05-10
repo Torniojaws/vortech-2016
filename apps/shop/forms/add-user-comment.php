@@ -4,41 +4,39 @@
 
     if (isset($_SESSION['user_logged']) && $_SESSION['user_logged'] == 1) {
         // Mandatory information
+        $shopitem_id = $_POST['shopitem_id'];
         $comment_subid = $_POST['comment_subid'];
-        $release_code = $_POST['release_code'];
-        $release_id = $_POST['release_id'];
-        $author = $_POST['display_name'];
-        $author_id = $_POST['user_id'];
+        $category_comment_subid = $_POST['category_comment_subid'];
+        $user_id = $_POST['user_id'];
         $comment = $_POST['comment'];
         $posted = date('Y-m-d H:i:s');
-        $release_id = $_POST['release_id'];
 
         // Check for all data
-        if (isset($comment_subid) and isset($release_code) and isset($author) and isset($author_id)
-            and isset($comment)) {
+        if (isset($shopitem_id) and isset($comment_subid) and isset($category_comment_subid)
+            and isset($user_id) and isset($comment)) {
 
-            $root = str_replace('apps/releases/forms', '', __DIR__);
+            $root = str_replace('apps/shop/forms', '', __DIR__);
             require_once $root.'api/classes/Database.php';
             $db = new Database();
 
             // Add the comment
             $db->connect();
-            $statement = 'INSERT INTO release_comments VALUES(
+            $statement = 'INSERT INTO shopitem_comments VALUES(
                 0,
-                :subid,
-                :release_code,
-                :author,
+                :shopitem_id,
+                :comment_subid,
+                :category_comment_subid,
                 :comment,
-                :posted,
-                :author_id
+                :user_id,
+                :posted
             )';
             $params = array(
-                'subid' => $comment_subid,
-                'release_code' => $release_code,
-                'author' => $author,
+                'shopitem_id' => $shopitem_id,
+                'comment_subid' => $comment_subid,
+                'category_comment_subid' => $category_comment_subid,
                 'comment' => $comment,
+                'user_id' => $user_id,
                 'posted' => $posted,
-                'author_id' => $author_id,
             );
             $db->run($statement, $params);
             $db->close();
@@ -47,19 +45,16 @@
             if ($db->querySuccessful() == true) {
                 $response['status'] = 'success';
                 $response['message'] = 'Comment added successfully';
-                $response['release_code'] = $release_code; // Used to show correct status div
-                $response['release_id'] = $release_id; // Used to reload the Modal
+                $response['modal_id'] = $shopitem_id; // Used to show correct status div
             } else {
                 $response['status'] = 'error';
                 $response['message'] = 'Could not update DB';
-                $response['release_code'] = $release_code; // Used to show correct status div
-                $response['release_id'] = $release_id; // Used to reload the Modal
+                $response['modal_id'] = $shopitem_id; // Used to show correct status div
             }
         } else {
             $response['status'] = 'error';
             $response['message'] = 'Missing required data';
-            $response['release_code'] = $release_code; // Used to show correct status div
-            $response['release_id'] = $release_id; // Used to reload the Modal
+            $response['modal_id'] = $shopitem_id; // Used to show correct status div
         }
     } else {
         header('HTTP/1.1 401 Unauthorized');

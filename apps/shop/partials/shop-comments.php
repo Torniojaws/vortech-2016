@@ -1,7 +1,7 @@
 <aside class="well">
     <?php
         // We'll get all comments here for showing in the modal and latest 2 for preview
-        $api = 'api/v1/shop/'.$shop['id'].'/comments';
+        $api = 'api/v1/shopitems/'.$shop['id'].'/comments';
         $comments = file_get_contents(SERVER_URL.$api);
         $comments = json_decode($comments, true);
 
@@ -37,8 +37,7 @@
                              to get the correct new sub-id -->
                         <input type="hidden" name="comment_subid" value="<?php echo $last+2; ?>" />
                         <input type="hidden" name="category_comment_subid" value="<?php echo $next_category_comment_subid; ?>" />
-                        <input type="hidden" name="shopitem_id" value="<?php echo $shop['shopitem_id']; ?>" />
-                        <input type="hidden" name="display_name" value="<?php echo $_SESSION['display_name']; ?>" />
+                        <input type="hidden" name="shopitem_id" value="<?php echo $shop['id']; ?>" />
                         <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id']; ?>" />
                     </div>
                 </div>
@@ -54,3 +53,8 @@
         }
     ?>
 </aside>
+
+<!-- Modals -->
+<?php include 'apps/main/modals/login.php'; ?>
+
+<?php include 'apps/main/modals/register.php'; ?>

@@ -1,5 +1,5 @@
 <!-- Modal contents -->
-<div class="modal fade" id="shopitem-modal<?php echo $shop['id']; ?>" role="dialog">
+<div class="modal fade" id="shop-modal<?php echo $shop['id']; ?>" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -9,24 +9,49 @@
             <div class="modal-body">
                 <div class="container-fluid">
                     <div class="row">
-                        <img src="<?php
-                                    if (file_exists($shop['thumbnail'])) {
-                                        echo $shop['thumbnail'];
-                                    } else {
-                                        echo 'static/img/site/cd.jpg';
-                                    } ?>" alt="<?php echo $shop['name']; ?>" />
+                        <img src="static/img/<?php
+                                $image = strtolower($shop['name_id']).'/'.$shop['thumbnail'];
+                                if (file_exists('static/img/'.$image)) {
+                                    echo $image;
+                                } else {
+                                    echo 'no-photo.jpg';
+                                }
+                            ?>" alt="<?php echo $shop['name']; ?>" />
                         <p><?php echo $shop['name']; ?></p>
                     </div>
                     <div class="row">
                         <section class="well">
                             <?php
-                                $api = 'api/v1/shop/'.$shop['id'].'/comments';
+                                $api = 'api/v1/shopitems/'.$shop['id'].'/comments';
                                 $comments = file_get_contents(SERVER_URL.$api);
                                 $comments_list = json_decode($comments, true);
-                                foreach ($comments_list as $comment) {
-                                    echo '<strong>'.$comment['author'].'</strong>: '.$comment['comment'];
-                                    echo '<br />';
-                                }
+                                $counter = 0;
+                                    // We'll show all comments here - data loaded near row 10
+                                    foreach ($comments_list as $comment) {
+                                        ++$counter;
+                                        if ($counter % 2 == 0) {
+                                            echo '<div class="row alternate-comment-row">';
+                                        } else {
+                                            echo '<div class="row">';
+                                        } ?>
+                                    <div class="col-sm-2">
+                                        <?php echo '<small>'.date('Y-m-d', strtotime($comment['date_commented'])).'</small>'.PHP_EOL;
+                                        ?>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <?php
+                                            // Author name from ID:
+                                            $author_api = 'api/v1/users/'.$comment['author_id'];
+                                            $author = json_decode(file_get_contents(SERVER_URL.$author_api), true);
+                                            echo '<strong>'.$author[0]['name'].'</strong>'.PHP_EOL;
+                                        ?>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <?php echo $comment['comment'].PHP_EOL;
+                                        ?>
+                                    </div>
+                                </div>
+                                <?php }
                             ?>
                         </section>
                     </div>

@@ -82,12 +82,15 @@
                                                   shopitem_comments.category_comment_subid,
                                                   shopitem_comments.comment,
                                                   shopitem_comments.author_id,
-                                                  shopitem_comments.date_commented
+                                                  shopitem_comments.date_commented,
+                                                  users.name AS author
                                            FROM shop_items
                                            JOIN shop_categories
                                                 ON shop_categories.id = shop_items.category_id
                                            LEFT JOIN shopitem_comments
                                                 ON shopitem_comments.shopitem_id = shop_items.id
+                                           LEFT JOIN users
+                                                ON users.id = shopitem_comments.author_id
                                            WHERE shop_items.id = :id';
                     $query['params'] = array('id' => (int) $args[2]);
 

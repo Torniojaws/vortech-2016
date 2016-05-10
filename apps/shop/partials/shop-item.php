@@ -75,3 +75,4 @@
     </div>
 </div>
 <hr />
+<?php include 'apps/shop/modals/shopitem.php'; ?>

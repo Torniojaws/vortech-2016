@@ -51,3 +51,8 @@
         }
     ?>
 </aside>
+
+<!-- Modals -->
+<?php include 'apps/main/modals/login.php'; ?>
+
+<?php include 'apps/main/modals/register.php'; ?>

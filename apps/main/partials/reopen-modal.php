@@ -17,6 +17,9 @@
                 case substr($uri, 0, 4) == '/bio':
                     $modal_name = 'bio-modal';
                     break;
+                case substr($uri, 0, 5) == '/shop':
+                    $modal_name = 'shop-modal';
+                    break;
                 default:
                     $modal_name = '';
                     break;
