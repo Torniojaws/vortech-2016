@@ -1,12 +1,7 @@
 TODO:
 
 - Refactor DB access
-    - Check all SQL queries and remove possible duplicated code
     - See if everything could be made with parameters instead of separate files
-- Guestbook allows guest posting (heh), but logged in users have name/pic
-- Comment systems
-    - Logged in users can comment things like releases, songs, shopitems
-    - In shop, users can request new merchandise?
 - UI
     - Add a nice little UI for the site
     - And a design

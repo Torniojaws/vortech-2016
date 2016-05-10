@@ -251,6 +251,12 @@ CREATE TABLE article_comments(
     date_commented datetime,
     PRIMARY KEY(id)
 );
+CREATE TABLE antispam(
+    id int AUTO_INCREMENT,
+    question varchar(200),
+    answer varchar(200),
+    PRIMARY KEY(id)
+);
 
 
 INSERT INTO news VALUES(
@@ -608,3 +614,8 @@ INSERT INTO article_comments VALUES(0, 2, 1, "Very nice to find that out!", 3, "
 INSERT INTO article_comments VALUES(0, 2, 2, "Oh yeah!", 3, "2016-04-20 10:34:00");
 INSERT INTO article_comments VALUES(0, 3, 1, "Nice intro!", 3, "2016-04-20 10:35:00");
 INSERT INTO article_comments VALUES(0, 3, 2, "Excellent stuff!", 3, "2016-04-20 10:36:00");
+
+INSERT INTO antispam VALUES(0, "One, Two, _____, Four", "Three");
+INSERT INTO antispam VALUES(0, "1 + 3 = _", "4");
+INSERT INTO antispam VALUES(0, "Death _____, Industrial _____, Heavy _____", "Metal");
+INSERT INTO antispam VALUES(0, "If you are human, write <strong>yes</strong>", "yes");

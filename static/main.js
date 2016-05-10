@@ -770,6 +770,13 @@ $('#user-guestbook-form').submit(function (e) {
             } else if (gb_data.status === 'error') {
                 $('#add-failed').removeAttr('hidden');
             }
+        },
+        // This will catch  HTTP 400 status errors
+        error: function (gb_other_errors) {
+            var gb_errors = JSON.parse(gb_other_errors.responseText);
+            $('#add-failed').removeAttr('hidden').append(
+                '<h3>' + gb_errors.message + '</h3>'
+            );
         }
     });
 });

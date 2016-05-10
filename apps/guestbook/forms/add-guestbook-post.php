@@ -5,6 +5,9 @@
     $root = str_replace('apps/guestbook/forms', '', __DIR__);
     require_once $root.'constants.php';
 
+    require_once $root.'api/classes/Database.php';
+    $db = new Database();
+
     if (isset($_SESSION['user_logged']) && $_SESSION['user_logged'] == 1) {
         $poster = $_POST['username'];
         $poster_id = $_SESSION['user_id'];
@@ -14,23 +17,25 @@
         // Guests can use a display name, but all guest posts will be under one user ID
         $poster_id = 2;
 
-        // TODO: Antispam (later)
+        // antispam
         $antispam_id = $_POST['antispam_challenge'];
         $antispam_answer = $_POST['antispam_response'];
-        // Check the correct answer for "antispam_id" here...
-        // For now, we will allow any answer while testing
-        $correct_answer = $antispam_answer;
 
-        // ...and compare the guest answer to it
+        $db->connect();
+        $statement = 'SELECT answer FROM antispam WHERE id = :id';
+        $params = array('id' => $antispam_id);
+        $result = $db->run($statement, $params);
+        $db->close();
+
+        $correct_answer = $result[0]['answer'];
         if ($antispam_answer === $correct_answer) {
-            // If they match, then the poster is most likely human
             $human = true;
         } else {
             $human = false;
         }
     } else {
         // User ended up here incorrectly
-       header('HTTP/1.1 401 Unauthorized');
+        header('HTTP/1.1 401 Unauthorized');
         echo 'Unauthorized';
         exit;
     }
@@ -48,9 +53,6 @@
 
     // Check for all data
     if (isset($poster) and isset($poster_id) and isset($comment)) {
-        require_once $root.'api/classes/Database.php';
-        $db = new Database();
-
         // Add the comment
         $db->connect();
         $statement = 'INSERT INTO guestbook VALUES(

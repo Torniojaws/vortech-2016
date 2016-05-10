@@ -2,6 +2,8 @@
 
     // Choose between "prod" and "dev"
     define('ENVIRONMENT', 'dev');
+    define('MAX_UPLOAD_SIZE', 5242880); // 5 MB
+    define('IMAGE_DIR', 'static/img/');
 
     // General settings
     date_default_timezone_set('Europe/Helsinki');
@@ -16,14 +18,9 @@
         define('SERVER_URL', 'http://localhost:5656/');
         // Use this if Vagrant is setup to redirect 5656 to port 80 in guest
         #define('SERVER_URL', "http://localhost/");
-
-        define('MAX_UPLOAD_SIZE', 5242880); // 5 MB
-        define('IMAGE_DIR', 'static/img/');
     }
 
     // Production settings
     if (ENVIRONMENT == 'prod') {
         define('SERVER_URL', 'http://www.vortechmusic.com/');
-        define('MAX_UPLOAD_SIZE', 5242880); // 5 MB
-        define('IMAGE_DIR', 'static/img/');
     }

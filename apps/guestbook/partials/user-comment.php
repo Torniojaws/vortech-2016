@@ -8,9 +8,26 @@
                 <input type="hidden" id="username" name="username" value="'.$_SESSION['display_name'].'" />';
             } else {
                 echo '<label for="guest_name">Your name</label><br />
-                <input type="text" id="guest_name" name="guest_name" placeholder="Your name" /><br />
-                <label for="antispam">Antispam Question:<br /> ________</label>
-                <input type="hidden" id="antispam_challenge" name="antispam_challenge" value="antispam_id" /><br />
+                <input type="text" id="guest_name" name="guest_name" placeholder="Your name" /><br />';
+
+                require_once $root.'api/classes/Database.php';
+                $db = new Database();
+
+                // Get the count
+                $antispam_api = 'api/v1/antispam/count';
+                $antispam_list = json_decode(file_get_contents(SERVER_URL.$antispam_api), true);
+                $antispam_count = (int) $antispam_list[0]['count'];
+
+                $random_number = mt_rand(1, $antispam_count);
+
+                $db->connect();
+                $statement = 'SELECT question FROM antispam WHERE id = :id';
+                $params = array('id' => $random_number);
+                $result = $db->run($statement, $params);
+                $db->close();
+
+                echo '<label for="antispam">Antispam Question:</label><br /> '.$result[0]['question'].'
+                <input type="hidden" id="antispam_challenge" name="antispam_challenge" value="'.$random_number.'" /><br />
                 <input type="text" id="antispam_response" name="antispam_response" placeholder="Your answer" /><br />';
             }
         ?>

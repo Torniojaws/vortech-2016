@@ -65,6 +65,11 @@
                     $result = new ArticlesAPI($request, $filters);
                     $this->sql = $result->getResult();
                     break;
+                case 'antispam':
+                    require_once 'AntispamAPI.php';
+                    $result = new AntispamAPI($request, $filters);
+                    $this->sql = $result->getResult();
+                    break;
                 default:
                     $this->sql = '';
             }
