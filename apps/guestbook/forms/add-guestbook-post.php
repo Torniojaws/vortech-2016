@@ -19,7 +19,7 @@
 
         // antispam
         $antispam_id = $_POST['antispam_challenge'];
-        $antispam_answer = $_POST['antispam_response'];
+        $antispam_answer = strtolower($_POST['antispam_response']);
 
         $db->connect();
         $statement = 'SELECT answer FROM antispam WHERE id = :id';
@@ -27,7 +27,7 @@
         $result = $db->run($statement, $params);
         $db->close();
 
-        $correct_answer = $result[0]['answer'];
+        $correct_answer = strtolower($result[0]['answer']);
         if ($antispam_answer === $correct_answer) {
             $human = true;
         } else {
