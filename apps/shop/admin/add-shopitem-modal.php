@@ -16,7 +16,7 @@
                 </div>
                 <div class="modal-body">
                     <!-- Add shop item -->
-                    <form role="form" class="form" id="ad-shopitem-form" name="add-shopitem-form"
+                    <form class="form" id="ad-shopitem-form" name="add-shopitem-form"
                           enctype="multipart/form-data">
 
                         <div class="form-group">

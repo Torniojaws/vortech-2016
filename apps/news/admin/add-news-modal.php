@@ -14,7 +14,7 @@
                 </div>
                 <div class="modal-body">
                     <!-- Add news -->
-                    <form role="form" class="form" id="ad-news-form" name="add-news-form">
+                    <form class="form" id="ad-news-form" name="add-news-form">
 
                         <div class="form-group">
                             <label for="title">News title</label>

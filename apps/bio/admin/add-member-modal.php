@@ -16,7 +16,7 @@
                 </div>
                 <div class="modal-body">
                     <!-- Add member -->
-                    <form role="form" class="form" id="ad-member-form" name="add-member-form"
+                    <form class="form" id="ad-member-form" name="add-member-form"
                           enctype="multipart/form-data">
 
                         <div class="form-group">

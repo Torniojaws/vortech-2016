@@ -15,7 +15,7 @@
                 <div class="modal-body">
                     <!-- Add new liveshow -->
                     <label for="ad-liveshow-form">New show details</label>
-                    <form role="form" class="form" id="ad-liveshow-form" name="add-liveshow-form">
+                    <form class="form" id="ad-liveshow-form" name="add-liveshow-form">
                         <!-- Mandatory details -->
                         <div class="form-group">
                             <label for="artist">Show date</label>

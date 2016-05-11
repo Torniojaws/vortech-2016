@@ -11,7 +11,7 @@
                     <div class="row">
                         <!-- Register -->
                         <label for="register-form">Register</label>
-                        <form role="form" class="form" id="register-form" name="register-form">
+                        <form class="form" id="register-form" name="register-form">
                             <div class="form-group">
                                 <!-- Display name -->
                                 <label for="registerUser">Your display name</label><br />

@@ -40,10 +40,16 @@
         // To allow fake floating of Bootstrap columns
         if ($counter == 1 || $counter % 3 == 0) {
             echo '<div class="row">';
+            ++$div_start_count;
         }
         include './apps/photos/partials/photo.php';
-        if ($counter % 3 == 0) {
+        if ($counter != 1 && $counter % 3 == 0) {
+            ++$div_close_count;
             echo '</div><hr />';
         }
+    }
+    // In case the closing div is not set, due to non-compliant photos...
+    if ($div_start_count != $div_close_count) {
+        echo '</div><hr />';
     }
     echo '</div>';

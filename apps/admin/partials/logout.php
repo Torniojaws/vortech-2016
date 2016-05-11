@@ -1,6 +1,6 @@
 <div class="container-fluid">
     <label for="ad-form">Admin logout</label>
-    <form role="form" class="form-inline" id="ad-logout-form" name="add-logout-form">
+    <form class="form-inline" id="ad-logout-form" name="add-logout-form">
         <input type="hidden" name="adLogout" value="logout" />
         <button type="submit" class="btn btn-primary" name="Submit" id="ad-logout">Exit light</button>
     </form>

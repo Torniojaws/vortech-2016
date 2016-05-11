@@ -20,7 +20,7 @@
                 </blockquote>
 
                 <!-- Add guestbook comment -->
-                <form role="form" class="form" id="ad-guestbook-comment-form<?php echo $guest['id']; ?>"
+                <form class="form" id="ad-guestbook-comment-form<?php echo $guest['id']; ?>"
                       name="add-guestbook-comment-form">
 
                     <div class="form-group">

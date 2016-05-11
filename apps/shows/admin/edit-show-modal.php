@@ -13,7 +13,7 @@
             </div>
             <div class="modal-body">
                 <!-- Edit show -->
-                <form role="form" class="form" id="ad-edit-show-form" name="add-edit-show-form">
+                <form class="form" id="ad-edit-show-form" name="add-edit-show-form">
 
                     <div class="form-group">
                         <!-- id -->

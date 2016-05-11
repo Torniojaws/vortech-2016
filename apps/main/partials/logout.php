@@ -1,6 +1,6 @@
 <div class="container-fluid">
     <label for="logout-form">User logout</label>
-    <form role="form" class="form-inline" id="user-logout-form" name="user-logout-form">
+    <form class="form-inline" id="user-logout-form" name="user-logout-form">
         <input type="hidden" name="userLogout" value="logout" />
         <button type="submit" class="btn btn-primary" name="Submit" id="user-logout">Logout</button>
     </form>

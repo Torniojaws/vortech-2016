@@ -31,7 +31,7 @@
         <h3>Edit Your Profile</h3>
         <p>Feel free to update your information below. Press the "Save Changes" button below, when you are ready.</p>
         <hr />
-        <form role="form" class="form" id="profile-form" name="profile-form">
+        <form class="form" id="profile-form" name="profile-form">
             <div class="form-group">
                 <div class="col-sm-6">
                     <!-- Edit display name -->

@@ -1,6 +1,6 @@
 <div class="container-fluid">
     <label for="login-form">User Login</label>
-    <form role="form" class="form-inline" id="login-form" name="login-form">
+    <form class="form-inline" id="login-form" name="login-form">
         <div class="form-group">
             <label for="loginUser">Username</label>
             <input type="text" class="form-control" id="loginUser" name="loginUser" placeholder="Username">

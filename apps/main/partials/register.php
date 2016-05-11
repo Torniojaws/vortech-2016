@@ -4,7 +4,7 @@
         <p>As mentioned, registered users can add comments to News, Releases, Songs, Shows, Photos,
         and Videos. You can also have a custom avatar/image.</p>
         <hr />
-        <form role="form" class="form" id="register-form" name="register-form">
+        <form class="form" id="register-form" name="register-form">
             <div class="form-group">
                 <!-- Display name -->
                 <label for="registerUser">Your display name</label><br />

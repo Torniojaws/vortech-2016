@@ -15,7 +15,7 @@
                 <div class="modal-body">
                     <!-- Add new video -->
                     <label for="ad-video-form">New video details</label>
-                    <form role="form" class="form" id="ad-video-form" name="add-video-form"
+                    <form class="form" id="ad-video-form" name="add-video-form"
                           enctype="multipart/form-data">
                         <!-- Mandatory details -->
                         <div class="form-group">

@@ -1,5 +1,5 @@
 <!-- Add guestbook post -->
-<form role="form" class="form" id="user-guestbook-form" name="add-guestbook-post-form">
+<form class="form" id="user-guestbook-form" name="add-guestbook-post-form">
 
     <div class="form-group">
         <?php

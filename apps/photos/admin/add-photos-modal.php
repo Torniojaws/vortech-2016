@@ -16,7 +16,7 @@
                 </div>
                 <div class="modal-body">
                     <!-- Add photos -->
-                    <form role="form" class="form" id="ad-photos-form" name="add-photos-form"
+                    <form class="form" id="ad-photos-form" name="add-photos-form"
                           enctype="multipart/form-data">
 
                         <div class="form-group">
