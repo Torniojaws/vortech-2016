@@ -70,6 +70,11 @@
                     $result = new AntispamAPI($request, $filters);
                     $this->sql = $result->getResult();
                     break;
+                case 'votes':
+                    require_once 'VotesAPI.php';
+                    $result = new VotesAPI($request, $filters);
+                    $this->sql = $result->getResult();
+                    break;
                 default:
                     $this->sql = '';
             }

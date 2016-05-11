@@ -257,7 +257,14 @@ CREATE TABLE antispam(
     answer varchar(200),
     PRIMARY KEY(id)
 );
-
+CREATE TABLE votes(
+    id int AUTO_INCREMENT,
+    category varchar(200),
+    item int,
+    rating float,
+    posted datetime,
+    PRIMARY KEY(id)
+);
 
 INSERT INTO news VALUES(
     1,

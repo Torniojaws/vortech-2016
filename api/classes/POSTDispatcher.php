@@ -15,6 +15,11 @@
                     $result = new PhotosPostAPI($request, $filters, $inputData);
                     $this->sql = $result->getResult();
                     break;
+                case 'votes':
+                    require_once 'VotesPostAPI.php';
+                    $result = new VotesPostAPI($request, $filters, $inputData);
+                    $this->sql = $result->getResult();
+                    break;
                 default:
                     $this->sql = '';
             }

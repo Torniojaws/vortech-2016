@@ -17,8 +17,12 @@
     $db = new Database();
     $db->connect();
 
-    // Run the prepared query
-    $results = $db->run($statement, $params);
+    // Run the prepared query if query is not empty
+    if (empty($statement) or empty($params)) {
+        $results = null;
+    } else {
+        $results = $db->run($statement, $params);
+    }
 
     // and print the results as JSON.
     // Note that this is never going to be used by prepared INSERT statements, so simply checking
