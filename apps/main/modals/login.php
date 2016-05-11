@@ -10,7 +10,7 @@
                 <div class="container-fluid">
                     <div class="row">
                         <!-- Login -->
-                        <label for="login-form">User Login</label>
+                        <h4>User Login</h4>
                         <form class="form-inline" id="login-form" name="login-form">
                             <div class="form-group">
                                 <label for="loginUser">Username</label>

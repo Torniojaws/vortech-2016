@@ -14,7 +14,7 @@
                 </div>
                 <div class="modal-body">
                     <!-- Add new video -->
-                    <label for="ad-video-form">New video details</label>
+                    <h4>New video details</h4>
                     <form class="form" id="ad-video-form" name="add-video-form"
                           enctype="multipart/form-data">
                         <!-- Mandatory details -->

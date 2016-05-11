@@ -14,7 +14,7 @@
                 </div>
                 <div class="modal-body">
                     <!-- Add new release -->
-                    <label for="ad-form">New release details</label>
+                    <h4>New release details</h4>
                     <form class="form" id="ad-release-form" name="add-release-form">
                         <!-- Mandatory details -->
                         <div class="form-group">

@@ -1,5 +1,5 @@
 <div class="container-fluid">
-    <label for="ad-form">Admin login</label>
+    <h4>Admin login</h4>
     <form class="form-inline" id="ad-form" name="add-form">
         <div class="form-group">
             <label for="adUser">Name</label>

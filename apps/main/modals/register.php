@@ -10,23 +10,22 @@
                 <div class="container-fluid">
                     <div class="row">
                         <!-- Register -->
-                        <label for="register-form">Register</label>
                         <form class="form" id="register-form" name="register-form">
                             <div class="form-group">
                                 <!-- Display name -->
-                                <label for="registerUser">Your display name</label><br />
+                                <label for="registerName">Your display name</label><br />
                                 <small>When you post a comment, this will be shown as your name</small>
                                 <input type="text" class="form-control" id="registerName" name="registerName"
                                        placeholder="Display name">
 
                                 <!-- Login name -->
-                                <label for="registerUser">Your username</label><br />
+                                <label for="registerUsername">Your username</label><br />
                                 <small>Used for logging in</small>
                                 <input type="text" class="form-control" id="registerUsername" name="registerUsername"
                                        placeholder="Name">
 
                                 <!-- Password -->
-                                <label for="registerPass">Password</label>
+                                <label for="registerPassword">Password</label>
                                 <p class="text-warning">Please use a password that you don't use elsewhere, just to be
                                     safe. While security is taken care of to a good standard, this just a simple login for
                                     some extra features. The password will be stored in encrypted form, so it can
@@ -34,12 +33,12 @@
                                 <input type="password" class="form-control" id="registerPassword"
                                        name="registerPassword" placeholder="Pass">
                                 <!-- Confirm password -->
-                                <label for="registerPassConfirm">Password again</label>
+                                <label for="registerPasswordConfirm">Password again</label>
                                 <small>Must match above</small>
                                 <input type="password" class="form-control" id="registerPasswordConfirm"
                                        name="registerPasswordConfirm" placeholder="Pass">
                                 <!-- User avatar -->
-                                <label for="photos">Upload your avatar</label>
+                                <label for="photo">Upload your avatar</label>
                                 <small>Will be resized to 64 pixels wide</small><br />
                                 <small>You can also add or change it later</small>
                                 <br />

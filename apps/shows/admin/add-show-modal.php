@@ -14,7 +14,7 @@
                 </div>
                 <div class="modal-body">
                     <!-- Add new liveshow -->
-                    <label for="ad-liveshow-form">New show details</label>
+                    <h4>New show details</h4>
                     <form class="form" id="ad-liveshow-form" name="add-liveshow-form">
                         <!-- Mandatory details -->
                         <div class="form-group">
