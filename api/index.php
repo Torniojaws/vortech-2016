@@ -18,7 +18,7 @@
     $db->connect();
 
     // Run the prepared query if query is not empty
-    if (empty($statement) or empty($params)) {
+    if (empty($statement) and empty($params)) {
         $results = null;
     } else {
         $results = $db->run($statement, $params);

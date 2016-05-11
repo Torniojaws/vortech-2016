@@ -10,15 +10,15 @@
                         } ?>" alt="<?php echo $release['title']; ?>" /><br />
         </a>
         <h3>
-            <span id="releasetitle-<?php echo $release['release_code']?>" <?php
+            <span id="releasetitle-<?php echo $release['release_code']; ?>" <?php
                 if($_SESSION['authorized'] == 1) { echo ' class="edit-release"'; } ?>><?php
                 echo $release['title']; ?></span>
             <small>by</small> <!-- Separate due to Jeditable -->
-            <small id="releaseartist-<?php echo $release['release_code']?>" <?php
+            <small id="releaseartist-<?php echo $release['release_code']; ?>" <?php
                 if($_SESSION['authorized'] == 1) { echo ' class="edit-release"'; } ?>><?php
                 echo $release['artist']; ?></small>
         </h3>
-        <p id="releasedate-<?php echo $release['release_code']?>" <?php
+        <p id="releasedate-<?php echo $release['release_code']; ?>" <?php
             if($_SESSION['authorized'] == 1) { echo ' class="edit-release"'; } ?>><?php
             echo $release['release_date']; ?></p>
         <?php
@@ -27,9 +27,20 @@
             }
         ?>
         <small>Release Code: </small> <!-- Separate due to jeditable -->
-        <small id="releasecode-<?php echo $release['release_code']?>" <?php
+        <small id="releasecode-<?php echo $release['release_code']; ?>" <?php
             if($_SESSION['authorized'] == 1) { echo ' class="edit-release"'; } ?>><?php
             echo $release['release_code']; ?></small>
+        <!-- Star rating for the Release -->
+        <?php
+            $votes_api = 'api/v1/votes/releases/'.$release['id'];
+            $votes = json_decode(file_get_contents(SERVER_URL.$votes_api), true);
+            $release_rating = $votes[0]['rating'];
+            $max_rating = $votes[0]['max_rating'];
+            $vote_count = $votes[0]['votes'];
+        ?>
+        <input id="release-rating-<?php echo $release['id']; ?>" type="number" class="rating"
+               value=<?php echo $release_rating; ?> min=0 max=<?php echo $max_rating; ?>
+               data-step=0.5 data-size="xs" data-rtl="false" starCaptions={} />
     </div>
     <div class="col-sm-4">
         <?php

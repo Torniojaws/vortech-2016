@@ -780,3 +780,27 @@ $('#user-guestbook-form').submit(function (e) {
         }
     });
 });
+
+// Releases rating
+$('[id^=release-rating]').on('rating.change', function (e, value) {
+    e.preventDefault();
+    // We assume that the id is in format "release-rating-4"
+    console.log('Release ID = ' + this.id.split('-')[2]);
+    var that = this.id;
+    console.log('User rated it: ' + value);
+    // POST to API
+    $.ajax({
+        type: 'post',
+        url: 'api/v1/votes/releases/' + this.id.split('-')[2],
+        cache: false,
+        data: 'rating=' + value,
+        async: false,
+        processData: false,
+        contentType: false,
+        success: function (rr_data) {
+            console.log(that);
+            console.log('User rating was added successfully');
+            $('#' + that).load(location.href + ' #' + that + '>*', '');
+        }
+    });
+});

@@ -25,6 +25,7 @@
           integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
     <link rel="stylesheet" href="static/navbar.css" />
     <link rel="stylesheet" href="static/custom.css" />
+    <link rel="stylesheet" href="static/star-rating.min.css" />
 
 </head>
 <body>
@@ -115,6 +116,9 @@
 
     <!-- Inline editing of fields // http://www.appelsiini.net/projects/jeditable-->
     <script src="static/jquery.jeditable.mini.js"></script>
+
+    <!-- Star rating for Releases, Songs and Photos -->
+    <script src="static/star-rating.min.js"></script>
 
     <!-- Custom jquery -->
     <script src="static/main.js"></script>
