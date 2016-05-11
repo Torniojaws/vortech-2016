@@ -16,8 +16,13 @@
 
     // true makes an array
     $newsitems = json_decode($news_list_json, true);
-    echo '<div class="container-fluid">';
-    foreach ($newsitems as $news) {
-        include './apps/news/partials/news-item.php';
+    if (empty($newsitems[0])) {
+        echo '<small>No news items found with these search parameters...</small><br />';
+        echo '<a href="news">Back to News</a>';
+    } else {
+        echo '<div class="container-fluid">';
+        foreach ($newsitems as $news) {
+            include './apps/news/partials/news-item.php';
+        }
+        echo '</div>';
     }
-    echo '</div>';

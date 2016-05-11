@@ -41,7 +41,17 @@
         <input id="release-rating-<?php echo $release['id']; ?>" type="number" class="rating"
                value=<?php echo $release_rating; ?> min=0 max=<?php echo $max_rating; ?>
                data-step=0.5 data-size="xs" data-rtl="false" starCaptions={} />
-        <small><?php echo $vote_count; ?> votes</small>
+        <small>
+            <?php
+                echo $vote_count;
+                // Oxford comma of CS?
+                if ($vote_count == 1) {
+                    echo ' vote';
+                } else {
+                    echo ' votes';
+                }
+            ?>
+        </small>
         <div id="added-ok-<?php echo $release['id']; ?>" class="text-success" hidden><h3>Thanks for your vote!</h3></div>
     </div>
     <div class="col-sm-4">
