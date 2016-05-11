@@ -15,7 +15,7 @@
                     </div>
                     <?php
                         $counter = 0;
-                        // We'll show all comments here - data loaded near row 10
+                        if (empty($comments[0]) == false) {
                         foreach ($comments as $comment) {
                             ++$counter;
                             if ($counter % 2 == 0) {
@@ -37,7 +37,8 @@
                         </div>
                     </div>
                     <?php
-                } ?>
+                    } // foreach
+                } // if ?>
                     <div class="row">
                         <?php include 'apps/news/partials/news-comments.php'; ?>
                     </div>
@@ -51,5 +52,5 @@
 </div>
 <button type="button" class="btn btn-info btn-lg" data-toggle="modal"
         data-target="#news-modal<?php echo $news['id']; ?>">
-    Show all comments (<?php echo count($comments); ?>)
+    Show all comments (<?php echo $counter; ?>)
 </button>

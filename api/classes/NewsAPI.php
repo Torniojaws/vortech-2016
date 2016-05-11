@@ -27,10 +27,20 @@
 
                 # /news?year=2015
                 case isset($args[2]) == false and isset($filters):
-                    // Expected parse_str variables are "year" and optionally "month"
+                    // Expected parse_str variables are "tag", "year" and optionally "month"
                     parse_str($filters);
-                    $query['statement'] = $base_sql.' WHERE YEAR(posted) = :year';
-                    $query['params'] = array('year' => (int) $year);
+
+                    # /news?tag=test
+                    if (isset($tag)) {
+                        $query['statement'] = $base_sql.' WHERE tags LIKE :tag';
+                        $query['params'] = array('tag' => '%'.$tag.'%');
+                    }
+
+                    # /news?year=2015
+                    if (isset($year)) {
+                        $query['statement'] = $base_sql.' WHERE YEAR(posted) = :year';
+                        $query['params'] = array('year' => (int) $year);
+                    }
 
                     # /news?year=2015&month=3
                     if (isset($month)) {

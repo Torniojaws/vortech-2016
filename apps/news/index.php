@@ -4,7 +4,14 @@
         include './apps/news/admin/add-news-modal.php';
     }
 
+    $uri = $_SERVER['REQUEST_URI'];
+    // GET parameters, eg. www.example.com/page?param=1
+    list($uri, $params) = explode('?', $uri);
+
     $api = 'api/v1/news';
+    if (isset($params)) {
+        $api .= '?'.$params;
+    }
     $news_list_json = file_get_contents(SERVER_URL.$api);
 
     // true makes an array
