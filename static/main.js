@@ -800,7 +800,10 @@ $('[id^=release-rating]').on('rating.change', function (e, value) {
         success: function (rr_data) {
             console.log(that);
             console.log('User rating was added successfully');
-            $('#' + that).load(location.href + ' #' + that + '>*', '');
+            $('#added-ok-' + that.split('-')[2]).removeAttr('hidden').fadeOut(2000);
+            setTimeout(function () {
+                location.reload();
+            }, 2000);
         }
     });
 });
