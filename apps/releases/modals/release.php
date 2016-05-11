@@ -18,7 +18,7 @@
                         <p><?php echo $release['title']; ?></p>
                     </div>
                     <div class="row">
-                        <section class="well">
+                        <div class="well">
                             <?php
                                 $api = 'api/v1/releases/'.$release['release_code'].'/comments';
                                 $release_comments = file_get_contents(SERVER_URL.$api);
@@ -28,7 +28,7 @@
                                     echo '<br />';
                                 }
                             ?>
-                        </section>
+                        </div>
                     </div>
                 </div>
                 <!-- Comments -->

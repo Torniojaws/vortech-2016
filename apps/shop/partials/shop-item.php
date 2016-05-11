@@ -43,7 +43,7 @@
             </small>
         </aside>
         <br />
-        <section class="shops">
+        <div class="shops">
             Get it from:
             <?php
                 if (strlen($shop['paypal_link']) > 0) {
@@ -71,7 +71,7 @@
                           <span class="label label-info label-pill pull-xs-right">iTunes</span></a> ';
                 }
             ?>
-        </section>
+        </div>
     </div>
 </div>
 <hr />

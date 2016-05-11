@@ -20,7 +20,7 @@
                         <p><?php echo $shop['name']; ?></p>
                     </div>
                     <div class="row">
-                        <section class="well">
+                        <div class="well">
                             <?php
                                 $api = 'api/v1/shopitems/'.$shop['id'].'/comments';
                                 $comments = file_get_contents(SERVER_URL.$api);
@@ -53,7 +53,7 @@
                                 </div>
                                 <?php }
                             ?>
-                        </section>
+                        </div>
                     </div>
                 </div>
                 <!-- Comments -->

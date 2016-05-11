@@ -12,7 +12,7 @@
                 <p><?php echo $photo['caption']; ?></p>
             </div>
             <div class="container-fluid">
-                <section class="well">
+                <div class="well">
                     <?php
                         $api = 'api/v1/members/'.$member['id'].'/comments';
                         $comments = file_get_contents(SERVER_URL.$api);
@@ -41,7 +41,7 @@
                         </div>
                         <?php
                     } ?>
-                </section>
+                </div>
             </div>
             <div class="row">
                 <?php include 'apps/bio/partials/bio-comments.php'; ?>
