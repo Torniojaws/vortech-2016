@@ -807,3 +807,30 @@ $('[id^=release-rating]').on('rating.change', function (e, value) {
         }
     });
 });
+
+// Song rating
+$('[id^=song-rating]').on('rating.change', function (e, value) {
+    e.preventDefault();
+    // We assume that the id is in format "song-rating-4"
+    console.log('Song ID = ' + this.id.split('-')[2]);
+    var that = this.id;
+    console.log('User rated it: ' + value);
+    // POST to API
+    $.ajax({
+        type: 'post',
+        url: 'api/v1/votes/songs/' + this.id.split('-')[2],
+        cache: false,
+        data: 'rating=' + value,
+        async: false,
+        processData: false,
+        contentType: false,
+        success: function (sr_data) {
+            console.log(that);
+            console.log('User rating was added successfully');
+            $('#added-ok-' + that.split('-')[2]).removeAttr('hidden').fadeOut(2000);
+            setTimeout(function () {
+                location.reload();
+            }, 2000);
+        }
+    });
+});

@@ -72,6 +72,27 @@
                     echo ' (';
                     echo $song['duration'];
                     echo ')<br />';
+                    // Star rating for the song -->
+                    $song_votes_api = 'api/v1/votes/songs/'.$song['song_id'];
+                    $song_votes = json_decode(file_get_contents(SERVER_URL.$song_votes_api), true);
+                    $song_rating = $song_votes[0]['rating'];
+                    $song_max_rating = $song_votes[0]['max_rating'];
+                    $song_vote_count = $song_votes[0]['votes'];
+
+                    echo '<input id="song-rating-'.$song['song_id'].'" type="number" class="rating"
+                           value='.$song_rating.' min=0 max='.$song_max_rating.'
+                           data-step=0.5 data-size="xs" data-rtl="false" />';
+                    echo '<small>';
+                    echo $song_vote_count;
+                    // Oxford comma of CS?
+                    if ($song_vote_count == 1) {
+                        echo ' vote';
+                    } else {
+                        echo ' votes';
+                    }
+                    echo '</small><br />';
+                    echo '<div id="added-ok-'.$song['song_id'].'" class="text-success" hidden>
+                          <h3>Thanks for your vote!</h3></div>';
                 }
             }
         ?>
