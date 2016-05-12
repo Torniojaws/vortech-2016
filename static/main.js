@@ -834,3 +834,39 @@ $('[id^=song-rating]').on('rating.change', function (e, value) {
         }
     });
 });
+
+// Photo rating
+$('[id^=photo-rating]').on('rating.change', function (e, value) {
+    e.preventDefault();
+    // We assume that the id is in format "photo-rating-4"
+    console.log('Photo ID = ' + this.id.split('-')[2]);
+    var that = this.id;
+    console.log('User rated it: ' + value);
+    // POST to API
+    $.ajax({
+        type: 'post',
+        url: 'api/v1/votes/photos/' + this.id.split('-')[2],
+        cache: false,
+        data: 'rating=' + value,
+        async: false,
+        processData: false,
+        contentType: false,
+        success: function (pr_data) {
+            console.log(that);
+            console.log('User rating was added successfully');
+            $('#added-ok-' + that.split('-')[2]).removeAttr('hidden').fadeOut(2000);
+            // Reload contents of modal after successful add
+            var target = "showModal=" + that.split('-')[2];
+            // If user opens another modal after voting on one Photo, this prevents
+            // duplicating the GET parameter in the url,
+            // eg www.url.com/page?showModal=2?showModal=3?showModal=4
+            if ((window.location.href).indexOf(target) > -1) {
+                window.location = window.location.href;
+            } else {
+                // Replace url.com/photos?showModal=1 with url.com/photos and
+                // then append current param
+                window.location = window.location.href.split('?')[0] + "?" + target;
+            }
+        }
+    });
+});
