@@ -1,5 +1,7 @@
 <?php
 
+    session_start();
+
     if ($_SESSION['authorized'] == 1) {
         include './apps/releases/admin/add-release-modal.php';
     }

@@ -33,7 +33,6 @@
                             'caption' => $caption,
                             'old_username' => $old_username,
                         );
-                        var_dump($query);
                         if (isset($new_password)) {
                             $query['statement'] .= ', password = :password';
                             $query['params']['password'] = $new_password;

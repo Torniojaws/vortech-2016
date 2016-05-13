@@ -32,27 +32,16 @@
             echo $release['release_code']; ?></small>
         <!-- Star rating for the Release -->
         <?php
-            $votes_api = 'api/v1/votes/releases/'.$release['id'];
-            $votes = json_decode(file_get_contents(SERVER_URL.$votes_api), true);
-            $release_rating = $votes[0]['rating'];
-            $max_rating = $votes[0]['max_rating'];
-            $vote_count = $votes[0]['votes'];
+            $root = str_replace('apps/releases/partials', '', __DIR__);
+            require_once $root.'classes/StarRating.php';
+            $release_params = array(
+                'rootdir' => $root,
+                'category' => 'releases',
+                'id' => $release['id'],
+            );
+            $rating = new StarRating($release_params);
+            $rating->display();
         ?>
-        <input id="release-rating-<?php echo $release['id']; ?>" type="number" class="rating"
-               value=<?php echo $release_rating; ?> min=0 max=<?php echo $max_rating; ?>
-               data-step=0.5 data-size="xs" data-rtl="false" starCaptions={} />
-        <small>
-            <?php
-                echo $vote_count;
-                // Oxford comma of CS?
-                if ($vote_count == 1) {
-                    echo ' vote';
-                } else {
-                    echo ' votes';
-                }
-            ?>
-        </small>
-        <div id="added-ok-<?php echo $release['id']; ?>" class="text-success" hidden><h3>Thanks for your vote!</h3></div>
     </div>
     <div class="col-sm-4">
         <?php
@@ -72,27 +61,16 @@
                     echo ' (';
                     echo $song['duration'];
                     echo ')<br />';
-                    // Star rating for the song -->
-                    $song_votes_api = 'api/v1/votes/songs/'.$song['song_id'];
-                    $song_votes = json_decode(file_get_contents(SERVER_URL.$song_votes_api), true);
-                    $song_rating = $song_votes[0]['rating'];
-                    $song_max_rating = $song_votes[0]['max_rating'];
-                    $song_vote_count = $song_votes[0]['votes'];
 
-                    echo '<input id="song-rating-'.$song['song_id'].'" type="number" class="rating"
-                           value='.$song_rating.' min=0 max='.$song_max_rating.'
-                           data-step=0.5 data-size="xs" data-rtl="false" />';
-                    echo '<small>';
-                    echo $song_vote_count;
-                    // Oxford comma of CS?
-                    if ($song_vote_count == 1) {
-                        echo ' vote';
-                    } else {
-                        echo ' votes';
-                    }
-                    echo '</small><br />';
-                    echo '<div id="added-ok-'.$song['song_id'].'" class="text-success" hidden>
-                          <h3>Thanks for your vote!</h3></div>';
+                    // Star rating for the song -->
+                    require_once $root.'classes/StarRating.php';
+                    $song_params = array(
+                        'rootdir' => $root,
+                        'category' => 'songs',
+                        'id' => $song['song_id'],
+                    );
+                    $song_rating = new StarRating($song_params);
+                    $song_rating->display();
                 }
             }
         ?>

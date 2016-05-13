@@ -1,11 +1,12 @@
 # Vortech website 2016
-Restful Vortech website with jQuery, Bootstrap and PHP API. Will replace the existing site sometime this year.
+Restful Vortech website with jQuery, Bootstrap and PHP API. Will replace the existing site sometime in 2016.
 
 ## New features
 * User login  
 * User comments  
 * Database-driven model  
 * Responsive design  
+* Voting of Songs and Photos
 
 ## Setup for Vagrant
 1. Install VirtualBox and Vagrant
@@ -62,8 +63,8 @@ Restful Vortech website with jQuery, Bootstrap and PHP API. Will replace the exi
 * ~~Admin panel and add/edit features across the page~~  
 * ~~User authentication~~  
 * ~~Account creation~~  
+* ~~Commenting system~~  
 * Admin can ban users
-* Commenting system  
 * UI design
 
 ## Lessons learned

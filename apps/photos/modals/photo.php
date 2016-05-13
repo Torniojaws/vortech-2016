@@ -14,27 +14,16 @@
             <div class="photo-rating text-center">
                 <!-- Star rating for the Photo -->
                 <?php
-                    $votes_api = 'api/v1/votes/photos/'.$photo['id'];
-                    $votes = json_decode(file_get_contents(SERVER_URL.$votes_api), true);
-                    $photo_rating = $votes[0]['rating'];
-                    $max_rating = $votes[0]['max_rating'];
-                    $vote_count = $votes[0]['votes'];
+                    $root = str_replace('apps/photos/modals', '', __DIR__);
+                    require_once $root.'classes/StarRating.php';
+                    $rating_params = array(
+                        'rootdir' => $root,
+                        'category' => 'photos',
+                        'id' => $photo['id'],
+                    );
+                    $rating = new StarRating($rating_params);
+                    $rating->display();
                 ?>
-                <input id="photo-rating-<?php echo $photo['id']; ?>" type="number" class="rating"
-                       value=<?php echo $photo_rating; ?> min=0 max=<?php echo $max_rating; ?>
-                       data-step=0.5 data-size="xs" data-rtl="false" />
-                <small>
-                    <?php
-                        echo $vote_count;
-                        // Oxford comma of CS?
-                        if ($vote_count == 1) {
-                            echo ' vote';
-                        } else {
-                            echo ' votes';
-                        }
-                    ?>
-                </small>
-                <div id="added-ok-<?php echo $photo['id']; ?>" class="text-success" hidden><h3>Thanks for your vote!</h3></div>
             </div>
             <div class="container-fluid">
                 <div class="well">

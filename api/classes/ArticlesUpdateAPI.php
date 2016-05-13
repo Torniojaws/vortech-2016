@@ -16,7 +16,6 @@
 
         private function getQuery($args, $filters = null, $data)
         {
-            var_dump($filters);
             switch ($args) {
                 # /articles/123
                 case isset($args[2]) and is_numeric($args[2]) and isset($data):
@@ -69,7 +68,6 @@
                         'category' => $category,
                         'new_value' => $new_value,
                     );
-                    var_dump($query);
                     break;
                 default:
                     $query = '';

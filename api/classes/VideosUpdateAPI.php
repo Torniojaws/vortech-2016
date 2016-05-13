@@ -16,7 +16,6 @@
 
         private function getQuery($args, $data)
         {
-            var_dump($data);
             switch ($args) {
                 # /videos/123
                 case isset($args[2]) and is_numeric($args[2]) and isset($data):

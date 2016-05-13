@@ -771,7 +771,7 @@ $('#user-guestbook-form').submit(function (e) {
                 $('#add-failed').removeAttr('hidden');
             }
         },
-        // This will catch  HTTP 400 status errors
+        // This will catch HTTP 400 status errors
         error: function (gb_other_errors) {
             var gb_errors = JSON.parse(gb_other_errors.responseText);
             $('#add-failed').removeAttr('hidden').append(
@@ -782,7 +782,7 @@ $('#user-guestbook-form').submit(function (e) {
 });
 
 // Releases rating
-$('[id^=release-rating]').on('rating.change', function (e, value) {
+$('[id^=releases-rating]').on('rating.change', function (e, value) {
     e.preventDefault();
     // We assume that the id is in format "release-rating-4"
     console.log('Release ID = ' + this.id.split('-')[2]);
@@ -809,7 +809,7 @@ $('[id^=release-rating]').on('rating.change', function (e, value) {
 });
 
 // Song rating
-$('[id^=song-rating]').on('rating.change', function (e, value) {
+$('[id^=songs-rating]').on('rating.change', function (e, value) {
     e.preventDefault();
     // We assume that the id is in format "song-rating-4"
     console.log('Song ID = ' + this.id.split('-')[2]);
@@ -836,7 +836,7 @@ $('[id^=song-rating]').on('rating.change', function (e, value) {
 });
 
 // Photo rating
-$('[id^=photo-rating]').on('rating.change', function (e, value) {
+$('[id^=photos-rating]').on('rating.change', function (e, value) {
     e.preventDefault();
     // We assume that the id is in format "photo-rating-4"
     console.log('Photo ID = ' + this.id.split('-')[2]);
