@@ -25,6 +25,6 @@
             $song_api = 'api/v1/votes/photos/2';
             $photo_vote_data = json_decode(file_get_contents(SERVER_URL.$song_api), true);
 
-            $this->assertEquals(true, is_numeric($song_vote_data[0]['max_rating']));
+            $this->assertEquals(true, is_numeric($photo_vote_data[0]['max_rating']));
         }
     }
