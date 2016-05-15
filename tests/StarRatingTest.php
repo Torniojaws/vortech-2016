@@ -22,8 +22,8 @@
 
         public function testPhotosHasAValidValue()
         {
-            $song_api = 'api/v1/votes/photos/2';
-            $photo_vote_data = json_decode(file_get_contents(SERVER_URL.$song_api), true);
+            $photo_api = 'api/v1/votes/photos/2';
+            $photo_vote_data = json_decode(file_get_contents(SERVER_URL.$photo_api), true);
 
             $this->assertEquals(true, is_numeric($photo_vote_data[0]['max_rating']));
         }
