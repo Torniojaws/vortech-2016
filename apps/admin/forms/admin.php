@@ -36,7 +36,11 @@
         $original_password = $result[0]['password'];
         require $root.'classes/PasswordStorage.php';
         $pwd = new PasswordStorage();
-        $password_is_correct = $pwd->verify_password($_POST['adPass'], $original_password);
+        try {
+            $password_is_correct = $pwd->verify_password($_POST['adPass'], $original_password);
+        } catch (Exception $ex) {
+            $password_is_correct = false;
+        }
 
         if ($password_is_correct) {
             $_SESSION['authorized'] = 1;
