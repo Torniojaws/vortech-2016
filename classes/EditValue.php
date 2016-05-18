@@ -7,12 +7,12 @@
      */
     class EditValue
     {
-        private $id;
-        private $column;
-        private $new_value;
-        private $category;
-        private $endpoint;
-        private $payload;
+        protected $id;
+        protected $column;
+        protected $new_value;
+        protected $category;
+        protected $endpoint;
+        protected $payload;
 
         public function __construct($postData, $category, $root)
         {
@@ -83,7 +83,7 @@
             return stream_context_create($options);
         }
 
-        private function authorized()
+        protected function authorized()
         {
             return (isset($_SESSION) and $_SESSION['authorized'] == 1);
         }

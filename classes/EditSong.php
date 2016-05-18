@@ -1,33 +1,28 @@
 <?php
 
     session_start();
+    require_once 'EditValue.php';
 
     /**
      * When Admin wants to edit a song's details inline, it sends a PUT request to the endpoint
      */
     class EditSong extends EditValue
     {
+        private $release;
 
-        public function __construct($postData, $category, $root)
+        public function __construct($postData, $root)
         {
             if ($this->authorized() == true) {
                 require_once $root.'constants.php';
-                list($column, $id) = explode('-', $postData['id']);
+                list($column, $release, $id) = explode('-', $_POST['id']);
 
                 $this->id = $id;
                 $this->column = $column;
+                $this->release = $release;
                 $this->new_value = $postData['value'];
-                // Category is eg. "videos" or "releases"
-                // for clarity, we add the trailing slash here, but
-                // only if the url does not contain parameters
-                if (strpos($category, '?') === false) {
-                    // No parameters in url, so we'll add a trailing slash
-                    $category .= '/';
-                }
-                $this->category = $category;
 
-                // eg. PUT http://www.vortechmusic.com/api/v1/videos/123
-                $this->endpoint = SERVER_URL.'api/v1/'.$category.$id;
+                // eg. PUT http://www.vortechmusic.com/api/v1/releases/CD001/songs/123
+                $this->endpoint = SERVER_URL.'api/v1/releases/'.$release.'/songs/'.$id;
                 $this->payload = $this->buildRequest();
             } else {
                 header('HTTP/1.1 401 Unauthorized');
@@ -44,6 +39,7 @@
         {
             $data = array(
                 'id' => $this->id,
+                'release' => $release,
                 'column' => $this->column,
                 'new_value' => $this->new_value,
             );
