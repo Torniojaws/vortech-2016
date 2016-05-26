@@ -47,7 +47,10 @@
                         $query['statement'] .= ' AND MONTH(posted) = :month';
                         $query['params']['month'] = (int) $month;
                     }
-                    $query['statement'] .= ' ORDER BY posted DESC';
+                    // We don't want to run a query when "showModal" is set
+                    if (isset($showModal) == false) {
+                        $query['statement'] .= ' ORDER BY posted DESC';
+                    }
                     break;
 
                 # /news/:id

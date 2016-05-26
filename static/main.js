@@ -602,11 +602,12 @@ $('[id^=user-news-comment]').submit(function (e) {
         processData: false,
         contentType: false,
         success: function (nc_data) {
+            console.log(nc_data);
             if (nc_data.status === 'success') {
-                $('#add-failed-' + nc_data.news_id).hide();
-                $('#added-ok-' + nc_data.news_id).removeAttr('hidden');
+                $('#add-failed-' + nc_data.modal_id).hide();
+                $('#added-ok-' + nc_data.modal_id).removeAttr('hidden');
                 // Reload contents of modal after successful add
-                var target = "showModal=" + nc_data.news_id;
+                var target = "showModal=" + nc_data.modal_id;
                 // If user adds multiple comments, this prevents duplicating the GET parameter in
                 // the url, eg www.url.com/page?showModal=2?showModal=2?showModal=2
                 if ((window.location.href).indexOf(target) > -1) {
@@ -615,7 +616,7 @@ $('[id^=user-news-comment]').submit(function (e) {
                     window.location = window.location.href + "?" + target;
                 }
             } else if (nc_data.status === 'error') {
-                $('#add-failed-' + nc_data.news_id).removeAttr('hidden');
+                $('#add-failed-' + nc_data.modal_id).removeAttr('hidden');
             }
         }
     });
