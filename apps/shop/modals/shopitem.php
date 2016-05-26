@@ -26,6 +26,7 @@
                                 $comments = file_get_contents(SERVER_URL.$api);
                                 $comments_list = json_decode($comments, true);
                                 $counter = 0;
+                                if (isset($comments_list[0]['date_commented'])) {
                                     // We'll show all comments here - data loaded near row 10
                                     foreach ($comments_list as $comment) {
                                         ++$counter;
@@ -52,6 +53,7 @@
                                     </div>
                                 </div>
                                 <?php }
+                                }
                             ?>
                         </div>
                     </div>
