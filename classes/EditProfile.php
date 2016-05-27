@@ -4,7 +4,7 @@
     require_once 'EditValue.php'; // Parent class
 
     /**
-     * When user wants to edit a profile's details inline, it sends a PUT request to the endpoint
+     * When user wants to edit a profile's details inline, it sends a PUT request to the endpoint.
      */
     class EditProfile extends EditValue
     {
@@ -53,7 +53,7 @@
         }
 
         /**
-         * Sends the request to API and builds a response message based on results
+         * Sends the request to API and builds a response message based on results.
          *
          * @return $response The results of the request in an array
          */
@@ -80,7 +80,7 @@
         }
 
         /**
-         * Create the PUT request to be sent to API
+         * Create the PUT request to be sent to API.
          *
          * @return $payload The request context to be used in the PUT request
          */
@@ -107,7 +107,7 @@
         }
 
         /**
-         * Retrieve some existing user data from the DB
+         * Retrieve some existing user data from the DB.
          */
         private function getUserDetails()
         {
@@ -139,7 +139,7 @@
 
         /**
          * When user wants to update the account password, we'll check existing
-         * details and make a new hashed one
+         * details and make a new hashed one.
          */
         private function updatePassword()
         {
@@ -227,7 +227,6 @@
 
         private function user_logged()
         {
-            return (isset($_SESSION) and $_SESSION['user_logged'] == 1);
+            return isset($_SESSION) and $_SESSION['user_logged'] == 1;
         }
-
     }

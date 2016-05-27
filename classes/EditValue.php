@@ -3,7 +3,7 @@
     session_start();
 
     /**
-     * When Admin wants to edit a specific value inline, it sends a PUT request to a given endpoint
+     * When Admin wants to edit a specific value inline, it sends a PUT request to a given endpoint.
      */
     class EditValue
     {
@@ -42,7 +42,7 @@
         }
 
         /**
-         * Sends the request to API and builds a response message based on results
+         * Sends the request to API and builds a response message based on results.
          *
          * @return $response The results of the request in an array
          */
@@ -61,7 +61,7 @@
         }
 
         /**
-         * Create the PUT request to be sent to API
+         * Create the PUT request to be sent to API.
          *
          * @return $payload The request context to be used in the PUT request
          */
@@ -85,6 +85,6 @@
 
         protected function authorized()
         {
-            return (isset($_SESSION) and $_SESSION['authorized'] == 1);
+            return isset($_SESSION) and $_SESSION['authorized'] == 1;
         }
     }

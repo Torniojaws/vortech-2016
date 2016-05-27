@@ -79,7 +79,7 @@
 
         /**
          * When user uploads a new image of different extension, we need to clean up
-         * the old file that would otherwise stay in the dir
+         * the old file that would otherwise stay in the dir.
          */
         private function deleteOldImages()
         {
@@ -108,7 +108,7 @@
 
         public function thumbnailsCreatedSuccessfully()
         {
-            return ($this->image_errors == 0 and $this->thumbnail_errors == 0);
+            return $this->image_errors == 0 and $this->thumbnail_errors == 0;
         }
 
         public function getFilename()

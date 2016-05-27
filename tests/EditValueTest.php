@@ -67,5 +67,4 @@
 
             $this->assertEquals('id=123&column=photos&new_value=test.jpg', $options['http']['content']);
         }
-
     }

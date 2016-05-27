@@ -4,7 +4,7 @@
     require_once 'EditValue.php';
 
     /**
-     * When Admin wants to edit a song's details inline, it sends a PUT request to the endpoint
+     * When Admin wants to edit a song's details inline, it sends a PUT request to the endpoint.
      */
     class EditSong extends EditValue
     {
@@ -31,7 +31,7 @@
         }
 
         /**
-         * Create the PUT request to be sent to API
+         * Create the PUT request to be sent to API.
          *
          * @return $payload The request context to be used in the PUT request
          */
@@ -53,5 +53,4 @@
 
             return stream_context_create($options);
         }
-
     }
