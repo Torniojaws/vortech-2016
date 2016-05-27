@@ -639,7 +639,7 @@ $('[id^=user-release-comment]').submit(function (e) {
                 $('#add-failed-' + rc_data.release_code).hide();
                 $('#added-ok-' + rc_data.release_code).removeAttr('hidden');
                 // Reload contents of modal after successful add
-                var target = "showModal=" + rc_data.release_id;
+                var target = "showModal=" + rc_data.modal_id;
                 // If user adds multiple comments, this prevents duplicating the GET parameter in
                 // the url, eg www.url.com/page?showModal=2?showModal=2?showModal=2
                 if ((window.location.href).indexOf(target) > -1) {
@@ -668,10 +668,10 @@ $('[id^=user-photo-comment]').submit(function (e) {
         contentType: false,
         success: function (pc_data) {
             if (pc_data.status === 'success') {
-                $('#add-failed-' + pc_data.photo_id).hide();
-                $('#added-ok-' + pc_data.photo_id).removeAttr('hidden');
+                $('#add-failed-' + pc_data.modal_id).hide();
+                $('#added-ok-' + pc_data.modal_id).removeAttr('hidden');
                 // Reload contents of modal after successful add
-                var target = "showModal=" + pc_data.photo_id;
+                var target = "showModal=" + pc_data.modal_id;
                 // If user adds multiple comments, this prevents duplicating the GET parameter in
                 // the url, eg www.url.com/page?showModal=2?showModal=2?showModal=2
                 if ((window.location.href).indexOf(target) > -1) {
@@ -680,7 +680,7 @@ $('[id^=user-photo-comment]').submit(function (e) {
                     window.location = window.location.href + "?" + target;
                 }
             } else if (pc_data.status === 'error') {
-                $('#add-failed-' + pc_data.photo_id).removeAttr('hidden');
+                $('#add-failed-' + pc_data.modal_id).removeAttr('hidden');
             }
         }
     });

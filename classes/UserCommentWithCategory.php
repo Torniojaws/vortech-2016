@@ -1,10 +1,11 @@
 <?php
 
+    session_start();
     require_once 'UserComment.php';
 
     class UserCommentWithCategory extends UserComment
     {
-        private function buildStatement()
+        protected function buildStatement()
         {
             $sql = '';
             switch ($this->category) {
@@ -30,6 +31,21 @@
                 :date_posted,
                 :category_comment_subid
             )';
+
             return $sql;
+        }
+
+        protected function buildParameters()
+        {
+            $parameters = array(
+                'id' => $this->comment_target_id,
+                'subid' => $this->comment_sub_id,
+                'comment' => $this->comment,
+                'author_id' => $this->user_id,
+                'date_posted' => $this->date_posted,
+                'category_comment_subid' => $this->category_comment_sub_id,
+            );
+
+            return $parameters;
         }
     }

@@ -66,6 +66,9 @@
                 $response['status'] = 'success';
                 $response['message'] = 'Comment added successfully';
                 $response['modal_id'] = $this->modal_id; // Used to show correct status div
+                if ($this->category == 'releases') {
+                    $response['release_code'] = $this->comment_target_id;
+                }
             } else {
                 $response['status'] = 'error';
                 $response['message'] = 'Could not update DB';
@@ -76,12 +79,12 @@
             echo json_encode($response);
         }
 
-        private function authorized()
+        protected function authorized()
         {
             return isset($_SESSION['user_logged']) && $_SESSION['user_logged'] == 1;
         }
 
-        private function checkStatus()
+        protected function checkStatus()
         {
             if (isset($this->comment) == false or isset($this->user_id) == false) {
                 $response['status'] = 'error';
@@ -95,7 +98,7 @@
             }
         }
 
-        private function buildStatement()
+        protected function buildStatement()
         {
             $sql = '';
             switch ($this->category) {
@@ -127,7 +130,7 @@
             return $sql;
         }
 
-        private function buildParameters()
+        protected function buildParameters()
         {
             $parameters = array(
                 'id' => $this->comment_target_id,

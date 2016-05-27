@@ -129,3 +129,17 @@ Otherwise it won't find the row because the value has (obviously) changed.
     $sql = 'UPDATE table SET username = :new_username WHERE username = :old_username';  
     $query['params'] = array('new_username' => $new_username, 'old_username' => $old_username);  
     ```
+* You cannot send extra parameters to a PDO prepared statement. It will fail with `SQLSTATE[HY093]: Invalid parameter number: parameter was not defined`
+
+    ```
+    // This does not work
+    $sql = 'INSERT INTO comments (`id`, `comment`) VALUES(0, :comment)';
+    $params = array('comment' => 'My comment', 'extra_parameter' => 123);
+    ```
+
+  You must always send exactly the amount of parameters:
+    ```
+     // This works
+     $sql = 'INSERT INTO comments (`id`, `comment`) VALUES(0, :comment)';
+     $params = array('comment' => 'My comment');
+    ```
