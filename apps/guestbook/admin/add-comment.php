@@ -1,5 +1,22 @@
 <?php
 
+    $root = str_replace('apps/guestbook/admin', '', __DIR__);
+    require_once $root.'classes/AddNewData.php';
+
+    $addData = new AddNewData();
+    $response = $addData->commit();
+
+    if ($response['status'] == 'success') {
+        $response['message'] = "Added admin comment successfully";
+    } else {
+        $response['message'] = "Failed to add admin comment!";
+    }
+
+    header('Content-type: application/json');
+    echo json_encode($response);
+
+    // ----- OLD STUFF -----------------
+    /*
     session_start();
 
     // Mandatory fields
