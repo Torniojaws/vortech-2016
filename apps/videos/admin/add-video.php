@@ -1,5 +1,89 @@
 <?php
 
+    $root = str_replace('apps/videos/admin', '', __DIR__);
+    require_once $root.'classes/AddVideo.php';
+
+    // data
+    $data['root'] = $root;
+    $data['title'] = $_POST['title'];
+    $data['url'] = $_POST['url'];
+    $data['duration'] = $_POST['duration'];
+    $data['category_id'] = (int) $_POST['category'];
+    // Video thumbnail
+    $data['thumbnail'] = $_FILES;
+
+    // Process the data
+    $addData = new AddVideo($data);
+    $response = $addData->commit();
+
+    header('Content-type: application/json');
+    echo json_encode($response);
+
+
+    // ---- old stuff
+    /*
+
+    // Thumbnail
+    $thumbnail_path = 'videos/thumbnails/';
+    $thumbnail_upload_path = $root.'/static/img/'.$thumbnail_path;
+    foreach ($_FILES as $file => $details) {
+        $tmp = $details['tmp_name'];
+        $target = $details['name'];
+        try {
+            move_uploaded_file($tmp, $thumbnail_upload_path.$target);
+        } catch (Exception $ex) {
+            die($ex);
+        }
+    }
+    $thumbnail = $thumbnail_path.$target;
+
+    if ($_SESSION['authorized'] == 1 && isset($title) && isset($url)) {
+        require_once $root.'/api/classes/Database.php';
+
+        $db = new Database();
+
+        // Add new video
+        $db->connect();
+        $statement = 'INSERT INTO videos VALUES(
+            0,
+            :title,
+            :url,
+            :host,
+            :duration,
+            :thumbnail,
+            :category_id
+        )';
+        $params = array(
+            'title' => $title,
+            'url' => $url,
+            'host' => $host,
+            'duration' => $duration,
+            'thumbnail' => $thumbnail,
+            'category_id' => $category_id,
+        );
+        $db->run($statement, $params);
+        $db->close();
+
+        if ($db->querySuccessful()) {
+            $response['status'] = 'success';
+            $response['message'] = 'Video added to DB';
+        } else {
+            $response['status'] = 'error';
+            $response['message'] = 'Failed to add video to DB!';
+        }
+    } else {
+        if (isset($_SESSION['authorized']) == false) {
+            header('HTTP/1.1 401 Unauthorized');
+            exit;
+        } else {
+            $response['status'] = 'error';
+            $response['message'] = 'Missing video details';
+        }
+    }
+
+    // ---- original old stuff
+
+    /*
     session_start();
 
     // Because this runs from a subdir
@@ -78,6 +162,7 @@
      *
      * @return $host The host of the video
      */
+     /*
     function get_host($url)
     {
         $parsed = parse_url($url);

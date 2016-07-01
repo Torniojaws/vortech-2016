@@ -17,6 +17,30 @@
         private function getQuery($args, $data)
         {
             switch ($args) {
+                # /videos
+                case isset($args[2]) == false and isset($data):
+                    // Expected: Title, Url, Host, Duration, Thumbnail, Category
+                    parse_str($data);
+                    $query['statement'] = 'INSERT INTO videos
+                                           VALUES(
+                                               0,
+                                               :title,
+                                               :url,
+                                               :host,
+                                               :duration,
+                                               :thumbnail,
+                                               :category_id
+                                           )';
+                    $query['params'] = array(
+                        'title' => $title,
+                        'url' => $url,
+                        'host' => $host,
+                        'duration' => $duration,
+                        'thumbnail' => $thumbnail,
+                        'category_id' => $category,
+                    );
+                    break;
+
                 # /videos/123
                 case isset($args[2]) and is_numeric($args[2]) and isset($data):
                     // Expected to create variables "id", "column" and "new_value"
