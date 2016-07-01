@@ -3,7 +3,7 @@
     session_start();
 
     /**
-     * This is used to submit admin comments to the guestbook posts
+     * This is used to submit admin comments to the guestbook posts.
      */
     class AddGuestbookComment
     {
