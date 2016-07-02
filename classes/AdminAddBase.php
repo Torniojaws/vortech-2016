@@ -6,9 +6,9 @@
      */
     class AdminAddBase
     {
-        private $root;
-        private $payload;
-        private $endpoint;
+        protected $root;
+        protected $payload;
+        protected $endpoint;
 
         public function __construct($data)
         {
@@ -49,7 +49,7 @@
          *
          * @return $authorized The result of the logged in check
          */
-        private function authorized()
+        protected function authorized()
         {
             return $_SESSION['authorized'] == 1;
         }
@@ -62,7 +62,7 @@
          *
          * @return $payload The request context to be used in the PUT request
          */
-        private function buildRequest($data)
+        protected function buildRequest($data)
         {
             $options = array(
                 'http' => array(

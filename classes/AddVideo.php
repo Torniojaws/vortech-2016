@@ -58,7 +58,7 @@
          */
         private function storeVideoThumbnail()
         {
-            foreach ($this->thumbnail as $file => $details)
+            foreach ($this->thumbnail_files as $file => $details)
             {
                 $tmp = $details['tmp_name'];
                 $target_filename = $details['name'];
