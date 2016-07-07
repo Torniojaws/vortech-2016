@@ -17,6 +17,36 @@
         private function getQuery($args, $filters, $data)
         {
             switch ($args) {
+                # /shows
+                case isset($args[2]) == false and isset($data):
+                    // Expected: Date, Continent, Country, City, Venue
+                    // Optional: Other_bands, Band_Comments, Setlist, Performers
+                    parse_str($data);
+                    $query['statement'] = 'INSERT INTO shows VALUES(
+                                               0,
+                                               :show_date,
+                                               :continent,
+                                               :country,
+                                               :city,
+                                               :venue,
+                                               :other_bands,
+                                               :band_comments,
+                                               :setlist,
+                                               :performers
+                                           )';
+                    $query['params'] = array(
+                        'show_date' => $date,
+                        'continent' => $continent,
+                        'country' => $country,
+                        'city' => $city,
+                        'venue' => $venue,
+                        'other_bands' => $other_bands,
+                        'band_comments' => $band_comments,
+                        'setlist' => $setlist,
+                        'performers' => $performers,
+                    );
+                    break;
+
                 # /shows/123
                 case isset($args[2]) and is_numeric($args[2]) and isset($data):
                     // Expected to create a whole bunch of variables
