@@ -1,8 +1,8 @@
-<div class="row">
+<aside>
   <label for="news-btn">Admin - Edit show</label><br />
   <button type="button" class="btn btn-primary" id="edit-show-btn" data-toggle="modal"
           data-target="#edit-show<?php echo $show['id']; ?>-form">Open Form</button>
-</div>
+</aside>
 
 <!-- Modal for show details -->
 <div class="modal fade" id="edit-show<?php echo $show['id']; ?>-form" role="dialog">
